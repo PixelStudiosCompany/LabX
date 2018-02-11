@@ -6,59 +6,28 @@ import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 import javafx.scene.web.WebView;
 import javax.imageio.ImageIO;
-import javax.script.*;
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.text.Document;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.*;
+import java.util.Scanner;
+
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.fife.ui.rtextarea.RTextScrollPane;
-import org.fife.*;
 
 /**
  * Created by mikha on 08.03.2017.
  */
 public class IDE {
-
-
-    static class words {
-        String name, description, rusdescription;
-    }
-
-
-    public static ArrayList<String> list = new ArrayList<>();
-    public static JTextField t = new JTextField();
-    public static String string = "ECMAScript";
-    public static JButton bb = new JButton("Chose");
     public static boolean isinit = false;
     public static File ff;
-    private static int strings = 1;
-    private static int cou = 9;
-
     public static RSyntaxTextArea area = new RSyntaxTextArea();
-    public static JLabel l = new JLabel();
     public static JTextPane pane = new JTextPane();
-    public static ArrayList<words> comands = new ArrayList<>();
-    static int h = 1000;
-    static int w = 1000;
-    public static boolean ERR = false;
     public static boolean isreading = false;
-    static int Strok = 1;
-    public static int lastint = 1;
-    public static char lastkey = ' ';
-    public static JProgressBar bar = new JProgressBar();
     public static JPanel p2 = new JPanel();
-    public HashMap map = new HashMap();
-    static String curpath = "";
-    static JFrame frame = new JFrame("ECMAScripter v0.1 - "+string);
-    public static String inform;
-    public static boolean bol = false;
+    static JFrame frame = new JFrame("LabX v0.1 - ");
 
     public static boolean isWindows() {
 
@@ -175,7 +144,6 @@ static class physx{
             public void keyPressed(KeyEvent e) {
                 if ((e.getKeyCode() == KeyEvent.VK_V) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
 
-                    action = "ctrlv";
                 }
             }
 
@@ -192,7 +160,7 @@ static class physx{
         JMenuItem tojava = new JMenuItem("to Java");
         JMenuItem tosvg = new JMenuItem("SVG");
         JMenuItem licensing = new JMenuItem("License");
-        JMenuItem wh = new JMenuItem("Width & Height");
+
 
         JFileChooser chooser = new JFileChooser();
 
@@ -206,10 +174,9 @@ static class physx{
         help.add(licensing);
 
         JMenuItem font = new JMenuItem("Font size");
-        JMenuItem script = new JMenuItem("Script");
-        settings.add(wh);
+
         settings.add(font);
-        settings.add(script);
+
 
         menuBar.add(file);
         menuBar.add(run);
@@ -265,23 +232,27 @@ static class physx{
         open.setFont(new Font(Font.DIALOG,Font.BOLD,20));
         create.setFont(new Font(Font.DIALOG,Font.BOLD,20));
         save.setFont(new Font(Font.DIALOG,Font.BOLD,20));
-        wh.setFont(new Font(Font.DIALOG,Font.BOLD,20));
         font.setFont(new Font(Font.DIALOG,Font.BOLD,20));
         print.setFont(new Font(Font.DIALOG,Font.BOLD,20));
-        script.setFont(new Font(Font.DIALOG,Font.BOLD,20));
 
         area.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVASCRIPT);
         area.setHighlightCurrentLine(false);
-        //frame.setUndecorated(true);
 
         licensing.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFrame jFrame = new JFrame("License");
-                jFrame.setPreferredSize(new Dimension(520, 400));
+                BufferedImage icon = null;
+                try {
+                    icon = ImageIO.read(IDE.class.getClassLoader().getResource("ico.png"));
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                jFrame.setIconImage(icon);
+                jFrame.setPreferredSize(new Dimension(520, 420));
                 JTextArea l = new JTextArea();
+                l.setFont(new Font("Times New Roman",Font.PLAIN,15));
                 l.setEditable(false);
-                jFrame.setResizable(false);
                 InputStream stream = IDE.class.getResourceAsStream("LICENSE.TXT");
                 BufferedInputStream inFile = new BufferedInputStream(stream);
                 int c;
@@ -295,7 +266,7 @@ static class physx{
                     e1.printStackTrace();
                 }
                 l.setText(s);
-                jFrame.add(l);
+                jFrame.add(new JScrollPane(l));
                 jFrame.pack();
                 jFrame.setVisible(true);
 
@@ -339,71 +310,23 @@ static class physx{
                 panel.add(button, "South");
                 jFrame.setIconImage(imgg);
 
+                button.addActionListener(e12 -> {
+                    area.setFont(new Font(l1.getSelectedItem().toString(), 1, Integer.parseInt(f1.getText())));
+                    jFrame.setVisible(false);
+                });
+
                 jFrame.add(panel);
-                jFrame.setResizable(false);
-                jFrame.setVisible(true);
                 jFrame.setPreferredSize(new Dimension(400, 140));
+                jFrame.setResizable(false);
                 jFrame.pack();
 
-
-                button.addActionListener(e12 -> {
-                    area.setFont(new Font(l1.getSelectedItem().toString(), 1, Integer.parseInt(f1.getText())));
-                    jFrame.setVisible(false);
-                });
-
-            }
-        });
-
-        font.addActionListener(e -> {
-            if (e.getSource() == font) {
-                BufferedImage imgg = null;
-                try {
-                    imgg = ImageIO.read(IDE.class.getClassLoader().getResource("ico.png"));
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
-                ImageIcon icon = new ImageIcon(imgg);
-                JFrame jFrame = new JFrame("Font size");
-                JPanel panel = new JPanel();
-                JPanel po = new JPanel();
-                JTextField f1 = new JTextField(area.getFont().getSize());
-                GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
-                String fontNames[] = environment.getAvailableFontFamilyNames();
-                JComboBox l1 = new JComboBox();
-                l1.setEditable(true);
-                l1.addItem(area.getFont().getFamily());
-                for (int i = 0; i < fontNames.length; i++) {
-                    l1.addItem(fontNames[i]);
-                }
-                JMenuItem button = new JMenuItem("Apply");
-
-                panel.setLayout(new BorderLayout());
-                po.setLayout(new BorderLayout());
-
-                po.add(f1, "North");
-                po.add(l1, "South");
-
-                panel.add(po, "Center");
-                panel.add(button, "South");
-                jFrame.setIconImage(imgg);
-
-                jFrame.add(panel);
-
                 jFrame.setVisible(true);
-                jFrame.setPreferredSize(new Dimension(400, 140));
-
-                button.addActionListener(e12 -> {
-
-                    area.setFont(new Font(l1.getSelectedItem().toString(), 1, Integer.parseInt(f1.getText())));
-                    jFrame.setVisible(false);
-                });
-
             }
         });
+
 
         cut.addActionListener(e -> {
             if (e.getSource() == cut) {
-                action = "cut";
                 area.cut();
             }
         });
@@ -415,7 +338,6 @@ static class physx{
         paste.addActionListener(e -> {
             if (e.getSource() == paste) {
                 String s = "";
-                action = "paste";
                 area.paste();
             }
         });
@@ -459,84 +381,63 @@ static class physx{
                     if (ff != null) {
                         area.setEditable(true);
 
+                        try {
+                            Scanner s = new Scanner(new File(ff.getAbsolutePath()));
+                            String str="";
+                            while (s.hasNext()){
+                                str+=s.nextLine()+"\n";
+                            }
+                            if (str.length()>0) str=str.substring(0,str.length()-1);
+                            area.setText(str);
+                        } catch (FileNotFoundException e1) {
+                            e1.printStackTrace();
+                        }
                         isreading = false;
-                        frame.setTitle("ECMAScripter v0.1 [" + ff.getName() + "]");
+                        frame.setTitle("LabX v0.1 [" + ff.getName() + "]");
+
+                        pane.setText("STATUS: Coming soon...");
+                        frame.repaint();
                     }
+
                 }
-                pane.setText("STATUS: Coming soon...");
-                frame.repaint();
-                isreading = false;
-                frame.setTitle("ECMAScripter v0.1 [" + ff.getName() + "] - "+string);
             }
         });
 
         save.addActionListener(e -> {
-            if (e.getSource() == save ) {
-                String name = "";
-                char c = ' ';
-                int i = 0;
-                ff=chooser.getSelectedFile();
-                pane.setText("STATUS: saving");
-                chooser.setDialogTitle("Save file");
-                pane.setText("STATUS: Coming soon...");
-                String s="";
-                  if (ff.exists()){
-                      s = ff.getParent();
-                      if (isWindows()) s += "\\";
-                      else s += "/";
-                  }
+            if (e.getSource() == save && ff!=null) {
+                    String name = "";
+                    char c = ' ';
+                    int i = 0;
+                    ff = chooser.getSelectedFile();
+                    pane.setText("STATUS: saving");
+                    chooser.setDialogTitle("Save file");
+                    chooser.setSelectedFile(ff.getAbsoluteFile());
+                    pane.setText("STATUS: Coming soon...");
+                    String s = "";
+                    if (ff.exists()) {
+                        s = ff.getParent();
+                        if (isWindows()) s += "\\";
+                        else s += "/";
+                    }
 
 
                     int sub = ff.getName().lastIndexOf(".");
-                    String okn="";
-                    switch (string) {
-                        case "python":
-                            okn = ".py";
-                            break;
-                        case "ruby":
-                            okn = ".rb";
-                            break;
-                        case "Kotlin":
-                            okn = ".kt";
-                            break;
-                        case "Groovy":
-                            okn = ".groovy";
-                            break;
-                        case "ECMAScript":
-                            okn=".js";
-                            break;
-                    }
-                if (sub > 0) {
-                    ff = new File(s + ff.getName().substring(0, sub)+okn);
-                } else ff = new File(s + ff.getName() + okn);
-                System.out.println(ff.getName());
-                chooser.setSelectedFile(new File(ff.getAbsolutePath()));
+                    String okn = ".labx";
+
+                    if (sub > 0) {
+                        ff = new File(s + ff.getName().substring(0, sub) + okn);
+                    } else ff = new File(s + ff.getName() + okn);
+                    System.out.println(ff.getName());
+                    chooser.setSelectedFile(new File(ff.getAbsolutePath()));
 
 
-                int res = chooser.showSaveDialog(chooser);
-                    if (res == JFileChooser.APPROVE_OPTION){
-                        ff=chooser.getSelectedFile();
-                       sub = ff.getName().lastIndexOf(".");
-                        okn="";
-                        switch (string) {
-                            case "python":
-                                okn = ".py";
-                                break;
-                            case "ruby":
-                                okn = ".rb";
-                                break;
-                            case "Kotlin":
-                                okn = ".kt";
-                                break;
-                            case "Groovy":
-                                okn = ".groovy";
-                                break;
-                            case "ECMAScript":
-                                okn=".js";
-                                break;
-                        }
+                    int res = chooser.showSaveDialog(chooser);
+                    if (res == JFileChooser.APPROVE_OPTION) {
+                        ff = chooser.getSelectedFile();
+                        sub = ff.getName().lastIndexOf(".");
+                        okn = ".labx";
                         if (sub > 0) {
-                            ff = new File(s + ff.getName().substring(0, sub)+okn);
+                            ff = new File(s + ff.getName().substring(0, sub) + okn);
                         } else ff = new File(s + ff.getName() + okn);
                         PrintWriter w1 = null;
                         try {
@@ -552,12 +453,10 @@ static class physx{
                             e1.printStackTrace();
                         }
                     }
-
-
-
-
-                }
-
+            }
+            if (ff==null){
+                JOptionPane.showMessageDialog(null,"Please, create or choose a file!");
+            }
         });
 
 
@@ -571,89 +470,65 @@ static class physx{
 
             create.addActionListener(e -> {
                 if (e.getSource() == create) {
-                    lastint = 0;
-
-                    area.setEditable(true);
-                   chooser.setDialogTitle("Create new file");
-                    chooser.setDialogType(JFileChooser.CUSTOM_DIALOG);
-                    chooser.setApproveButtonText("Create");
-                    ff=null;
-                    int res = chooser.showSaveDialog(chooser);
-
-                    if (ff != null) {
-                        frame.setTitle("ECMAScripter v0.1 [" + ff.getName()+".js" + "]");
+                    JDialog creat = new JDialog();
+                    creat.setTitle("Create new file");
+                    BufferedImage imgg = null;
+                    try {
+                        imgg = ImageIO.read(IDE.class.getClassLoader().getResource("ico.png"));
+                        ImageIcon icon = new ImageIcon(imgg);
+                        creat.setIconImage(icon.getImage());
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
                     }
+                    creat.setPreferredSize(new Dimension(300,150));
+                    JPanel p = new JPanel();
+                    JTextField name = new JTextField(15);
+                   JButton ok  = new JButton("Ok");
+                   JButton cancel = new JButton("Cancel");
+                    ok.setFont(new Font(Font.DIALOG,Font.BOLD,20));
+                    ok.setBackground(Color.BLUE);
+                    name.setFont(new Font(Font.DIALOG,Font.BOLD,20));
+                    cancel.setFont(new Font(Font.DIALOG,Font.BOLD,20));
+                    p.add(name,"North");
+                    p.add(ok,"South");
+                    p.add(cancel,"south");
+                    creat.setResizable(false);
+                    creat.pack();
+                    creat.add(p);
+                    creat.setModal(true);
+                    creat.setLocation(frame.getX()+frame.getWidth()/2-creat.getWidth()/2,frame.getY()+frame.getHeight()/2-creat.getHeight()/2);
+
+
+
 
                     area.setText("");
+                    creat.setVisible(true);
+                    cancel.addActionListener(e13 -> {
+                        creat.setVisible(false);
+                        creat.dispose();
 
-                    lastint = 1;
+                    });
+                    ok.addActionListener(e14 -> {
+                        if (!name.getText().equals("")){
+                            area.setEditable(true);
+                            ff=new File(name.getText()+".labx");
+                            frame.setTitle("LabX v0.1 [" + ff.getName() + "]");
+                            creat.setVisible(false);
+                            creat.dispose();
+                        } else{
+                            JOptionPane.showMessageDialog(null,"Please, type a valid name of the file!");
+                        }
 
+                    }
+                    );
                 }
+
 
             });
 
 
             info.addActionListener((ActionEvent e) -> {
-                JFrame F = new JFrame("Info");
-                JTabbedPane p11 = new JTabbedPane();
-                p11.setFont(new Font(Font.DIALOG,Font.BOLD,20));
-                F.add(p11);
-
-                JFXPanel pane1 = new JFXPanel();
-
-                pane1.setFont(new Font(Font.DIALOG, Font.PLAIN, 15));
-
-                JScrollPane scrollPane1 = new JScrollPane(pane1);
-
-                int ii = 0;
-
-
-
-                    Platform.runLater(() -> {
-                        WebView webView = new WebView();
-                       pane1.setScene(new Scene(webView));
-                        webView.getEngine().load("https://www.ecma-international.org/ecma-262/5.1/");
-                    });
-
-
-
-                JFXPanel pane2 = new JFXPanel();
-                Platform.runLater(() -> {
-                    WebView webView = new WebView();
-                    pane2.setScene(new Scene(webView));
-                    webView.getEngine().load("https://wiki.python.org/jython/UserGuide");
-                });
-
-                p11.addTab("JS",scrollPane1);
-
-                JScrollPane scrollpane2 = new JScrollPane(pane2);
-                p11.addTab("JPython",scrollpane2);
-
-
-                JFXPanel pane3 = new JFXPanel();
-                Platform.runLater(() -> {
-                    WebView webView = new WebView();
-                    pane3.setScene(new Scene(webView));
-                    webView.getEngine().load("http://groovy-lang.org/syntax.html");
-                });
-
-                JScrollPane scrollpane3 = new JScrollPane(pane3);
-                p11.addTab("Groovy",scrollpane3);
-
-                try {
-                    BufferedImage imgg = ImageIO.read(IDE.class.getClassLoader().getResource("ico.png"));
-                    ImageIcon icon = new ImageIcon(imgg);
-                    F.setIconImage(icon.getImage());
-                } catch (IOException ee) {
-                    ee.printStackTrace();
-                }
-                F.add(p11);
-
-                F.setPreferredSize(new Dimension(1200, 750));
-
-                F.pack();
-                F.setVisible(true);
-                F.repaint();
+               //Some information about LabX
             });
 
 
