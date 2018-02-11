@@ -27,7 +27,7 @@ public class IDE {
     public static JTextPane pane = new JTextPane();
     public static boolean isreading = false;
     public static JPanel p2 = new JPanel();
-    static JFrame frame = new JFrame("LabX v0.1 - ");
+    static JFrame frame = new JFrame("LabX v0.1");
 
     public static boolean isWindows() {
 
@@ -494,6 +494,27 @@ static class physx{
                     p.add(cancel,"south");
                     creat.setResizable(false);
                     creat.pack();
+
+
+                    cancel.addActionListener(e13 -> {
+                        creat.setVisible(false);
+                        creat.dispose();
+
+                    });
+                    ok.addActionListener(e14 -> {
+                                if (!name.getText().equals("")){
+                                    area.setEditable(true);
+                                    ff=new File(name.getText()+".labx");
+                                    frame.setTitle("LabX v0.1 [" + ff.getName() + "]");
+                                    creat.setVisible(false);
+                                    creat.dispose();
+                                } else{
+                                    JOptionPane.showMessageDialog(null,"Please, type a valid name of the file!");
+                                }
+
+                            }
+                    );
+
                     creat.add(p);
                     creat.setModal(true);
                     creat.setLocation(frame.getX()+frame.getWidth()/2-creat.getWidth()/2,frame.getY()+frame.getHeight()/2-creat.getHeight()/2);
@@ -503,24 +524,6 @@ static class physx{
 
                     area.setText("");
                     creat.setVisible(true);
-                    cancel.addActionListener(e13 -> {
-                        creat.setVisible(false);
-                        creat.dispose();
-
-                    });
-                    ok.addActionListener(e14 -> {
-                        if (!name.getText().equals("")){
-                            area.setEditable(true);
-                            ff=new File(name.getText()+".labx");
-                            frame.setTitle("LabX v0.1 [" + ff.getName() + "]");
-                            creat.setVisible(false);
-                            creat.dispose();
-                        } else{
-                            JOptionPane.showMessageDialog(null,"Please, type a valid name of the file!");
-                        }
-
-                    }
-                    );
                 }
 
 
