@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="LabX:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/LabX_jar</output-path>
+    <root id="archive" name="LabX.jar">
+      <element id="module-output" name="LabX" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/weblaf-complete-1.29.jar" path-in-jar="/" />
+      <element id="file-copy" path="$PROJECT_DIR$/ico.png" />
+    </root>
+  </artifact>
+</component>
