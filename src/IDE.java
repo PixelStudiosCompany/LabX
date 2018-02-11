@@ -25,15 +25,13 @@ import org.fife.*;
  * Created by mikha on 08.03.2017.
  */
 public class IDE {
-    static {
-//        disableSSLVerification();
-    }
+
 
     static class words {
         String name, description, rusdescription;
     }
 
-   // public static JTextArea left = new JTextArea();
+
     public static ArrayList<String> list = new ArrayList<>();
     public static JTextField t = new JTextField();
     public static String string = "ECMAScript";
@@ -42,7 +40,7 @@ public class IDE {
     public static File ff;
     private static int strings = 1;
     private static int cou = 9;
-    //public static JEditorPane area = new JEditorPane();
+
     public static RSyntaxTextArea area = new RSyntaxTextArea();
     public static JLabel l = new JLabel();
     public static JTextPane pane = new JTextPane();
@@ -86,7 +84,7 @@ public class IDE {
 
     }
 
-    // public static   String Comands[] ={"",""};
+
     static String action = "";
 
 
@@ -123,28 +121,22 @@ static class physx{
 
         p1.setLayout(new BorderLayout());
         p2.setLayout(new BorderLayout());
- 
+
 
         frame.setPreferredSize(new Dimension(640, 480));
         JMenuBar menuBar = new JMenuBar();
-        //JTextArea area = new JTextArea();
 
-
-        //scrollPane.add(left);
-        //  scrollPane.add(area);
 
 
         JMenu file = new JMenu("File");
-        // JMenu compile = new JMenu("Export");
+
         JMenu help = new JMenu("Help");
 
-        //JMenu toimg = new JMenu("To Image...");
         JMenu tocode = new JMenu("To Code...");
 
         JMenu settings = new JMenu("Settings");
 
-        //area.setBackground(Color.darkGray);
-        //area.setCaretColor(Color.WHITE);
+
         area.setForeground(Color.BLACK);
 
 
@@ -175,16 +167,14 @@ static class physx{
             @Override
             public void keyTyped(KeyEvent e) {
                 if ((e.getKeyCode() == KeyEvent.VK_V) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
-                 //   numirating('+');
-                    //   highlight();
+
                 }
             }
 
             @Override
             public void keyPressed(KeyEvent e) {
                 if ((e.getKeyCode() == KeyEvent.VK_V) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
-                  //  numirating('+');
-                    //   highlight();
+
                     action = "ctrlv";
                 }
             }
@@ -192,8 +182,7 @@ static class physx{
             @Override
             public void keyReleased(KeyEvent e) {
                 if ((e.getKeyCode() == KeyEvent.VK_V) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
-               //     numirating('+');
-                    //  highlight();
+
                 }
             }
         });
@@ -223,11 +212,9 @@ static class physx{
         settings.add(script);
 
         menuBar.add(file);
-        // menuBar.add(compile);
         menuBar.add(run);
         menuBar.add(help);
         menuBar.add(settings);
-        //  menuBar.add(settings);
 
         area.setAutoscrolls(true);
 
@@ -252,10 +239,7 @@ static class physx{
         frame.setFont(fo1);
         pane.setFont(fo);
         menuBar.setFont(fo1);
-        //JScrollPane scrollPane = new JScrollPane(p2);
 
-
-        //scrollPane.setAutoscrolls(true);
         RTextScrollPane scrollPane = new RTextScrollPane(area,true,Color.BLACK);
         scrollPane.setFont(new Font(Font.DIALOG,Font.BOLD,25));
 
@@ -288,7 +272,7 @@ static class physx{
 
         area.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVASCRIPT);
         area.setHighlightCurrentLine(false);
-        frame.setUndecorated(true);
+        //frame.setUndecorated(true);
 
         licensing.addActionListener(new ActionListener() {
             @Override
@@ -363,12 +347,9 @@ static class physx{
 
 
                 button.addActionListener(e12 -> {
-
                     area.setFont(new Font(l1.getSelectedItem().toString(), 1, Integer.parseInt(f1.getText())));
-                  //  left.setFont(new Font(l1.getSelectedItem().toString(), 1, Integer.parseInt(f1.getText())));
                     jFrame.setVisible(false);
                 });
-                //  highlight();
 
             }
         });
@@ -414,10 +395,8 @@ static class physx{
                 button.addActionListener(e12 -> {
 
                     area.setFont(new Font(l1.getSelectedItem().toString(), 1, Integer.parseInt(f1.getText())));
-                 //   left.setFont(new Font(l1.getSelectedItem().toString(), 1, Integer.parseInt(f1.getText())));
                     jFrame.setVisible(false);
                 });
-                //  highlight();
 
             }
         });
@@ -426,8 +405,6 @@ static class physx{
             if (e.getSource() == cut) {
                 action = "cut";
                 area.cut();
-            //    numirating('-');
-                //   highlight();
             }
         });
         copy.addActionListener(e -> {
@@ -440,8 +417,6 @@ static class physx{
                 String s = "";
                 action = "paste";
                 area.paste();
-             //   numirating('+');
-                // highlight();
             }
         });
         area.addMouseListener(new MouseAdapter() {
@@ -471,8 +446,6 @@ static class physx{
 
         open.addActionListener(e -> {
             if (e.getSource() == open) {
-
-             //   left.setText("");
                 isreading = true;
                 isinit = false;
                 area.setText("");
