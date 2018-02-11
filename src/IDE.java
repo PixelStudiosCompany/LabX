@@ -123,7 +123,7 @@ static class physx{
 
         p1.setLayout(new BorderLayout());
         p2.setLayout(new BorderLayout());
-
+ 
 
         frame.setPreferredSize(new Dimension(640, 480));
         JMenuBar menuBar = new JMenuBar();
