@@ -5,6 +5,8 @@
       <element id="module-output" name="LabX" />
       <element id="extracted-dir" path="$USER_HOME$/Downloads/weblaf-complete-1.29.jar" path-in-jar="/" />
       <element id="file-copy" path="$PROJECT_DIR$/ico.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/PhysX_Docomentation_v0.1.pdf" />
+      <element id="dir-copy" path="$PROJECT_DIR$/doc" />
     </root>
   </artifact>
 </component>

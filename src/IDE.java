@@ -374,6 +374,7 @@ static class physx{
                 pane.setText("STATUS: opening...");
                 chooser.setDialogTitle("Open file");
                 chooser.setApproveButtonText("Open");
+                chooser.setSelectedFile(new File(ff.getName()));
                 int approw = chooser.showSaveDialog(null);
 
                 if (approw == JFileChooser.APPROVE_OPTION) {
@@ -408,17 +409,13 @@ static class physx{
                     String name = "";
                     char c = ' ';
                     int i = 0;
-                    ff = chooser.getSelectedFile();
+
                     pane.setText("STATUS: saving");
                     chooser.setDialogTitle("Save file");
-                    chooser.setSelectedFile(ff.getAbsoluteFile());
+                    //chooser.setSelectedFile(new File(ff.getName()));
+
                     pane.setText("STATUS: Coming soon...");
                     String s = "";
-                    if (ff.exists()) {
-                        s = ff.getParent();
-                        if (isWindows()) s += "\\";
-                        else s += "/";
-                    }
 
 
                     int sub = ff.getName().lastIndexOf(".");
@@ -429,7 +426,7 @@ static class physx{
                     } else ff = new File(s + ff.getName() + okn);
                     System.out.println(ff.getName());
                     chooser.setSelectedFile(new File(ff.getAbsolutePath()));
-
+                    chooser.setDialogType(JFileChooser.SAVE_DIALOG);
 
                     int res = chooser.showSaveDialog(chooser);
                     if (res == JFileChooser.APPROVE_OPTION) {
@@ -453,9 +450,10 @@ static class physx{
                             e1.printStackTrace();
                         }
                     }
+
             }
             if (ff==null){
-                JOptionPane.showMessageDialog(null,"Please, create or choose a file!");
+                JOptionPane.showMessageDialog(frame,"Please, create or choose a file!");
             }
         });
 
@@ -480,7 +478,7 @@ static class physx{
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }
-                    creat.setPreferredSize(new Dimension(300,150));
+                    creat.setPreferredSize(new Dimension(300,120));
                     JPanel p = new JPanel();
                     JTextField name = new JTextField(15);
                    JButton ok  = new JButton("Ok");
@@ -509,7 +507,7 @@ static class physx{
                                     creat.setVisible(false);
                                     creat.dispose();
                                 } else{
-                                    JOptionPane.showMessageDialog(null,"Please, type a valid name of the file!");
+                                    JOptionPane.showMessageDialog(frame,"Please, type a valid name of the file!");
                                 }
 
                             }
@@ -531,7 +529,35 @@ static class physx{
 
 
             info.addActionListener((ActionEvent e) -> {
+                JFrame F = new JFrame("Info");
                //Some information about LabX
+                JFXPanel pane1 = new JFXPanel();
+                //HTMLEditorKit kit  =new HTMLEditorKit();
+
+                //pane1.setEditable(false);
+
+                pane1.setFont(new Font(Font.DIALOG, Font.PLAIN, 15));
+
+                JScrollPane scrollPane1 = new JScrollPane(pane1);
+
+                int ii = 0;
+
+
+
+                Platform.runLater(() -> {
+                    WebView webView = new WebView();
+                    pane1.setScene(new Scene(webView));
+                    webView.getEngine().load(IDE.class.getResource("doc/PhysX_Docomentation_v0.1.html").toExternalForm());
+                });
+
+                scrollPane1.getHorizontalScrollBar().setValue(scrollPane1.getHorizontalScrollBar().getMaximum()/2);
+                F.add(scrollPane1);
+
+                F.setPreferredSize(new Dimension(680, 780));
+
+                F.pack();
+                F.setVisible(true);
+                F.repaint();
             });
 
 
