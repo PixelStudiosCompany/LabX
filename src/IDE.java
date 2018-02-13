@@ -28,7 +28,7 @@ public class IDE {
     public static boolean isreading = false;
     public static JPanel p2 = new JPanel();
     static JFrame frame = new JFrame("LabX v0.1");
-
+    static String projtype;
     public static boolean isWindows() {
 
         String os = System.getProperty("os.name").toLowerCase();
@@ -65,7 +65,9 @@ static class physx{
 }
 
 
-
+IDE(String fname, String projtype){
+    ff=new File(fname);
+}
 
     public static void init() throws UnsupportedLookAndFeelException {
 
