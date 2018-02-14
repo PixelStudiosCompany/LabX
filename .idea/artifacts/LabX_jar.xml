@@ -7,6 +7,10 @@
       <element id="file-copy" path="$PROJECT_DIR$/ico.png" />
       <element id="file-copy" path="$PROJECT_DIR$/PhysX_Docomentation_v0.1.pdf" />
       <element id="dir-copy" path="$PROJECT_DIR$/doc" />
+      <element id="file-copy" path="$PROJECT_DIR$/video.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/Chinematics.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/Dynamics.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/Statics.png" />
     </root>
   </artifact>
 </component>

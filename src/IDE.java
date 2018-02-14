@@ -1,5 +1,3 @@
-//package scripter;
-
 import com.alee.laf.WebLookAndFeel;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
@@ -29,6 +27,7 @@ public class IDE {
     public static JPanel p2 = new JPanel();
     static JFrame frame = new JFrame("LabX v0.1");
     static String projtype;
+    static boolean istemplate;
     public static boolean isWindows() {
 
         String os = System.getProperty("os.name").toLowerCase();
@@ -65,8 +64,10 @@ static class physx{
 }
 
 
-IDE(String fname, String projtype){
+IDE(String fname, String project, boolean istemp){
     ff=new File(fname);
+    projtype=project;
+    istemplate=istemp;
 }
 
     public static void init() throws UnsupportedLookAndFeelException {
@@ -94,7 +95,7 @@ IDE(String fname, String projtype){
         p2.setLayout(new BorderLayout());
 
 
-        frame.setPreferredSize(new Dimension(640, 480));
+        //frame.setPreferredSize(new Dimension(640, 480));
         JMenuBar menuBar = new JMenuBar();
 
 
@@ -157,10 +158,7 @@ IDE(String fname, String projtype){
             }
         });
 
-        JMenuItem topng = new JMenuItem("PNG");
-        JMenuItem tojpg = new JMenuItem("JPG");
-        JMenuItem tojava = new JMenuItem("to Java");
-        JMenuItem tosvg = new JMenuItem("SVG");
+
         JMenuItem licensing = new JMenuItem("License");
 
 
@@ -567,7 +565,7 @@ IDE(String fname, String projtype){
 
             frame.setLocationByPlatform(true);
             frame.add(p1);
-            frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
             frame.pack();
             frame.setVisible(true);
 
