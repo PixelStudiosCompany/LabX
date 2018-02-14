@@ -77,6 +77,7 @@ public class WIZARD {
         bar.add(info);
         bar.add(video);
         openp.addActionListener(e -> {
+            //this code throws exception when you close the IDE window
             SwingUtilities.invokeLater(()->{
                 try {
                     IDE.init();
