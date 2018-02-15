@@ -68,6 +68,36 @@ IDE(String fname, String project, boolean istemp){
     ff=new File(fname);
     projtype=project;
     istemplate=istemp;
+    SwingUtilities.invokeLater(() -> {
+        try {
+            init();
+
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
+    });
+}
+public static void LoadTextFromFile(File f){
+    if (f != null) {
+        area.setEditable(true);
+
+        try {
+            Scanner s = new Scanner(new File(f.getAbsolutePath()));
+            String str="";
+            while (s.hasNext()){
+                str+=s.nextLine()+"\n";
+            }
+            if (str.length()>0) str=str.substring(0,str.length()-1);
+            area.setText(str);
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        }
+        isreading = false;
+        frame.setTitle("LabX v0.1 [" + f.getName() + "]");
+
+        pane.setText("STATUS: Coming soon...");
+        frame.repaint();
+    }
 }
 
     public static void init() throws UnsupportedLookAndFeelException {
@@ -379,26 +409,7 @@ IDE(String fname, String project, boolean istemp){
 
                 if (approw == JFileChooser.APPROVE_OPTION) {
                     ff = chooser.getSelectedFile();
-                    if (ff != null) {
-                        area.setEditable(true);
-
-                        try {
-                            Scanner s = new Scanner(new File(ff.getAbsolutePath()));
-                            String str="";
-                            while (s.hasNext()){
-                                str+=s.nextLine()+"\n";
-                            }
-                            if (str.length()>0) str=str.substring(0,str.length()-1);
-                            area.setText(str);
-                        } catch (FileNotFoundException e1) {
-                            e1.printStackTrace();
-                        }
-                        isreading = false;
-                        frame.setTitle("LabX v0.1 [" + ff.getName() + "]");
-
-                        pane.setText("STATUS: Coming soon...");
-                        frame.repaint();
-                    }
+                    LoadTextFromFile(ff);
 
                 }
             }
@@ -560,12 +571,16 @@ IDE(String fname, String project, boolean istemp){
                 F.repaint();
             });
 
+            LoadTextFromFile(ff);
+
+
+
 
             frame.setPreferredSize(new Dimension((int) screenSize.getWidth() / 2, (int) screenSize.getHeight() / 2));
 
             frame.setLocationByPlatform(true);
             frame.add(p1);
-            frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+            frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
             frame.pack();
             frame.setVisible(true);
 
@@ -576,18 +591,6 @@ IDE(String fname, String project, boolean istemp){
         public static void main(String args[]) throws Exception {
             BufferedReader inFile;
 
-            SwingUtilities.invokeLater(() -> {
-
-
-                try {
-                   init();
-
-                } catch (UnsupportedLookAndFeelException e) {
-                    e.printStackTrace();
-                }
-
-
-            });
 
 
         }

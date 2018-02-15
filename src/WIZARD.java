@@ -78,49 +78,20 @@ public class WIZARD {
         bar.add(video);
         openp.addActionListener(e -> {
             //this code throws exception when you close the IDE window
-            SwingUtilities.invokeLater(()->{
-                try {
-                    IDE.init();
-                } catch (UnsupportedLookAndFeelException e1) {
-                    e1.printStackTrace();
-                }
-            });
-
-                IDE.isreading = true;
-            IDE.isinit = false;
-            IDE.area.setText("");
-            IDE.pane.setText("STATUS: opening...");
-            JFileChooser chooser= new JFileChooser();
+            JFileChooser chooser = new JFileChooser();
+            File ff=null;
             chooser.setDialogTitle("Open file");
             chooser.setApproveButtonText("Open");
-            //chooser.setSelectedFile(new File(IDE.ff.getName()));
-                int approw = chooser.showSaveDialog(null);
+            //chooser.setSelectedFile(new File(ff.getName()));
+            int approw = chooser.showSaveDialog(null);
 
-                if (approw == JFileChooser.APPROVE_OPTION) {
-                    IDE.ff = chooser.getSelectedFile();
-                    if (IDE.ff != null) {
-                        IDE.area.setEditable(true);
+            if (approw == JFileChooser.APPROVE_OPTION) {
+                ff = chooser.getSelectedFile();
+                ide = new IDE(ff.getAbsolutePath(),"",false);
+                ide.LoadTextFromFile(ff);
 
-                        try {
-                            Scanner s = new Scanner(new File(IDE.ff.getAbsolutePath()));
-                            String str="";
-                            while (s.hasNext()){
-                                str+=s.nextLine()+"\n";
-                            }
-                            if (str.length()>0) str=str.substring(0,str.length()-1);
-                            IDE.area.setText(str);
-                        } catch (FileNotFoundException e1) {
-                            e1.printStackTrace();
-                        }
-                        IDE.isreading = false;
-                        frame.setTitle("LabX v0.1 [" + IDE.ff.getName() + "]");
+            }
 
-                        IDE.pane.setText("STATUS: Coming soon...");
-                        frame.repaint();
-                    }
-
-                }
-                //ide = new IDE(IDE.ff.getName(),"",false);
         });
 
 
