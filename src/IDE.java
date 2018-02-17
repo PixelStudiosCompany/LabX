@@ -19,16 +19,20 @@ import org.fife.ui.rtextarea.RTextScrollPane;
  * Created by mikha on 08.03.2017.
  */
 public class IDE {
-    public static boolean isinit = false;
-    public static File ff;
-    public static RSyntaxTextArea area = new RSyntaxTextArea();
-    public static JTextPane pane = new JTextPane();
-    public static boolean isreading = false;
-    public static JPanel p2 = new JPanel();
-    static JFrame frame = new JFrame("LabX v0.1");
-    static String projtype;
-    static boolean istemplate;
-    public static boolean isWindows() {
+    public  boolean isinit = false;
+    public  File ff;
+    public  RSyntaxTextArea area = new RSyntaxTextArea();
+    public  JTextPane pane = new JTextPane();
+    public  boolean isreading = false;
+    boolean issaved;
+    public  JPanel p2 = new JPanel();
+     JFrame frame = new JFrame("LabX v0.1");
+     String projtype;
+     String title;
+     String sav;
+     String source;
+     boolean istemplate;
+    public  boolean isWindows() {
 
         String os = System.getProperty("os.name").toLowerCase();
         //windows
@@ -36,15 +40,14 @@ public class IDE {
 
     }
 
-    public static boolean isMac() {
-
+    public  boolean isMac() {
         String os = System.getProperty("os.name").toLowerCase();
         //Mac
         return (os.indexOf("mac") >= 0);
 
     }
 
-    public static boolean isUnix() {
+    public  boolean isUnix() {
 
         String os = System.getProperty("os.name").toLowerCase();
         //linux or unix
@@ -53,15 +56,10 @@ public class IDE {
     }
 
 
-    static String action = "";
+     String action = "";
 
 
 
-static class physx{
-    static void printquard(){
-        System.out.print("Kvadrat");
-    }
-}
 
 
 IDE(String fname, String project, boolean istemp){
@@ -77,34 +75,54 @@ IDE(String fname, String project, boolean istemp){
         }
     });
 }
-public static void LoadTextFromFile(File f){
+public void LoadTextFromFile(File f){
     if (f != null) {
         area.setEditable(true);
-
-        try {
-            Scanner s = new Scanner(new File(f.getAbsolutePath()));
-            String str="";
-            while (s.hasNext()){
-                str+=s.nextLine()+"\n";
+        if (f.exists()) {
+            try {
+                Scanner s = new Scanner(new File(f.getAbsolutePath()));
+                String str = "";
+                while (s.hasNext()) {
+                    str += s.nextLine() + "\n";
+                }
+                if (str.length() > 0) str = str.substring(0, str.length() - 1);
+                area.setText(str);
+                source=str;
+            } catch (FileNotFoundException e1) {
+                e1.printStackTrace();
             }
-            if (str.length()>0) str=str.substring(0,str.length()-1);
-            area.setText(str);
-        } catch (FileNotFoundException e1) {
-            e1.printStackTrace();
         }
         isreading = false;
-        frame.setTitle("LabX v0.1 [" + f.getName() + "]");
+        title="LabX v0.1 [" + f.getName() + "]";
+        frame.setTitle(title);
 
         pane.setText("STATUS: Coming soon...");
         frame.repaint();
     }
 }
 
-    public static void init() throws UnsupportedLookAndFeelException {
-
-
+void comparetext(File f){
+    if (f.length()!=area.getText().length()){
+        issaved=false;
+        sav="*";
+    } else{
+        boolean b =true;
+        for (int i=0;i<f.length();i++){
+            if (source.toCharArray()[i]!=area.getText().toCharArray()[i]){
+                issaved=false;
+                sav="*";
+                b=false;
+                break;
+            }
+        }
+        if (b) {
+            issaved = true;
+            sav = "";
+        }
+    }
+}
+    public void init() throws UnsupportedLookAndFeelException {
         UIManager.setLookAndFeel(new WebLookAndFeel());
-
         try {
             BufferedImage imgg = ImageIO.read(IDE.class.getClassLoader().getResource("ico.png"));
             ImageIcon icon = new ImageIcon(imgg);
@@ -113,7 +131,7 @@ public static void LoadTextFromFile(File f){
             e.printStackTrace();
         }
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        frame.setUndecorated(false);
+        //frame.setUndecorated(false);
 
         JPanel p1 = new JPanel();
 
@@ -168,23 +186,20 @@ public static void LoadTextFromFile(File f){
         area.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-                if ((e.getKeyCode() == KeyEvent.VK_V) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
-
-                }
+              comparetext(ff);
+              frame.setTitle(title+sav);
             }
 
             @Override
             public void keyPressed(KeyEvent e) {
-                if ((e.getKeyCode() == KeyEvent.VK_V) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
-
-                }
+                comparetext(ff);
+                frame.setTitle(title+sav);
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-                if ((e.getKeyCode() == KeyEvent.VK_V) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
-
-                }
+                comparetext(ff);
+                frame.setTitle(title+sav);
             }
         });
 
@@ -194,7 +209,7 @@ public static void LoadTextFromFile(File f){
 
         JFileChooser chooser = new JFileChooser();
 
-        file.add(open);
+       // file.add(open);
         file.add(save);
         file.add(create);
         file.add(print);
@@ -396,7 +411,7 @@ public static void LoadTextFromFile(File f){
         });
 
 
-        open.addActionListener(e -> {
+       /* open.addActionListener(e -> {
             if (e.getSource() == open) {
                 isreading = true;
                 isinit = false;
@@ -413,7 +428,7 @@ public static void LoadTextFromFile(File f){
 
                 }
             }
-        });
+        });*/
 
         save.addActionListener(e -> {
             if (e.getSource() == save && ff!=null) {
@@ -474,6 +489,147 @@ public static void LoadTextFromFile(File f){
         run.addActionListener(e -> {
 
         });
+
+
+
+
+        frame.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                if(!issaved){
+                    JDialog creat = new JDialog();
+                    creat.setTitle("Сохранить изменения?");
+                    BufferedImage imgg = null;
+                    try {
+                        imgg = ImageIO.read(IDE.class.getClassLoader().getResource("ico.png"));
+                        ImageIcon icon = new ImageIcon(imgg);
+                        creat.setIconImage(icon.getImage());
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                    creat.setPreferredSize(new Dimension(300,120));
+                    JPanel p = new JPanel();
+                    JButton ok  = new JButton("Ok");
+                    JButton cancel = new JButton("Cancel");
+                    ok.setFont(new Font(Font.DIALOG,Font.BOLD,20));
+                    ok.setBackground(Color.BLUE);
+                    cancel.setFont(new Font(Font.DIALOG,Font.BOLD,20));
+                    p.add(ok,"South");
+                    p.add(cancel,"south");
+                    creat.setResizable(false);
+                    creat.pack();
+
+
+                    cancel.addActionListener(e13 -> {
+                        creat.setVisible(false);
+                        creat.dispose();
+
+                    });
+                    ok.addActionListener(e14 -> {
+                                JFileChooser chooser = new JFileChooser();
+                                if (!ff.exists()){
+                                    //File ff=null;
+                                    chooser.setDialogTitle("Save file");
+                                    chooser.setApproveButtonText("Open");
+                                    //chooser.setSelectedFile(new File(ff.getName()));
+                                    int approw = chooser.showSaveDialog(null);
+
+                                    if (approw == JFileChooser.APPROVE_OPTION) {
+                                        ff=new File(chooser.getCurrentDirectory()+"\\"+ff.getName());
+                                        try {
+                                            ff.createNewFile();
+                                            try {
+                                                PrintWriter wr = new PrintWriter(ff);
+                                                wr.print(area.getText());
+                                                System.out.println(area.getText());
+                                                wr.flush();
+                                                wr.close();
+                                            } catch (IOException e1) {
+                                                e1.printStackTrace();
+                                            }
+                                        } catch (IOException e1) {
+                                            e1.printStackTrace();
+                                        }
+                                        //chooser.setVisible(false);
+                                    }
+                                    //chooser.setVisible(false);
+                                } else{
+                                    chooser.setDialogTitle("Save file");
+                                    chooser.setApproveButtonText("Open");
+                                    //chooser.setSelectedFile(new File(ff.getName()));
+                                    chooser.setCurrentDirectory(new File(ff.getParent()));
+                                    int approw = chooser.showSaveDialog(null);
+
+                                    if (approw == JFileChooser.APPROVE_OPTION) {
+                                        ff = new File(chooser.getCurrentDirectory() + "\\" + ff.getName());
+                                        try {
+                                            ff.delete();
+                                            ff.createNewFile();
+                                            try {
+                                                PrintWriter wr = new PrintWriter(ff);
+                                                wr.print(area.getText());
+                                                System.out.println(area.getText());
+                                                wr.flush();
+                                                wr.close();
+                                            } catch (IOException e1) {
+                                                e1.printStackTrace();
+                                            }
+                                        } catch (IOException e1) {
+                                            e1.printStackTrace();
+                                        }
+
+                                        chooser.setVisible(false);
+                                    }
+                                }
+
+                                creat.setVisible(false);
+                            }
+                    );
+
+                    creat.add(p);
+                    creat.setModal(true);
+                    creat.setLocation(frame.getX()+frame.getWidth()/2-creat.getWidth()/2,frame.getY()+frame.getHeight()/2-creat.getHeight()/2);
+
+
+
+
+                    area.setText("");
+                    creat.setVisible(true);
+
+                }
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
+
 
 
 
@@ -576,6 +732,8 @@ public static void LoadTextFromFile(File f){
 
 
 
+
+
             frame.setPreferredSize(new Dimension((int) screenSize.getWidth() / 2, (int) screenSize.getHeight() / 2));
 
             frame.setLocationByPlatform(true);
@@ -586,15 +744,6 @@ public static void LoadTextFromFile(File f){
 
 
         }
-
-
-        public static void main(String args[]) throws Exception {
-            BufferedReader inFile;
-
-
-
-        }
-
 
 
 

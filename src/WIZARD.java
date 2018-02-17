@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -28,7 +29,7 @@ import java.util.Scanner;
  */
 public class WIZARD {
     static JFrame frame;
-    static IDE ide;
+    static ArrayList<IDE> ide = new ArrayList<>();
     static void init() throws UnsupportedLookAndFeelException{
         frame= new JFrame("LabX v0.1");
         try {
@@ -57,10 +58,194 @@ public class WIZARD {
         panel.setLayout(new GridLayout(1,3));
         JButton chenematics = new JButton();
         chenematics.setIcon(new ImageIcon(im4));
+
+        chenematics.addActionListener(e -> {
+            if (e.getSource() == chenematics) {
+                JDialog creat = new JDialog();
+                creat.setTitle("Create new file");
+                BufferedImage imgg = null;
+                try {
+                    imgg = ImageIO.read(WIZARD.class.getClassLoader().getResource("ico.png"));
+                    ImageIcon icon = new ImageIcon(imgg);
+                    creat.setIconImage(icon.getImage());
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                creat.setPreferredSize(new Dimension(300,120));
+                JPanel p = new JPanel();
+                JTextField name = new JTextField(15);
+                JButton ok  = new JButton("Ok");
+                JButton cancel = new JButton("Cancel");
+                ok.setFont(new Font(Font.DIALOG,Font.BOLD,20));
+                ok.setBackground(Color.BLUE);
+                name.setFont(new Font(Font.DIALOG,Font.BOLD,20));
+                cancel.setFont(new Font(Font.DIALOG,Font.BOLD,20));
+                p.add(name,"North");
+                p.add(ok,"South");
+                p.add(cancel,"south");
+                creat.setResizable(false);
+                creat.pack();
+                final File[] ff = {null};
+
+
+                cancel.addActionListener(e13 -> {
+                    creat.setVisible(false);
+                    creat.dispose();
+
+                });
+                ok.addActionListener(e14 -> {
+                            if (!name.getText().equals("")){
+                                ff[0] =new File(name.getText()+".labx");
+                                ide.add(new IDE(ff[0].getAbsolutePath(),"",false));
+                                ide.get(ide.size()-1).LoadTextFromFile(ff[0]);
+
+                                frame.setTitle("LabX v0.1 [" + ff[0].getName() + "]");
+                                creat.setVisible(false);
+                                creat.dispose();
+                            } else{
+                                JOptionPane.showMessageDialog(frame,"Please, type a valid name of the file!");
+                            }
+
+                        }
+                );
+
+                creat.add(p);
+                creat.setModal(true);
+                creat.setLocation(frame.getX()+frame.getWidth()/2-creat.getWidth()/2,frame.getY()+frame.getHeight()/2-creat.getHeight()/2);
+
+
+                creat.setVisible(true);
+            }
+
+        });
+
+
+
         JButton dynamics = new JButton();
         dynamics.setIcon(new ImageIcon(im5));
+
+        dynamics.addActionListener(e -> {
+            if (e.getSource() == dynamics) {
+                JDialog creat = new JDialog();
+                creat.setTitle("Create new file");
+                BufferedImage imgg = null;
+                try {
+                    imgg = ImageIO.read(WIZARD.class.getClassLoader().getResource("ico.png"));
+                    ImageIcon icon = new ImageIcon(imgg);
+                    creat.setIconImage(icon.getImage());
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                creat.setPreferredSize(new Dimension(300,120));
+                JPanel p = new JPanel();
+                JTextField name = new JTextField(15);
+                JButton ok  = new JButton("Ok");
+                JButton cancel = new JButton("Cancel");
+                ok.setFont(new Font(Font.DIALOG,Font.BOLD,20));
+                ok.setBackground(Color.BLUE);
+                name.setFont(new Font(Font.DIALOG,Font.BOLD,20));
+                cancel.setFont(new Font(Font.DIALOG,Font.BOLD,20));
+                p.add(name,"North");
+                p.add(ok,"South");
+                p.add(cancel,"south");
+                creat.setResizable(false);
+                creat.pack();
+                final File[] ff = {null};
+
+
+                cancel.addActionListener(e13 -> {
+                    creat.setVisible(false);
+                    creat.dispose();
+
+                });
+                ok.addActionListener(e14 -> {
+                            if (!name.getText().equals("")){
+                                ff[0] =new File(name.getText()+".labx");
+                                ide.add(new IDE(ff[0].getAbsolutePath(),"",false));
+                                ide.get(ide.size()-1).LoadTextFromFile(ff[0]);
+
+                                frame.setTitle("LabX v0.1 [" + ff[0].getName() + "]");
+                                creat.setVisible(false);
+                                creat.dispose();
+                            } else{
+                                JOptionPane.showMessageDialog(frame,"Please, type a valid name of the file!");
+                            }
+
+                        }
+                );
+
+                creat.add(p);
+                creat.setModal(true);
+                creat.setLocation(frame.getX()+frame.getWidth()/2-creat.getWidth()/2,frame.getY()+frame.getHeight()/2-creat.getHeight()/2);
+
+
+                creat.setVisible(true);
+            }
+
+        });
+
         JButton statics = new JButton();
         statics.setIcon(new ImageIcon(im6));
+
+        statics.addActionListener(e -> {
+            if (e.getSource() == statics) {
+                JDialog creat = new JDialog();
+                creat.setTitle("Create new file");
+                BufferedImage imgg = null;
+                try {
+                    imgg = ImageIO.read(WIZARD.class.getClassLoader().getResource("ico.png"));
+                    ImageIcon icon = new ImageIcon(imgg);
+                    creat.setIconImage(icon.getImage());
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                creat.setPreferredSize(new Dimension(300,120));
+                JPanel p = new JPanel();
+                JTextField name = new JTextField(15);
+                JButton ok  = new JButton("Ok");
+                JButton cancel = new JButton("Cancel");
+                ok.setFont(new Font(Font.DIALOG,Font.BOLD,20));
+                ok.setBackground(Color.BLUE);
+                name.setFont(new Font(Font.DIALOG,Font.BOLD,20));
+                cancel.setFont(new Font(Font.DIALOG,Font.BOLD,20));
+                p.add(name,"North");
+                p.add(ok,"South");
+                p.add(cancel,"south");
+                creat.setResizable(false);
+                creat.pack();
+                final File[] ff = {null};
+
+
+                cancel.addActionListener(e13 -> {
+                    creat.setVisible(false);
+                    creat.dispose();
+
+                });
+                ok.addActionListener(e14 -> {
+                            if (!name.getText().equals("")){
+                                ff[0] =new File(name.getText()+".labx");
+                                ide.add(new IDE(ff[0].getAbsolutePath(),"",false));
+                                ide.get(ide.size()-1).LoadTextFromFile(ff[0]);
+
+                                frame.setTitle("LabX v0.1 [" + ff[0].getName() + "]");
+                                creat.setVisible(false);
+                                creat.dispose();
+                            } else{
+                                JOptionPane.showMessageDialog(frame,"Please, type a valid name of the file!");
+                            }
+
+                        }
+                );
+
+                creat.add(p);
+                creat.setModal(true);
+                creat.setLocation(frame.getX()+frame.getWidth()/2-creat.getWidth()/2,frame.getY()+frame.getHeight()/2-creat.getHeight()/2);
+
+
+                creat.setVisible(true);
+            }
+
+        });
         panel.add(chenematics);
         panel.add(dynamics);
         panel.add(statics);
@@ -87,8 +272,8 @@ public class WIZARD {
 
             if (approw == JFileChooser.APPROVE_OPTION) {
                 ff = chooser.getSelectedFile();
-                ide = new IDE(ff.getAbsolutePath(),"",false);
-                ide.LoadTextFromFile(ff);
+                ide.add(new IDE(ff.getAbsolutePath(),"",false));
+                ide.get(ide.size()-1).LoadTextFromFile(ff);
 
             }
 
@@ -119,7 +304,7 @@ public class WIZARD {
             Platform.runLater(() -> {
                 WebView webView = new WebView();
                 pane1.setScene(new Scene(webView));
-                webView.getEngine().load(IDE.class.getResource("doc/PhysX_Docomentation_v0.1.html").toExternalForm());
+                webView.getEngine().load(WIZARD.class.getResource("doc/PhysX_Docomentation_v0.1.html").toExternalForm());
             });
 
             //scrollPane1.getHorizontalScrollBar().setValue(scrollPane1.getHorizontalScrollBar().getMaximum() / 2);
