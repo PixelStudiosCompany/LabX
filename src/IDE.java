@@ -493,143 +493,6 @@ void comparetext(File f){
 
 
 
-        frame.addWindowListener(new WindowListener() {
-            @Override
-            public void windowOpened(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowClosing(WindowEvent e) {
-                if(!issaved){
-                    JDialog creat = new JDialog();
-                    creat.setTitle("Сохранить изменения?");
-                    BufferedImage imgg = null;
-                    try {
-                        imgg = ImageIO.read(IDE.class.getClassLoader().getResource("ico.png"));
-                        ImageIcon icon = new ImageIcon(imgg);
-                        creat.setIconImage(icon.getImage());
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
-                    creat.setPreferredSize(new Dimension(300,120));
-                    JPanel p = new JPanel();
-                    JButton ok  = new JButton("Ok");
-                    JButton cancel = new JButton("Cancel");
-                    ok.setFont(new Font(Font.DIALOG,Font.BOLD,20));
-                    ok.setBackground(Color.BLUE);
-                    cancel.setFont(new Font(Font.DIALOG,Font.BOLD,20));
-                    p.add(ok,"South");
-                    p.add(cancel,"south");
-                    creat.setResizable(false);
-                    creat.pack();
-
-
-                    cancel.addActionListener(e13 -> {
-                        creat.setVisible(false);
-                        creat.dispose();
-
-                    });
-                    ok.addActionListener(e14 -> {
-                                JFileChooser chooser = new JFileChooser();
-                                if (!ff.exists()){
-                                    //File ff=null;
-                                    chooser.setDialogTitle("Save file");
-                                    chooser.setApproveButtonText("Open");
-                                    //chooser.setSelectedFile(new File(ff.getName()));
-                                    int approw = chooser.showSaveDialog(null);
-
-                                    if (approw == JFileChooser.APPROVE_OPTION) {
-                                        ff=new File(chooser.getCurrentDirectory()+"\\"+ff.getName());
-                                        try {
-                                            ff.createNewFile();
-                                            try {
-                                                PrintWriter wr = new PrintWriter(ff);
-                                                wr.print(area.getText());
-                                                System.out.println(area.getText());
-                                                wr.flush();
-                                                wr.close();
-                                            } catch (IOException e1) {
-                                                e1.printStackTrace();
-                                            }
-                                        } catch (IOException e1) {
-                                            e1.printStackTrace();
-                                        }
-                                        //chooser.setVisible(false);
-                                    }
-                                    //chooser.setVisible(false);
-                                } else{
-                                    chooser.setDialogTitle("Save file");
-                                    chooser.setApproveButtonText("Open");
-                                    //chooser.setSelectedFile(new File(ff.getName()));
-                                    chooser.setCurrentDirectory(new File(ff.getParent()));
-                                    int approw = chooser.showSaveDialog(null);
-
-                                    if (approw == JFileChooser.APPROVE_OPTION) {
-                                        ff = new File(chooser.getCurrentDirectory() + "\\" + ff.getName());
-                                        try {
-                                            ff.delete();
-                                            ff.createNewFile();
-                                            try {
-                                                PrintWriter wr = new PrintWriter(ff);
-                                                wr.print(area.getText());
-                                                System.out.println(area.getText());
-                                                wr.flush();
-                                                wr.close();
-                                            } catch (IOException e1) {
-                                                e1.printStackTrace();
-                                            }
-                                        } catch (IOException e1) {
-                                            e1.printStackTrace();
-                                        }
-
-                                        chooser.setVisible(false);
-                                    }
-                                }
-
-                                creat.setVisible(false);
-                            }
-                    );
-
-                    creat.add(p);
-                    creat.setModal(true);
-                    creat.setLocation(frame.getX()+frame.getWidth()/2-creat.getWidth()/2,frame.getY()+frame.getHeight()/2-creat.getHeight()/2);
-
-
-
-
-                    area.setText("");
-                    creat.setVisible(true);
-
-                }
-            }
-
-            @Override
-            public void windowClosed(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowIconified(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowDeiconified(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowActivated(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowDeactivated(WindowEvent e) {
-
-            }
-        });
-
 
 
 
@@ -741,6 +604,138 @@ void comparetext(File f){
             frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
             frame.pack();
             frame.setVisible(true);
+
+        frame.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                if(!issaved){
+                    JDialog creat = new JDialog();
+                    creat.setTitle("Сохранить изменения?");
+                    BufferedImage imgg = null;
+                    try {
+                        imgg = ImageIO.read(IDE.class.getClassLoader().getResource("ico.png"));
+                        ImageIcon icon = new ImageIcon(imgg);
+                        creat.setIconImage(icon.getImage());
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                    creat.setPreferredSize(new Dimension(300,100));
+                    JPanel p = new JPanel();
+                    JButton ok  = new JButton("Ok");
+                    JButton cancel = new JButton("Cancel");
+                    ok.setFont(new Font(Font.DIALOG,Font.BOLD,20));
+                    ok.setBackground(Color.BLUE);
+                    cancel.setFont(new Font(Font.DIALOG,Font.BOLD,20));
+                    p.add(ok,"South");
+                    p.add(cancel,"south");
+                    creat.setResizable(false);
+                    creat.pack();
+
+
+                    cancel.addActionListener(e13 -> {
+                        creat.setVisible(false);
+                        creat.dispose();
+
+                    });
+                    ok.addActionListener(e14 -> {
+                                JFileChooser chooser = new JFileChooser();
+                                if (!ff.exists()){
+                                    //File ff=null;
+                                    chooser.setDialogTitle("Save file");
+                                    chooser.setApproveButtonText("Open");
+                                    //chooser.setSelectedFile(new File(ff.getName()));
+                                    int approw = chooser.showSaveDialog(null);
+
+                                    if (approw == JFileChooser.APPROVE_OPTION) {
+                                        ff=new File(chooser.getCurrentDirectory()+"\\"+ff.getName());
+                                        try {
+                                            ff.createNewFile();
+                                            try {
+                                                PrintWriter wr = new PrintWriter(ff);
+                                                wr.print(area.getText());
+                                                System.out.println(area.getText());
+                                                wr.flush();
+                                                wr.close();
+                                            } catch (IOException e1) {
+                                                e1.printStackTrace();
+                                            }
+                                        } catch (IOException e1) {
+                                            e1.printStackTrace();
+                                        }
+                                        //chooser.setVisible(false);
+                                    }
+                                    //chooser.setVisible(false);
+                                } else{
+                                    chooser.setDialogTitle("Save file");
+                                    chooser.setApproveButtonText("Open");
+                                    //chooser.setSelectedFile(new File(ff.getName()));
+                                    chooser.setCurrentDirectory(new File(ff.getParent()));
+                                    int approw = chooser.showSaveDialog(null);
+
+                                    if (approw == JFileChooser.APPROVE_OPTION) {
+                                        ff = new File(chooser.getCurrentDirectory() + "\\" + ff.getName());
+                                        try {
+                                            ff.delete();
+                                            ff.createNewFile();
+                                            try {
+                                                PrintWriter wr = new PrintWriter(ff);
+                                                wr.print(area.getText());
+                                                System.out.println(area.getText());
+                                                wr.flush();
+                                                wr.close();
+                                            } catch (IOException e1) {
+                                                e1.printStackTrace();
+                                            }
+                                        } catch (IOException e1) {
+                                            e1.printStackTrace();
+                                        }
+
+                                        chooser.setVisible(false);
+                                    }
+                                }
+
+                                creat.setVisible(false);
+                            }
+                    );
+
+                    creat.add(p);
+                    creat.setModal(true);
+                    creat.setLocation(frame.getX()+frame.getWidth()/2-creat.getWidth()/2,frame.getY()+frame.getHeight()/2-creat.getHeight()/2);
+                    creat.setVisible(true);
+
+                }
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
 
 
         }
