@@ -251,6 +251,7 @@ void comparetext(File f){
         frame.setFont(fo1);
         pane.setFont(fo);
         menuBar.setFont(fo1);
+        JSplitPane splitPane = new JSplitPane();
 
         RTextScrollPane scrollPane = new RTextScrollPane(area,true,Color.BLACK);
         scrollPane.setFont(new Font(Font.DIALOG,Font.BOLD,25));
@@ -592,6 +593,8 @@ void comparetext(File f){
 
             LoadTextFromFile(ff);
 
+            JPanel panel = new JPanel();
+
 
 
 
@@ -600,7 +603,11 @@ void comparetext(File f){
             frame.setPreferredSize(new Dimension((int) screenSize.getWidth() / 2, (int) screenSize.getHeight() / 2));
 
             frame.setLocationByPlatform(true);
-            frame.add(p1);
+
+            splitPane.setLeftComponent(p1);
+            splitPane.setRightComponent(panel);
+
+            frame.add(splitPane);
             frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
             frame.pack();
             frame.setVisible(true);
