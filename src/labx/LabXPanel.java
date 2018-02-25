@@ -1,3 +1,4 @@
+package labx;
 import javax.script.*;
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +13,6 @@ import java.util.StringTokenizer;
  * Created by mikha on 22.02.2018.
  */
 public class LabXPanel extends JPanel {
-
     public class engineThread extends Thread{
         public void run(){
 

@@ -1,3 +1,4 @@
+package labx;
 import com.alee.laf.WebLookAndFeel;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
@@ -5,16 +6,10 @@ import javafx.scene.Scene;
 import javafx.scene.web.WebView;
 
 import javax.imageio.ImageIO;
-import javax.media.CannotRealizeException;
-import javax.media.Manager;
-import javax.media.NoPlayerException;
-import javax.media.Player;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
@@ -22,7 +17,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Scanner;
+
 
 /**
  * Created by mikha on 13.02.2018.
