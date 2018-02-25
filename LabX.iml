@@ -8,6 +8,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="weblaf-complete-1.29" level="project" />
-    <orderEntry type="library" name="jmf-2.1.1e" level="project" />
+    <orderEntry type="library" name="rsyntaxtextarea" level="project" />
   </component>
 </module>
