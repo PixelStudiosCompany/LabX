@@ -148,6 +148,7 @@ void comparetext(File f){
 
 
 
+
         JMenu file = new JMenu("File");
 
         JMenu help = new JMenu("Help");
@@ -264,6 +265,8 @@ void comparetext(File f){
         JMenuItem cut = new JMenuItem("Cut");
         JMenuItem copy = new JMenuItem("Copy");
         JMenuItem paste = new JMenuItem("Paste");
+
+        LabXPanel labXPanel = new LabXPanel();
 
         jpu.add(cut);
         jpu.add(copy);
@@ -488,6 +491,8 @@ void comparetext(File f){
 
 
         run.addActionListener(e -> {
+          labXPanel.process(area.getText());
+          labXPanel.paintComponent(labXPanel.getGraphics());
 
         });
 
@@ -593,7 +598,7 @@ void comparetext(File f){
 
             LoadTextFromFile(ff);
 
-            JPanel panel = new JPanel();
+
 
 
 
@@ -605,9 +610,11 @@ void comparetext(File f){
             frame.setLocationByPlatform(true);
 
             splitPane.setLeftComponent(p1);
-            splitPane.setRightComponent(panel);
+            splitPane.setRightComponent(labXPanel);
+        splitPane.setOneTouchExpandable(true);
+        splitPane.setResizeWeight(0.5);
 
-            frame.add(splitPane);
+        frame.add(splitPane);
             frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
             frame.pack();
             frame.setVisible(true);
