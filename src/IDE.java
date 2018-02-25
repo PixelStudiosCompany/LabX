@@ -4,6 +4,7 @@ import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 import javafx.scene.web.WebView;
 import javax.imageio.ImageIO;
+import javax.script.ScriptException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -235,12 +236,12 @@ void comparetext(File f){
         pane.setEditable(false);
         pane.setText("STATUS: Coming soon...");
         pane.setSelectionColor(Color.BLUE);
-        pane.setForeground(Color.white);
+        pane.setForeground(Color.BLACK);
 
         p1.add(menuBar, "North");
 
 
-        p1.add(pane, "South");
+        //p1.add(pane, "South");
 
 
         p2.add(area, "Center");
@@ -491,8 +492,19 @@ void comparetext(File f){
 
 
         run.addActionListener(e -> {
-          labXPanel.process(area.getText());
-          labXPanel.paintComponent(labXPanel.getGraphics());
+            try {
+                try {
+                    labXPanel.process(area.getText());
+                    labXPanel.b.put("panel",pane);
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+               // pane.setText(labXPanel.engine.getContext().getWriter().toString());
+
+            } catch (ScriptException e1) {
+                e1.printStackTrace();
+            }
+            labXPanel.paintComponent(labXPanel.getGraphics());
 
         });
 
@@ -609,8 +621,12 @@ void comparetext(File f){
 
             frame.setLocationByPlatform(true);
 
+            JSplitPane pane2= new JSplitPane(JSplitPane.VERTICAL_SPLIT,labXPanel,pane);
+        pane2.setOneTouchExpandable(true);
+        pane2.setResizeWeight(0.85);
+
             splitPane.setLeftComponent(p1);
-            splitPane.setRightComponent(labXPanel);
+            splitPane.setRightComponent(pane2);
         splitPane.setOneTouchExpandable(true);
         splitPane.setResizeWeight(0.5);
 

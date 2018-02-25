@@ -159,8 +159,11 @@ public class Definizer {
         for (int i=0;i<ObjMap.values().size();i++){
             object o = (object) ObjMap.values().toArray()[i];
             String name = (String) ObjMap.keySet().toArray()[i];
-            String s1="var "+ name;
+            String s1="var "+ name +"= new Object; "+name+".m="+o.m+"; "+name+".x="+o.x+"; "+name+".y="+o.y+"; "+name+".vx="+o.vx+"; "+name+".vy="+o.vy+"; "+name+".vz="+o.vz+"; "+name+".ax="+o.ax+"; "+name+".ay="+o.ay+"; "+name+".az="+o.az+"; ";
+            js+="\n"+s1;
         }
+        finprog=js+"while (true) {"+str;
+       finprog+="pane.setText(StringWriter.toString());}";
         return str;
     }
 }
