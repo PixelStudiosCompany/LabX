@@ -496,7 +496,6 @@ void comparetext(File f){
             try {
                 try {
                     labXPanel.process(area.getText());
-                    labXPanel.b.put("panel",pane);
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }

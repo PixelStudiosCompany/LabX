@@ -11,11 +11,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 
 
@@ -299,7 +296,7 @@ public class WIZARD {
             Platform.runLater(() -> {
                 WebView webView = new WebView();
                 pane1.setScene(new Scene(webView));
-                webView.getEngine().load(WIZARD.class.getResource("doc/PhysX_Docomentation_v0.1.html").toExternalForm());
+                webView.getEngine().load(WIZARD.class.getResource("labx/doc/PhysX_Docomentation_v0.1.html").toExternalForm());
             });
 
             //scrollPane1.getHorizontalScrollBar().setValue(scrollPane1.getHorizontalScrollBar().getMaximum() / 2);

@@ -164,7 +164,9 @@ public class Definizer {
             js+="\n"+s1;
         }
         finprog=js+"while (true) {"+str;
-       finprog+="pane.setText(StringWriter.toString());}";
+       //StringWriter.getBuffer().toString()
+
+       finprog+="TUNIT.sleep(100); StringWriter.flush(); pane.setText(StringWriter.toString); pane.revalidate();}";
         return str;
     }
 }

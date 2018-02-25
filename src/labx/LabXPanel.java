@@ -7,29 +7,39 @@ import java.io.StringWriter;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.StringTokenizer;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 
 /**
  * Created by mikha on 22.02.2018.
  */
 public class LabXPanel extends JPanel {
+    TimerTask tt = new TimerTask() {
+
+        @Override
+        public void run() {
+            // тут наш код
+        }
+    };
+
     public class engineThread extends Thread{
         public void run(){
 
-            StringWriter sw = new StringWriter();
+             sw = new StringWriter();
+            b.put("StringWriter",sw);
             engine.getContext().setWriter(sw);
             try {
                 engine.eval(finproj,b);
-
+                engine.getContext().getWriter().flush();
             } catch (ScriptException e) {
                 e.printStackTrace();
-            }
-            try {
-                engine.getContext().getWriter().flush();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
             out=sw.toString();
+
         }
     }
     String predcode;
@@ -47,9 +57,8 @@ String finproj;
         engine.getContext().setWriter(sw);
         b= new SimpleBindings();
 
-        b.put("StringWriter",sw);
+        b.put("TUNIT", TimeUnit.MILLISECONDS);
         b.put("pane",WIZARD.ide.get(0).pane);
-
 
         t = new engineThread();
         t.start();
