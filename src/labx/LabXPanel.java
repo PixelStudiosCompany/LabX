@@ -27,7 +27,7 @@ public class LabXPanel extends JPanel {
         public void run(){
 
              sw = new StringWriter();
-            b.put("StringWriter",sw);
+            b.put("sw",sw);
             engine.getContext().setWriter(sw);
             try {
                 engine.eval(finproj,b);

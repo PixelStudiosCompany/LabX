@@ -163,10 +163,10 @@ public class Definizer {
             String s1="var "+ name +"= new Object; "+name+".m="+o.m+"; "+name+".x="+o.x+"; "+name+".y="+o.y+"; "+name+".vx="+o.vx+"; "+name+".vy="+o.vy+"; "+name+".vz="+o.vz+"; "+name+".ax="+o.ax+"; "+name+".ay="+o.ay+"; "+name+".az="+o.az+"; ";
             js+="\n"+s1;
         }
-        finprog=js+"while (true) {"+str;
+        finprog=js+ "while (true) {"+str;
        //StringWriter.getBuffer().toString()
 
-       finprog+="TUNIT.sleep(100); StringWriter.flush(); pane.setText(StringWriter.toString); pane.revalidate();}";
+       finprog+="TUNIT.sleep(100); sw.flush(); pane.setText(sw.getBuffer()); pane.revalidate();}";
         return str;
     }
 }
