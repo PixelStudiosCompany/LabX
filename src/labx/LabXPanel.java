@@ -48,7 +48,7 @@ String finproj;
         b= new SimpleBindings();
 
         b.put("StringWriter",sw);
-        b.put("pane",null);
+        b.put("pane",WIZARD.ide.get(0).pane);
 
 
         t = new engineThread();
