@@ -27,6 +27,12 @@ public class LabXPanel extends JPanel {
         }
     };
 
+
+    public void updatePanel() {
+        SwingUtilities.invokeLater(() -> {
+            getParent().repaint();
+        });
+    }
     public class engineThread extends Thread{
         public void run(){
 
@@ -48,21 +54,13 @@ public class LabXPanel extends JPanel {
 
         }
     }
-    class repaintThread extends Thread{
-        LabXPanel panel;
-        repaintThread(LabXPanel l2){
-            panel=l2;
-        }
-        public void run(){
-          panel.paintComponent(panel.getGraphics());
-        }
-    }
+
     String predcode;
     String maincode;
 String finproj;
   String out;
   engineThread t;
-  repaintThread t2;
+
 
     StringWriter sw = new StringWriter();
     ScriptEngine engine= new ScriptEngineManager().getEngineByName("js");
@@ -87,8 +85,6 @@ String finproj;
         t = new engineThread();
         t.start();
 
-        t2= new repaintThread(this);
-        t2.start();
 
     }
 

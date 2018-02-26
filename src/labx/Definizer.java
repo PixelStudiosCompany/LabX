@@ -35,6 +35,19 @@ public class Definizer {
             ay=ay1;
             az=az1;
         }
+
+        public void set(int m1,int x1,int y1,int z1,int vx1,int vy1,int vz1,int ax1,int ay1,int az1) {
+            m=m1;
+            x=x1;
+            y=y1;
+            z=z1;
+            vx=vx1;
+            vy=vy1;
+            vz=vz1;
+            ax=ax1;
+            ay=ay1;
+            az=az1;
+        }
     }
     public static class force{
         int fx;
@@ -173,10 +186,10 @@ public class Definizer {
            object o = (object) ObjMap.values().toArray()[i];
            String name = (String) ObjMap.keySet().toArray()[i];
 
-           String s1="ObjMap.get(\""+name+"\").m="+name+".m; "+" ObjMap.get(\"" + name + "\").x="+name+".x; "+" ObjMap.get(\"" + name + "\").y="+name+".y; "+" ObjMap.get(\"" + name + "\").z="+name+".z; "+" ObjMap.get(\"" + name + "\").vx="+name+".vx; "+" ObjMap.get(\"" + name + "\").vy="+name+".vy; "+" ObjMap.get(\"" + name + "\").vz="+name+".vz; "+" ObjMap.get(\"" + name + "\").ax="+name+".ax; "+" ObjMap.get(\"" + name + "\").ay="+name+".ay; "+" ObjMap.get(\"" + name + "\").az="+name+".az; ";
+           String s1="ObjMap.get(\""+name+"\").set("+name+".m, " + name + ".x,"+name+".y,"+name+".z,"+name+".vx,"+name+".vy,"+name+".vz," + name + ".ax, "+name+".ay," +name+".az); ";
            js2+="\n"+s1;
        }
-       finprog+=js2+"}";
+       finprog+=js2+" lab.updatePanel();}";
 
         return str;
     }
