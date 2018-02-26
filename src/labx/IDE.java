@@ -22,8 +22,17 @@ import org.fife.ui.rtextarea.RTextScrollPane;
  */
 
 public class IDE {
+    public class  start{
+        boolean state;
+       public void set(boolean b){
+            state=b;
+        }
+       public boolean get() {
+            return state;
+        }
+    }
     public  boolean isinit = false;
-    public boolean start=true;
+    public  start strt = new start();
     public  File ff;
     public  RSyntaxTextArea area = new RSyntaxTextArea();
     public  JTextPane pane = new JTextPane();
@@ -78,7 +87,7 @@ IDE(String fname, String project, boolean istemp,int number){
     ff=new File(fname);
     projtype=project;
     istemplate=istemp;
-    start=false;
+    strt.state=false;
     num=number;
     SwingUtilities.invokeLater(() -> {
         try {
@@ -515,7 +524,8 @@ void comparetext(File f){
 
 
         run.addActionListener(e -> {
-            if (!start) {
+            if (!strt.state) {
+                WIZARD.ide.get(num).strt.state=true;
                 try {
                     try {
                         labXPanel.process(area.getText());
@@ -531,14 +541,14 @@ void comparetext(File f){
                 }
                 labXPanel.paintComponent(labXPanel.getGraphics());
                 run.setText("Stop");
-                start=true;
-                WIZARD.ide.get(num).start=true;
+
+
 
              } else{
                 run.setText("Run");
-                WIZARD.ide.get(num).start=false;
-                start=false;
-                labXPanel.t.interrupt();
+
+                WIZARD.ide.get(num).strt.state=false;
+               // labXPanel.t.interrupt();
             }
 
 

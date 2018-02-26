@@ -12,9 +12,9 @@ public class paraam {
         //force
         //String pattern = "var[ ]+[a-z]+[ ]+[:]+[ ]*force[ ]*[(][ ]*([A-Za-z0-9])+[ ]*[,][ ]*([A-Za-z0-9])+[ ]*[,][ ]*([A-Za-z0-9])+[ ]*[)][;]";
         //vector
-        String pattern = "var[ ]+[a-z]+[ ]+[:]+[ ]*vector[ ]*[(][ ]*([A-Za-z0-9])+[ ]*[,][ ]*([A-Za-z0-9])+[ ]*[,][ ]*([A-Za-z0-9])+[ ]*[)][;]";
-        Pattern r = Pattern.compile(pattern);
-        String s ="var  abc  :  vector (111,A23a,A32a);";
+      String   objpattrn ="var[ ]+[a-z]+[ ]+[:]+[ ]*object[ ]*[(][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([a-z]+)[ ]*[)][;]";
+        Pattern r = Pattern.compile(objpattrn);
+        String s ="var  abc  :  object (1,2,3,4,5,6,7,8,9,10,red);";
         Matcher m = r.matcher(s);
         if (m.matches()){
             System.out.println("Yes");

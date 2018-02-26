@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
  * Created by mikha on 23.02.2018.
  */
 public class Definizer {
-  static   String objpattrn ="var[ ]+[a-z]+[ ]+[:]+[ ]*object[ ]*[(][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[)][;]";
+  static  String   objpattrn ="var[ ]+[a-z]+[ ]+[:]+[ ]*object[ ]*[(][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([\"][a-z]+[\"])[ ]*[)][;]";
    static String forcepattrn  = "var[ ]+[a-z]+[ ]+[:]+[ ]*force[ ]*[(][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[)][;]";
    static String vectpattrn = "var[ ]+[a-z]+[ ]+[:]+[ ]*vector[ ]*[(][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[)][;]";
     public static class object{
@@ -23,11 +23,12 @@ public class Definizer {
         double ax;
         double ay;
         double az;
-        object(double m1,double x1,double y1,double z1,double vx1,double vy1,double vz1,double ax1,double ay1,double az1){
-            set(m1, x1, y1, z1, vx1, vy1, vz1, ax1, ay1, az1);
+        String color;
+        object(double m1,double x1,double y1,double z1,double vx1,double vy1,double vz1,double ax1,double ay1,double az1,String color1){
+            set(m1, x1, y1, z1, vx1, vy1, vz1, ax1, ay1, az1,color1);
         }
 
-        public void set(double m1,double x1,double y1,double z1,double vx1,double vy1,double vz1,double ax1,double ay1,double az1) {
+        public void set(double m1,double x1,double y1,double z1,double vx1,double vy1,double vz1,double ax1,double ay1,double az1,String color1) {
             m=m1;
             x=x1;
             y=y1;
@@ -38,6 +39,7 @@ public class Definizer {
             ax=ax1;
             ay=ay1;
             az=az1;
+            color=color1;
         }
     }
     public static class force{
@@ -87,6 +89,7 @@ public class Definizer {
                     ss = ss.replace(":", " ");
                     ss = ss.replace("var", " ");
                     ss = ss.replace("object", " ");
+                    //ss=ss.replace("\""," ");
                     StringTokenizer tok = new StringTokenizer(ss);
                     String name = tok.nextToken();
                     int m = Integer.valueOf(tok.nextToken());
@@ -99,7 +102,8 @@ public class Definizer {
                     int ax = Integer.valueOf(tok.nextToken());
                     int ay = Integer.valueOf(tok.nextToken());
                     int az = Integer.valueOf(tok.nextToken());
-                    object ob1 = new object(m, x, y, z, vx, vy, vz, ax, ay, az);
+                    String color = tok.nextToken();
+                    object ob1 = new object(m, x, y, z, vx, vy, vz, ax, ay, az,color);
                     ObjMap.put(name, ob1);
                     b = false;
 
@@ -164,12 +168,12 @@ public class Definizer {
         for (int i=0;i<ObjMap.values().size();i++){
             object o = (object) ObjMap.values().toArray()[i];
             String name = (String) ObjMap.keySet().toArray()[i];
-            String s1="var "+ name +"= new Object; "+name+".m="+o.m+"; "+name+".x="+o.x+"; "+name+".y="+o.y+"; "+name+".z="+o.z+"; "+name+".vx="+o.vx+"; "+name+".vy="+o.vy+"; "+name+".vz="+o.vz+"; "+name+".ax="+o.ax+"; "+name+".ay="+o.ay+"; "+name+".az="+o.az+"; ";
+            String s1="var "+ name +"= new Object; "+name+".m="+o.m+"; "+name+".x="+o.x+"; "+name+".y="+o.y+"; "+name+".z="+o.z+"; "+name+".vx="+o.vx+"; "+name+".vy="+o.vy+"; "+name+".vz="+o.vz+"; "+name+".ax="+o.ax+"; "+name+".ay="+o.ay+"; "+name+".az="+o.az+"; "+name+".color="+o.color+"; ";
             js+="\n"+s1;
         }
         js+= "var _d = new Date();\n" +
                 "var _time = _d.getTime();";
-        finprog=js+ "while (END) {"+str;
+        finprog=js+ "while (Running.get()) {"+str;
        //StringWriter.getBuffer().toString()
 
        finprog+="TUNIT.sleep(100); sw.flush(); pane.setText(sw.getBuffer()); pane.revalidate();";
@@ -188,7 +192,7 @@ public class Definizer {
            js2 += name + ".vx += " + name + ".ax*_dt;\n";
            js2 += name + ".vy += " + name + ".ay*_dt;\n";
            js2 += name + ".vz += " + name + ".az*_dt;\n";
-           String s1="ObjMap.get(\""+name+"\").set("+name+".m, " + name + ".x,"+name+".y,"+name+".z,"+name+".vx,"+name+".vy,"+name+".vz," + name + ".ax, "+name+".ay," +name+".az); ";
+           String s1="ObjMap.get(\""+name+"\").set("+name+".m, " + name + ".x,"+name+".y,"+name+".z,"+name+".vx,"+name+".vy,"+name+".vz," + name + ".ax, "+name+".ay," +name+".az,"+name+".color); ";
            js2+="\n"+s1;
        }
        finprog+=js2+" lab.updatePanel();}";

@@ -51,6 +51,7 @@ public class WIZARD {
         JPanel p = new JPanel();
         JTextField name = new JTextField(15);
         JButton ok  = new JButton("Ok");
+        creat.getRootPane().setDefaultButton(ok);
         JButton cancel = new JButton("Cancel");
         ok.setFont(new Font(Font.DIALOG,Font.BOLD,20));
         ok.setBackground(Color.BLUE);
@@ -111,6 +112,7 @@ public class WIZARD {
         JPanel p = new JPanel();
         JTextField name = new JTextField(15);
         JButton ok  = new JButton("Ok");
+        creat.getRootPane().setDefaultButton(ok);
         JButton cancel = new JButton("Cancel");
         ok.setFont(new Font(Font.DIALOG,Font.BOLD,20));
         ok.setBackground(Color.BLUE);
@@ -170,6 +172,7 @@ public class WIZARD {
         JPanel p = new JPanel();
         JTextField name = new JTextField(15);
         JButton ok  = new JButton("Ok");
+        creat.getRootPane().setDefaultButton(ok);
         JButton cancel = new JButton("Cancel");
         ok.setFont(new Font(Font.DIALOG,Font.BOLD,20));
         ok.setBackground(Color.BLUE);

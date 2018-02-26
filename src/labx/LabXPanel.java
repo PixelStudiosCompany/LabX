@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.lang.reflect.Field;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.StringTokenizer;
@@ -15,6 +16,26 @@ import java.util.concurrent.TimeUnit;
  * Created by mikha on 22.02.2018.
  */
 public class LabXPanel extends JPanel {
+    public static Color stringToColor(final String value) {
+        if (value == null) {
+            return Color.black;
+        }
+        try {
+            // get color by hex or octal value
+            return Color.decode(value);
+        } catch (NumberFormatException nfe) {
+            // if we can't decode lets try to get it by name
+            try {
+                // try to get a color by name using reflection
+                final Field f = Color.class.getField(value);
+
+                return (Color) f.get(null);
+            } catch (Exception ce) {
+                // if we can't get any color return black
+                return Color.black;
+            }
+        }
+    }
     int num=0;
     LabXPanel(int num){
         this.num=num;
@@ -76,8 +97,8 @@ String finproj;
 
         b.put("TUNIT", TimeUnit.MILLISECONDS);
         b.put("pane",WIZARD.ide.get(num).pane);
-        WIZARD.ide.get(num).start=true;
-        b.put("END",WIZARD.ide.get(num).start);
+        WIZARD.ide.get(num).strt.state=true;
+        b.put("Running",WIZARD.ide.get(num).strt);
         b.put("ObjMap",Definizer.ObjMap);
         b.put("lab",WIZARD.ide.get(num).labXPanel);
 
@@ -97,7 +118,12 @@ String finproj;
         g.setColor(c);
         for (int i=0;i<Definizer.ObjMap.values().size();i++){
           Definizer.object o = (Definizer.object) Definizer.ObjMap.values().toArray()[i];
-          g.draw3DRect((int)(o.x),(int)(o.y),100,100,true);
+          String s = o.color.replace("\"","");
+          Color cc =stringToColor(s);
+          g.setColor(cc);
+          g.fillOval((int)(o.x),(int)(o.y),100,100);
+          g.setColor(Color.BLACK);
+          g.drawOval((int)(o.x),(int)(o.y),100,100);
         }
 
     }
