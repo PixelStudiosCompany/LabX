@@ -172,7 +172,8 @@ public class Definizer {
        for (int i=0;i<ObjMap.values().size();i++){
            object o = (object) ObjMap.values().toArray()[i];
            String name = (String) ObjMap.keySet().toArray()[i];
-           String s1="ObjMap.keySet().toArray()["+i+"].m="+name+".m; "+" ObjMap.keySet().toArray()["+i+"].x="+name+".x; "+" ObjMap.keySet().toArray()["+i+"].y="+name+".y; "+" ObjMap.keySet().toArray()["+i+"].z="+name+".z; "+" ObjMap.keySet().toArray()["+i+"].vx="+name+".vx; "+" ObjMap.keySet().toArray()["+i+"].vy="+name+".vy; "+" ObjMap.keySet().toArray()["+i+"].vz="+name+".vz; "+" ObjMap.keySet().toArray()["+i+"].ax="+name+".ax; "+" ObjMap.keySet().toArray()["+i+"].ay="+name+".ay; "+" ObjMap.keySet().toArray()["+i+"].az="+name+".az; ";
+
+           String s1="ObjMap.get(\""+name+"\").m="+name+".m; "+" ObjMap.get(\"" + name + "\").x="+name+".x; "+" ObjMap.get(\"" + name + "\").y="+name+".y; "+" ObjMap.get(\"" + name + "\").z="+name+".z; "+" ObjMap.get(\"" + name + "\").vx="+name+".vx; "+" ObjMap.get(\"" + name + "\").vy="+name+".vy; "+" ObjMap.get(\"" + name + "\").vz="+name+".vz; "+" ObjMap.get(\"" + name + "\").ax="+name+".ax; "+" ObjMap.get(\"" + name + "\").ay="+name+".ay; "+" ObjMap.get(\"" + name + "\").az="+name+".az; ";
            js2+="\n"+s1;
        }
        finprog+=js2+"}";
