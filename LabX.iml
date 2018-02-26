@@ -9,5 +9,12 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="weblaf-complete-1.29" level="project" />
     <orderEntry type="library" name="rsyntaxtextarea" level="project" />
+    <orderEntry type="library" name="batik-all-1.9" level="project" />
+    <orderEntry type="library" name="batik-swing-1.9" level="project" />
+    <orderEntry type="library" name="batik-ext-1.9" level="project" />
+    <orderEntry type="library" name="batik-all-1.91" level="project" />
+    <orderEntry type="library" name="xml-apis-ext-1.3.04" level="project" />
+    <orderEntry type="library" name="xmlgraphics-commons-1.4" level="project" />
+    <orderEntry type="library" name="xmlgraphics-commons-2.2" level="project" />
   </component>
 </module>

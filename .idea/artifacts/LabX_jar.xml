@@ -11,6 +11,9 @@
       <element id="file-copy" path="$PROJECT_DIR$/Chinematics.png" />
       <element id="file-copy" path="$PROJECT_DIR$/Dynamics.png" />
       <element id="file-copy" path="$PROJECT_DIR$/Statics.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/dynamics.svg" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/chinematics.svg" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/statics.svg" />
     </root>
   </artifact>
 </component>

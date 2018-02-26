@@ -20,8 +20,10 @@ import org.fife.ui.rtextarea.RTextScrollPane;
 /**
  * Created by mikha on 08.03.2017.
  */
+
 public class IDE {
     public  boolean isinit = false;
+    public boolean start=true;
     public  File ff;
     public  RSyntaxTextArea area = new RSyntaxTextArea();
     public  JTextPane pane = new JTextPane();
@@ -34,6 +36,14 @@ public class IDE {
      String sav;
      String source;
      boolean istemplate;
+     LabXPanel labXPanel;
+     int num;
+    repaintThread t2;
+    class repaintThread extends Thread{
+        public void run(){
+            labXPanel.paintComponent(labXPanel.getGraphics());
+        }
+    }
     public  boolean isWindows() {
 
         String os = System.getProperty("os.name").toLowerCase();
@@ -64,10 +74,12 @@ public class IDE {
 
 
 
-IDE(String fname, String project, boolean istemp){
+IDE(String fname, String project, boolean istemp,int number){
     ff=new File(fname);
     projtype=project;
     istemplate=istemp;
+    start=false;
+    num=number;
     SwingUtilities.invokeLater(() -> {
         try {
             init();
@@ -197,12 +209,21 @@ void comparetext(File f){
             public void keyPressed(KeyEvent e) {
                 comparetext(ff);
                 frame.setTitle(title+sav);
+               /* try {
+                    labXPanel.process(area.getText());
+                } catch (ScriptException e1) {
+                    e1.printStackTrace();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+*/
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
                 comparetext(ff);
                 frame.setTitle(title+sav);
+               // labXPanel.t.interrupt();
             }
         });
 
@@ -239,7 +260,7 @@ void comparetext(File f){
         pane.setSelectionColor(Color.BLUE);
         pane.setForeground(Color.BLACK);
 
-        p1.add(menuBar, "North");
+        frame.add(menuBar, "North");
 
 
         //p1.add(pane, "South");
@@ -252,7 +273,7 @@ void comparetext(File f){
         area.setFont(fo);
        // left.setFont(fo1);
         frame.setFont(fo1);
-        pane.setFont(fo);
+        pane.setFont(fo1);
         menuBar.setFont(fo1);
         JSplitPane splitPane = new JSplitPane();
 
@@ -268,7 +289,8 @@ void comparetext(File f){
         JMenuItem copy = new JMenuItem("Copy");
         JMenuItem paste = new JMenuItem("Paste");
 
-        LabXPanel labXPanel = new LabXPanel();
+        labXPanel = new LabXPanel(num);
+        labXPanel.setBorder(BorderFactory.createSoftBevelBorder(2));
 
         jpu.add(cut);
         jpu.add(copy);
@@ -493,18 +515,32 @@ void comparetext(File f){
 
 
         run.addActionListener(e -> {
-            try {
+            if (!start) {
                 try {
-                    labXPanel.process(area.getText());
-                } catch (IOException e1) {
+                    try {
+                        labXPanel.process(area.getText());
+                        t2 = new repaintThread();
+                        t2.start();
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                    // pane.setText(labXPanel.engine.getContext().getWriter().toString());
+
+                } catch (ScriptException e1) {
                     e1.printStackTrace();
                 }
-               // pane.setText(labXPanel.engine.getContext().getWriter().toString());
+                labXPanel.paintComponent(labXPanel.getGraphics());
+                run.setText("Stop");
+                start=true;
+                WIZARD.ide.get(num).start=true;
 
-            } catch (ScriptException e1) {
-                e1.printStackTrace();
+             } else{
+                run.setText("Run");
+                WIZARD.ide.get(num).start=false;
+                start=false;
+                labXPanel.t.interrupt();
             }
-            labXPanel.paintComponent(labXPanel.getGraphics());
+
 
         });
 
@@ -620,17 +656,18 @@ void comparetext(File f){
             frame.setPreferredSize(new Dimension((int) screenSize.getWidth() / 2, (int) screenSize.getHeight() / 2));
 
             frame.setLocationByPlatform(true);
+        JScrollPane Scroll = new JScrollPane(pane);
+            JSplitPane pane2= new JSplitPane(JSplitPane.VERTICAL_SPLIT,labXPanel,Scroll);
 
-            JSplitPane pane2= new JSplitPane(JSplitPane.VERTICAL_SPLIT,labXPanel,pane);
         pane2.setOneTouchExpandable(true);
         pane2.setResizeWeight(0.85);
 
-            splitPane.setLeftComponent(p1);
+            splitPane.setLeftComponent(scrollPane);
             splitPane.setRightComponent(pane2);
         splitPane.setOneTouchExpandable(true);
         splitPane.setResizeWeight(0.5);
 
-        frame.add(splitPane);
+        frame.add(splitPane,"Center");
             frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
             frame.pack();
             frame.setVisible(true);
