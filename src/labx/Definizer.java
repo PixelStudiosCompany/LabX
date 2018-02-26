@@ -167,22 +167,27 @@ public class Definizer {
             String s1="var "+ name +"= new Object; "+name+".m="+o.m+"; "+name+".x="+o.x+"; "+name+".y="+o.y+"; "+name+".z="+o.z+"; "+name+".vx="+o.vx+"; "+name+".vy="+o.vy+"; "+name+".vz="+o.vz+"; "+name+".ax="+o.ax+"; "+name+".ay="+o.ay+"; "+name+".az="+o.az+"; ";
             js+="\n"+s1;
         }
+        js+= "var _d = new Date();\n" +
+                "var _time = _d.getTime();";
         finprog=js+ "while (END) {"+str;
        //StringWriter.getBuffer().toString()
 
        finprog+="TUNIT.sleep(100); sw.flush(); pane.setText(sw.getBuffer()); pane.revalidate();";
 
-       String js2="";
+       String js2="_d = new Date();\n" +
+               "var _dt = (_time - _d.getTime())/1000.0;\n" +
+               "var _dt205 = _dt*_dt/0.5;\n" +
+               "_time = _d.getTime();\n";
        for (int i=0;i<ObjMap.values().size();i++){
            object o = (object) ObjMap.values().toArray()[i];
            String name = (String) ObjMap.keySet().toArray()[i];
 
-           js2 += name + ".x += " + name + ".vx*0.1 +" + name + ".ax*0.1*0.1*0.5;\n";
-           js2 += name + ".y += " + name + ".vy*0.1 +" + name + ".ay*0.1*0.1*0.5;\n";
-           js2 += name + ".z += " + name + ".vz*0.1 +" + name + ".az*0.1*0.1*0.5;\n";
-           js2 += name + ".vx += " + name + ".ax*0.1;\n";
-           js2 += name + ".vy += " + name + ".ay*0.1;\n";
-           js2 += name + ".vz += " + name + ".az*0.1;\n";
+           js2 += name + ".x += " + name + ".vx*_dt +" + name + ".ax*_dt205;\n";
+           js2 += name + ".y += " + name + ".vy*_dt +" + name + ".ay*_dt205;\n";
+           js2 += name + ".z += " + name + ".vz*_dt +" + name + ".az*_dt205;\n";
+           js2 += name + ".vx += " + name + ".ax*_dt;\n";
+           js2 += name + ".vy += " + name + ".ay*_dt;\n";
+           js2 += name + ".vz += " + name + ".az*_dt;\n";
            String s1="ObjMap.get(\""+name+"\").set("+name+".m, " + name + ".x,"+name+".y,"+name+".z,"+name+".vx,"+name+".vy,"+name+".vz," + name + ".ax, "+name+".ay," +name+".az); ";
            js2+="\n"+s1;
        }
