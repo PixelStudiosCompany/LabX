@@ -97,7 +97,7 @@ String finproj;
         g.setColor(c);
         for (int i=0;i<Definizer.ObjMap.values().size();i++){
           Definizer.object o = (Definizer.object) Definizer.ObjMap.values().toArray()[i];
-          g.draw3DRect(o.x,o.y,100,100,true);
+          g.draw3DRect((int)(o.x),(int)(o.y),100,100,true);
         }
 
     }

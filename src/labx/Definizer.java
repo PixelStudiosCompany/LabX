@@ -13,30 +13,21 @@ public class Definizer {
    static String forcepattrn  = "var[ ]+[a-z]+[ ]+[:]+[ ]*force[ ]*[(][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[)][;]";
    static String vectpattrn = "var[ ]+[a-z]+[ ]+[:]+[ ]*vector[ ]*[(][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[)][;]";
     public static class object{
-        int m;
-        int x;
-        int y;
-        int z;
-        int vx;
-        int vy;
-        int vz;
-        int ax;
-        int ay;
-        int az;
-        object(int m1,int x1,int y1,int z1,int vx1,int vy1,int vz1,int ax1,int ay1,int az1){
-            m=m1;
-            x=x1;
-            y=y1;
-            z=z1;
-            vx=vx1;
-            vy=vy1;
-            vz=vz1;
-            ax=ax1;
-            ay=ay1;
-            az=az1;
+        double m;
+        double x;
+        double y;
+        double z;
+        double vx;
+        double vy;
+        double vz;
+        double ax;
+        double ay;
+        double az;
+        object(double m1,double x1,double y1,double z1,double vx1,double vy1,double vz1,double ax1,double ay1,double az1){
+            set(m1, x1, y1, z1, vx1, vy1, vz1, ax1, ay1, az1);
         }
 
-        public void set(int m1,int x1,int y1,int z1,int vx1,int vy1,int vz1,int ax1,int ay1,int az1) {
+        public void set(double m1,double x1,double y1,double z1,double vx1,double vy1,double vz1,double ax1,double ay1,double az1) {
             m=m1;
             x=x1;
             y=y1;
@@ -50,20 +41,20 @@ public class Definizer {
         }
     }
     public static class force{
-        int fx;
-        int fy;
-        int fz;
-        force(int fx1,int fy1,int fz1){
+        double fx;
+        double fy;
+        double fz;
+        force(double fx1,double fy1,double fz1){
             fx=fx1;
             fy=fy1;
             fz=fz1;
         }
     }
     public static class vector{
-        int vx;
-        int vy;
-        int vz;
-        vector(int vx1,int vy1,int vz1){
+        double vx;
+        double vy;
+        double vz;
+        vector(double vx1,double vy1,double vz1){
             vx=vx1;
             vy=vy1;
             vz=vz1;
