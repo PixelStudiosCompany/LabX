@@ -177,6 +177,12 @@ public class Definizer {
            object o = (object) ObjMap.values().toArray()[i];
            String name = (String) ObjMap.keySet().toArray()[i];
 
+           js2 += name + ".x += " + name + ".vx*0.1 +" + name + ".ax*0.1*0.1*0.5;\n";
+           js2 += name + ".y += " + name + ".vy*0.1 +" + name + ".ay*0.1*0.1*0.5;\n";
+           js2 += name + ".z += " + name + ".vz*0.1 +" + name + ".az*0.1*0.1*0.5;\n";
+           js2 += name + ".vx += " + name + ".ax*0.1;\n";
+           js2 += name + ".vy += " + name + ".ay*0.1;\n";
+           js2 += name + ".vz += " + name + ".az*0.1;\n";
            String s1="ObjMap.get(\""+name+"\").set("+name+".m, " + name + ".x,"+name+".y,"+name+".z,"+name+".vx,"+name+".vy,"+name+".vz," + name + ".ax, "+name+".ay," +name+".az); ";
            js2+="\n"+s1;
        }
