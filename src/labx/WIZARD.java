@@ -4,9 +4,7 @@ import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 import javafx.scene.web.WebView;
-import org.apache.batik.swing.*;
-import org.apache.batik.swing.svg.*;
-import sun.util.BuddhistCalendar;
+
 
 import javax.imageio.ImageIO;
 
