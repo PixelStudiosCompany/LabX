@@ -175,7 +175,7 @@ public class Definizer {
        finprog+="TUNIT.sleep(100); sw.flush(); pane.setText(sw.getBuffer()); pane.revalidate();";
 
        String js2="_d = new Date();\n" +
-               "var _dt = (_time - _d.getTime())/1000.0;\n" +
+               "var _dt = (_d.getTime() - _time)/1000.0;\n" +
                "var _dt205 = _dt*_dt/0.5;\n" +
                "_time = _d.getTime();\n";
        for (int i=0;i<ObjMap.values().size();i++){
