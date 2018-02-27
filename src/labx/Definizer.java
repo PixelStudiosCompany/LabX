@@ -70,13 +70,24 @@ public class Definizer {
         String str=s;
         boolean b=false;
        String ss="";
+       String kus="";
 
 
         while (!b){
             b=true;
+
+            int start =str.indexOf("/#");
+            int end= str.indexOf("#/",start);
+            if (start!=-1 && end!=-1) {
+                kus = str.substring(start, end);
+                str = str.replace(kus, " ");
+                str = str.replace("/#", "");
+                str = str.replace("#/", "");
+            }
+
             Pattern r = Pattern.compile(objpattrn);
-            int start=str.indexOf("var");
-            int end = str.indexOf(';');
+             start=str.indexOf("var");
+             end = str.indexOf(';');
             if (start!=-1 && end!=-1) {
                  ss = str.substring(start, end + 1);
               Matcher  ma = r.matcher(ss);
@@ -186,6 +197,10 @@ public class Definizer {
                     b = false;
                 }
             }
+
+
+
+
         }
 
         String js="";
@@ -210,6 +225,8 @@ public class Definizer {
             String s2=name+".ax="+name+".ax+"+fx/o.m+"; "+name+".ay="+name+".ay+"+fy/o.m+"; ";
             js+="\n"+s2;
         }
+if (kus.length()>=2)  kus=kus.substring(2);
+        js+=kus;
 
         js+= "var _d = new Date();\n" +
                 "var _time = _d.getTime();";

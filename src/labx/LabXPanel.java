@@ -67,6 +67,8 @@ public class LabXPanel extends JPanel {
                 engine.eval(finproj,b);
                 engine.getContext().getWriter().flush();
                 paintComponent(WIZARD.ide.get(num).labXPanel.getGraphics());
+                WIZARD.ide.get(num).pane.setText(String.valueOf(sw.getBuffer()));
+                WIZARD.ide.get(num).pane.revalidate();
             } catch (ScriptException e) {
                 e.printStackTrace();
                 WIZARD.ide.get(num).pane.setText(e.getMessage());
@@ -109,6 +111,8 @@ String finproj;
 
         t = new engineThread();
         t.start();
+
+
 
 
     }
