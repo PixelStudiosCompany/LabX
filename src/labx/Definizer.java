@@ -14,6 +14,9 @@ public class Definizer {
    static String forcepattrn  = "var[ ]+[a-zA-Z0-9]+[ ]*[:]+[ ]*force[ ]*[(][ ]*[+-]?([0-9]*[.])?[0-9]+[ ]*[,][ ]*[+-]?([0-9]*[.])?[0-9]+[ ]*[)][;]";
    static String vectpattrn = "var[ ]+[a-zA-Z0-9]+[ ]*[:]+[ ]*vector[ ]*[(][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[)][;]";
    static String forseandobj = "setforce[(]([ ]*)[a-zA-Z0-9]+([ ]*)[,]([ ]*)[a-zA-Z0-9]+([ ]*)[)][;]";
+
+   public static int w=0;
+   public static int h=0;
     public static class object{
         double m;
         double x;
@@ -66,18 +69,26 @@ public class Definizer {
    public static HashMap<String,force> ForceMap = new HashMap<>();
    public static HashMap<String,vector> VectMap = new HashMap<>();
    public static String finprog;
-   public static String Define(String s){
+   public static String Define(String s,int w1,int h1){
+       ObjMap = new HashMap<>();
+       ForceMap= new HashMap<>();
+       w=w1;
+       h=h1;
+
         String str=s;
         boolean b=false;
        String ss="";
        String kus="";
+       int start=0;
+       int end=0;
+       Pattern r;
 
 
         while (!b){
             b=true;
 
-            int start =str.indexOf("/#");
-            int end= str.indexOf("#/",start);
+            start =str.indexOf("/#");
+             end= str.indexOf("#/",start);
             if (start!=-1 && end!=-1) {
                 kus = str.substring(start, end);
                 str = str.replace(kus, " ");
@@ -85,7 +96,7 @@ public class Definizer {
                 str = str.replace("#/", "");
             }
 
-            Pattern r = Pattern.compile(objpattrn);
+             r = Pattern.compile(objpattrn);
              start=str.indexOf("var");
              end = str.indexOf(';');
             if (start!=-1 && end!=-1) {
@@ -174,10 +185,15 @@ public class Definizer {
 
                 }
             }
+        }
 
+        b=false;
+
+        while (!b){
+            b=true;
             r=Pattern.compile(forseandobj);
             start =str.indexOf("setforce");
-             end= str.indexOf(";",start);
+            end= str.indexOf(";",start);
 
 
             if (start!=-1 && end!=-1){
@@ -197,10 +213,6 @@ public class Definizer {
                     b = false;
                 }
             }
-
-
-
-
         }
 
         String js="";
@@ -240,6 +252,34 @@ if (kus.length()>=2)  kus=kus.substring(2);
                "var _dt = (_d.getTime() - _time)/1000.0;\n" +
                "var _dt205 = _dt*_dt/0.5;\n" +
                "_time = _d.getTime();\n"+str;
+
+        js2+="if(Running.getimpuls()){";
+       for (int i=0;i<ObjMap.values().size();i++){
+           object o =(object) ObjMap.values().toArray()[i];
+           String name = (String) ObjMap.keySet().toArray()[i];
+
+           for (int j=0;j<ObjMap.values().size();j++){
+               object o2 =(object) ObjMap.values().toArray()[j];
+               String name2 = (String) ObjMap.keySet().toArray()[j];
+
+               if (!o2.equals(o)){
+                   js2+="var _M="+"Math.sqrt(("+name+".x-"+name2+".x)*("+name+".x-"+name2+".x)+"+"("+name+".y-"+name2+".y)*("+name+".y-"+name2+".y));";
+                   js2+="if (_M <= "+w+"){";
+                   js2+=name+".ax=-"+name+".ax;";
+                   js2+=name+".ay=-"+name+".ay;";
+                   /*js2+=name2+".ax=-"+name2+".ax;";
+                   js2+=name2+".ay=-"+name2+".ay;";*/
+                   js2+=name+".vx=-"+name+".vx;\n";
+                   js2+=name+".vy=-"+name+".vy;\n";
+               /*    js2+=name2+".vx=-"+name2+".vx;\n";
+                   js2+=name2+".vy=-"+name2+".vy;\n";*/
+                   js2+="}";
+               }
+
+           }
+       }
+       js2+="}";
+
        for (int i=0;i<ObjMap.values().size();i++){
            object o = (object) ObjMap.values().toArray()[i];
            String name = (String) ObjMap.keySet().toArray()[i];
@@ -253,6 +293,10 @@ if (kus.length()>=2)  kus=kus.substring(2);
            String s1="ObjMap.get(\""+name+"\").set("+name+".m, " + name + ".x,"+name+".y,"+name+".vx,"+name+".vy," + name + ".ax, "+name+".ay," +name+".color); ";
            js2+="\n"+s1;
        }
+       //js2+="if (true) {";
+
+
+      // js2+="}";
        finprog+=js2+" lab.updatePanel();}";
 
         return str;

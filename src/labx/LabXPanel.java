@@ -20,6 +20,7 @@ public class LabXPanel extends JPanel {
     int h=50;
     int stroke=3;
     boolean enablegrid=false;
+    boolean enambler=false;
     public static Color stringToColor(final String value) {
         if (value == null) {
             return Color.black;
@@ -93,7 +94,7 @@ String finproj;
     ScriptEngine engine= new ScriptEngineManager().getEngineByName("js");
     Bindings b = new SimpleBindings();
     void process(String s) throws ScriptException, IOException {
-        s=Definizer.Define(s);
+        s=Definizer.Define(s,w,h);
 
         paintComponent(this.getGraphics());
         finproj=Definizer.finprog;
@@ -143,10 +144,10 @@ String finproj;
           String s = o.color.replace("\"","");
           Color cc =stringToColor(s);
           g.setColor(cc);
-          g.fillOval((int)(o.x),(int)(o.y),w,h);
+          g.fillOval((int)(o.x)-w/2,(int)(o.y)-h/2,w,h);
           g.setColor(Color.BLACK);
           g.setStroke(new BasicStroke(stroke));
-          g.drawOval((int)(o.x),(int)(o.y),w,h);
+          g.drawOval((int)(o.x)-w/2,(int)(o.y)-h/2,w,h);
 
 
           for (int j=0;j<o.forces.size();j++){
@@ -155,8 +156,34 @@ String finproj;
               Definizer.force f = o.forces.get(j);
               double xforce = f.fx;
               double yforce=f.fy;
-              double x = o.x;
-              double y=o.y;
+
+              if (xforce>0){
+                  xforce=Math.log(xforce);
+              } else{
+                  if (xforce<0){
+                      xforce=-Math.log(-xforce);
+                  } else{
+                      if (xforce==0){
+                          xforce=0;
+                      }
+                  }
+              }if (yforce>0){
+                  yforce=Math.log(yforce);
+              } else{
+                  if (yforce<0){
+                      yforce=-Math.log(-yforce);
+                  } else{
+                      if (yforce==0){
+                          yforce=0;
+                      }
+                  }
+              }
+              xforce=xforce*w/10;
+              yforce=yforce*h/10;
+
+
+              double x = o.x-w/2;
+              double y=o.y-h/2;
               int k = 5;
               double l = 5;
 
@@ -167,7 +194,7 @@ String finproj;
               double fx = -xforce / dl * k;
               double fy = -yforce / dl * k;
 
-              g.drawLine((int)Math.round(o.x + xforce + w / 2), (int)Math.round(o.y + yforce + h / 2), (int) Math.round(o.x + xforce + w / 2 - dlx + fx), (int) Math.round(o.y + yforce + h / 2 - dly + fy));
+              g.drawLine((int)Math.round(x + xforce + w / 2), (int)Math.round(y + yforce + h / 2), (int) Math.round(x + xforce + w / 2 - dlx + fx), (int) Math.round(y + yforce + h / 2 - dly + fy));
               g.drawLine((int)Math.round(x + xforce + w / 2),(int) Math.round(y + yforce + h / 2), (int) Math.round(x + xforce + w / 2 + dlx + fx), (int) Math.round(y + yforce + h / 2 + dly + fy));
               g.drawLine((int)(x + w / 2),(int)( y + h / 2), (int)(x + xforce + w / 2),(int)(y + yforce + h / 2));
               g.setStroke(st);

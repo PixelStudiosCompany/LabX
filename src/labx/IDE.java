@@ -25,12 +25,20 @@ import org.fife.ui.rtextarea.RTextScrollPane;
 public class IDE {
     public class  start{
         boolean state;
+        boolean isimpuls;
        public void set(boolean b){
             state=b;
         }
        public boolean get() {
             return state;
         }
+        public void setimpuls(boolean b){
+           isimpuls=b;
+        }
+        public boolean getimpuls(){
+            return isimpuls;
+        }
+
     }
     public  boolean isinit = false;
     public  start strt = new start();
@@ -443,7 +451,7 @@ void comparetext(File f){
 
                 JTextField f1 = new JTextField(area.getFont().getSize());
 
-                panel.setLayout(new GridLayout(5,2));
+                panel.setLayout(new GridLayout(6,2));
                 po.setLayout(new GridLayout(1,2));
                 po.add(ok);
                 po.add(cancel);
@@ -455,9 +463,11 @@ void comparetext(File f){
 
                 JLabel height = new JLabel("Objects height");
                 JLabel grid = new JLabel("Is grid enabled");
-
+                JLabel isbouncing = new JLabel("Enable impulse");
                 JCheckBox gridb =new JCheckBox();
+                JCheckBox impulse = new JCheckBox();
                 gridb.setSelected(labXPanel.enablegrid);
+                impulse.setSelected(WIZARD.ide.get(num).strt.isimpuls);
 
                 stroke.setFont(new Font(Font.DIALOG,Font.BOLD,20));
                 width.setFont(new Font(Font.DIALOG,Font.BOLD,20));
@@ -473,6 +483,7 @@ void comparetext(File f){
                 widthf.setFont(new Font(Font.DIALOG,Font.PLAIN,20));
                 heightf.setFont(new Font(Font.DIALOG,Font.PLAIN,20));
                 grid.setFont(new Font(Font.DIALOG,Font.BOLD,20));
+                isbouncing.setFont(new Font(Font.DIALOG,Font.BOLD,20));
 
                 panel.add(stroke);
                 panel.add(strokef);
@@ -482,14 +493,23 @@ void comparetext(File f){
                 panel.add(heightf);
                 panel.add(grid);
                 panel.add(gridb);
+                panel.add(isbouncing);
+                panel.add(impulse);
                 panel.add(ok);
                 panel.add(cancel);
+
 
 
                 gridb.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         labXPanel.enablegrid=gridb.isSelected();
+                    }
+                });
+                impulse.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        WIZARD.ide.get(num).strt.isimpuls=impulse.isSelected();
                     }
                 });
 
