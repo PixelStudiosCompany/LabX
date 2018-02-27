@@ -12,9 +12,9 @@ public class paraam {
         //force
         //String pattern = "var[ ]+[a-z]+[ ]+[:]+[ ]*force[ ]*[(][ ]*([A-Za-z0-9])+[ ]*[,][ ]*([A-Za-z0-9])+[ ]*[,][ ]*([A-Za-z0-9])+[ ]*[)][;]";
         //vector
-      String   objpattrn ="var[ ]+[a-z]+[ ]+[:]+[ ]*object[ ]*[(][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([a-z]+)[ ]*[)][;]";
+      String   objpattrn ="setforce[(]([ ]*)[a-zA-Z0-9]+([ ]*)[,]([ ]*)[a-zA-Z0-9]+([ ]*)[)][;]";
         Pattern r = Pattern.compile(objpattrn);
-        String s ="var  abc  :  object (1,2,3,4,5,6,7,8,9,10,red);";
+        String s ="setforce(a  ,b  );";
         Matcher m = r.matcher(s);
         if (m.matches()){
             System.out.println("Yes");

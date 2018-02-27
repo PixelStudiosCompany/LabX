@@ -1,4 +1,5 @@
 package labx;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 import java.util.Vector;
@@ -9,9 +10,10 @@ import java.util.regex.Pattern;
  * Created by mikha on 23.02.2018.
  */
 public class Definizer {
-  static  String   objpattrn ="var[ ]+[a-z]+[ ]+[:]+[ ]*object[ ]*[(][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([\"][a-z]+[\"])[ ]*[)][;]";
-   static String forcepattrn  = "var[ ]+[a-z]+[ ]+[:]+[ ]*force[ ]*[(][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[)][;]";
-   static String vectpattrn = "var[ ]+[a-z]+[ ]+[:]+[ ]*vector[ ]*[(][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[)][;]";
+  static  String   objpattrn ="var[ ]+[a-zA-Z0-9]+[ ]*[:]+[ ]*object[ ]*[(][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([\"][a-z]+[\"])[ ]*[)][;]";
+   static String forcepattrn  = "var[ ]+[a-zA-Z0-9]+[ ]*[:]+[ ]*force[ ]*[(][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[)][;]";
+   static String vectpattrn = "var[ ]+[a-zA-Z0-9]+[ ]*[:]+[ ]*vector[ ]*[(][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[,][ ]*([0-9])+[ ]*[)][;]";
+   static String forseandobj = "setforce[(]([ ]*)[a-zA-Z0-9]+([ ]*)[,]([ ]*)[a-zA-Z0-9]+([ ]*)[)][;]";
     public static class object{
         double m;
         double x;
@@ -23,9 +25,11 @@ public class Definizer {
         double ax;
         double ay;
         double az;
+        ArrayList<force> forces;
         String color;
         object(double m1,double x1,double y1,double z1,double vx1,double vy1,double vz1,double ax1,double ay1,double az1,String color1){
             set(m1, x1, y1, z1, vx1, vy1, vz1, ax1, ay1, az1,color1);
+            forces= new ArrayList<>();
         }
 
         public void set(double m1,double x1,double y1,double z1,double vx1,double vy1,double vz1,double ax1,double ay1,double az1,String color1) {
@@ -82,6 +86,7 @@ public class Definizer {
               Matcher  ma = r.matcher(ss);
                 if (ma.matches()) {
                     str = str.replace(ss, " ");
+                    str=str.replace("\n","");
                     ss = ss.replace(",", " ");
                     ss = ss.replace(";", " ");
                     ss = ss.replace("(", " ");
@@ -111,12 +116,13 @@ public class Definizer {
             }
             r = Pattern.compile(forcepattrn);
             start=str.indexOf("var");
-            end = str.indexOf(';');
+            end = str.indexOf(';',start);
             if (start!=-1 && end!=-1) {
                 ss = str.substring(start,end + 1);
              Matcher   ma = r.matcher(ss);
                 if (ma.matches()){
                     str =str.replace(ss," ");
+                    str=str.replace("\n","");
                     ss=ss.replace(","," ");
                     ss=ss.replace(";"," ");
                     ss=ss.replace("("," ");
@@ -138,12 +144,13 @@ public class Definizer {
 
              r = Pattern.compile(vectpattrn);
             start=str.indexOf("var");
-            end = str.indexOf(';');
+            end = str.indexOf(';',start);
             if (start!=-1 && end!=-1) {
                 ss = str.substring(start,end + 1);
               Matcher  ma = r.matcher(ss);
                 if (ma.matches()) {
                     str = str.replace(ss, " ");
+                    str=str.replace("\n","");
                     ss = ss.replace(",", " ");
                     ss = ss.replace(";", " ");
                     ss = ss.replace("(", " ");
@@ -162,15 +169,55 @@ public class Definizer {
 
                 }
             }
+
+            r=Pattern.compile(forseandobj);
+            start =str.indexOf("setforce");
+             end= str.indexOf(";",start);
+
+
+            if (start!=-1 && end!=-1){
+                ss =str.substring(start,end+1);
+                Matcher ma = r.matcher(ss);
+                if (ma.matches()) {
+                    str=str.replace(ss," ");
+                    ss=ss.replace("setforce"," ");
+                    ss=ss.replace("("," ");
+                    ss=ss.replace(")"," ");
+                    ss=ss.replace(";"," ");
+                    ss=ss.replace(","," ");
+                    StringTokenizer tok = new StringTokenizer(ss);
+                    String object = tok.nextToken();
+                    String force = tok.nextToken();
+                    ObjMap.get(object).forces.add(ForceMap.get(force));
+                    b = false;
+                }
+            }
         }
 
         String js="";
+       for (int i=0;i<ForceMap.values().size();i++){
+           force f = (force) ForceMap.values().toArray()[i];
+           String name = (String) ForceMap.keySet().toArray()[i];
+           String s1="var "+ name +"= new Object; "+name+".fx="+f.fx+"; "+name+".fy="+f.fy+"; "+name+".fz="+f.fz+"; ";
+           js+="\n"+s1;
+       }
         for (int i=0;i<ObjMap.values().size();i++){
             object o = (object) ObjMap.values().toArray()[i];
             String name = (String) ObjMap.keySet().toArray()[i];
             String s1="var "+ name +"= new Object; "+name+".m="+o.m+"; "+name+".x="+o.x+"; "+name+".y="+o.y+"; "+name+".z="+o.z+"; "+name+".vx="+o.vx+"; "+name+".vy="+o.vy+"; "+name+".vz="+o.vz+"; "+name+".ax="+o.ax+"; "+name+".ay="+o.ay+"; "+name+".az="+o.az+"; "+name+".color="+o.color+"; ";
             js+="\n"+s1;
+            double fx=0;
+            double fy=0;
+            double fz=0;
+            for (int j=0;j<o.forces.size();j++){
+                fx+=o.forces.get(j).fx;
+                fy+=o.forces.get(j).fy;
+                fz+=o.forces.get(j).fz;
+            }
+            String s2=name+".ax="+name+".ax+"+fx/o.m+"; "+name+".ay="+name+".ay+"+fy/o.m+"; "+name+".az="+name+".az+"+fz/o.m+"; ";
+            js+="\n"+s2;
         }
+
         js+= "var _d = new Date();\n" +
                 "var _time = _d.getTime();";
         finprog=js+ "while (Running.get()) {"+str;

@@ -16,6 +16,9 @@ import java.util.concurrent.TimeUnit;
  * Created by mikha on 22.02.2018.
  */
 public class LabXPanel extends JPanel {
+    int w=50;
+    int h=50;
+    int stroke=3;
     public static Color stringToColor(final String value) {
         if (value == null) {
             return Color.black;
@@ -110,7 +113,8 @@ String finproj;
     }
 
     @Override
-    protected void paintComponent(Graphics g){
+    protected void paintComponent(Graphics g2d){
+        Graphics2D g = (Graphics2D) g2d;
         super.paintComponent(g);
         Color c = g.getColor();
         g.setColor(Color.white);
@@ -121,9 +125,36 @@ String finproj;
           String s = o.color.replace("\"","");
           Color cc =stringToColor(s);
           g.setColor(cc);
-          g.fillOval((int)(o.x),(int)(o.y),100,100);
+          g.fillOval((int)(o.x),(int)(o.y),w,h);
           g.setColor(Color.BLACK);
-          g.drawOval((int)(o.x),(int)(o.y),100,100);
+          g.setStroke(new BasicStroke(stroke));
+          g.drawOval((int)(o.x),(int)(o.y),w,h);
+
+
+          for (int j=0;j<o.forces.size();j++){
+              Stroke st = g.getStroke();
+              g.setStroke(new BasicStroke(stroke+2));
+              Definizer.force f = o.forces.get(j);
+              double xforce = f.fx;
+              double yforce=f.fy;
+              double x = o.x;
+              double y=o.y;
+              int k = 5;
+              double l = 5;
+
+              double dl = Math.sqrt(xforce * xforce + yforce * yforce);
+
+              double dlx = (yforce / dl) * k;
+              double dly = -(xforce / dl) * k;
+              double fx = -xforce / dl * k;
+              double fy = -yforce / dl * k;
+
+              g.drawLine((int)Math.round(o.x + xforce + w / 2), (int)Math.round(o.y + yforce + h / 2), (int) Math.round(o.x + xforce + w / 2 - dlx + fx), (int) Math.round(o.y + yforce + h / 2 - dly + fy));
+              g.drawLine((int)Math.round(x + xforce + w / 2),(int) Math.round(y + yforce + h / 2), (int) Math.round(x + xforce + w / 2 + dlx + fx), (int) Math.round(y + yforce + h / 2 + dly + fy));
+              g.drawLine((int)(x + w / 2),(int)( y + h / 2), (int)(x + xforce + w / 2),(int)(y + yforce + h / 2));
+              g.setStroke(st);
+          }
+
         }
 
     }
