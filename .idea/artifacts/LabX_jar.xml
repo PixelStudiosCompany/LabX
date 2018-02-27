@@ -16,6 +16,8 @@
       <element id="file-copy" path="$PROJECT_DIR$/src/statics.svg" />
       <element id="file-copy" path="$PROJECT_DIR$/src/Kinematics.png" />
       <element id="file-copy" path="$PROJECT_DIR$/src/Statics2.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/LABXSPLASH.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/Statics.png" />
     </root>
   </artifact>
 </component>

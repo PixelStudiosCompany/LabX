@@ -93,6 +93,7 @@ IDE(String fname, String project, boolean istemp,int number,String template2){
     num=number;
     template=template2;
     area.setText(template);
+    area.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVASCRIPT);
     SwingUtilities.invokeLater(() -> {
         try {
             init();
@@ -210,7 +211,7 @@ void comparetext(File f){
 
         print.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_DOWN_MASK));
 
-        JMenuItem object = new JMenuItem("Objects",KeyEvent.VK_O);
+        JMenuItem object = new JMenuItem("Graphics",KeyEvent.VK_O);
         object.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,InputEvent.CTRL_DOWN_MASK));
 
 
@@ -286,11 +287,11 @@ void comparetext(File f){
         p2.add(area, "Center");
 
         Font fo = new Font("Century Gothic", Font.BOLD, 20);
-        Font fo1 = new Font("Century Gothic", Font.PLAIN, 20);
+        Font fo1 = new Font("Century Gothic", Font.PLAIN, 30);
         area.setFont(fo);
        // left.setFont(fo1);
         frame.setFont(fo1);
-        pane.setFont(fo1);
+        pane.setFont(new Font("Century Gothic", Font.BOLD, 20));
         menuBar.setFont(fo1);
         JSplitPane splitPane = new JSplitPane();
 
@@ -430,7 +431,7 @@ void comparetext(File f){
                     e1.printStackTrace();
                 }
                 ImageIcon icon = new ImageIcon(imgg);
-                JDialog jFrame = new JDialog(frame,"Object Settings");
+                JDialog jFrame = new JDialog(frame,"Graphics Settings");
                 JPanel panel = new JPanel();
                 JPanel po = new JPanel();
                 JButton ok = new JButton("Ok");
@@ -442,7 +443,7 @@ void comparetext(File f){
 
                 JTextField f1 = new JTextField(area.getFont().getSize());
 
-                panel.setLayout(new GridLayout(4,2));
+                panel.setLayout(new GridLayout(5,2));
                 po.setLayout(new GridLayout(1,2));
                 po.add(ok);
                 po.add(cancel);
@@ -453,6 +454,10 @@ void comparetext(File f){
                 JLabel width =new JLabel("Objects width");
 
                 JLabel height = new JLabel("Objects height");
+                JLabel grid = new JLabel("Is grid enabled");
+
+                JCheckBox gridb =new JCheckBox();
+                gridb.setSelected(labXPanel.enablegrid);
 
                 stroke.setFont(new Font(Font.DIALOG,Font.BOLD,20));
                 width.setFont(new Font(Font.DIALOG,Font.BOLD,20));
@@ -467,6 +472,7 @@ void comparetext(File f){
                 strokef.setFont(new Font(Font.DIALOG,Font.PLAIN,20));
                 widthf.setFont(new Font(Font.DIALOG,Font.PLAIN,20));
                 heightf.setFont(new Font(Font.DIALOG,Font.PLAIN,20));
+                grid.setFont(new Font(Font.DIALOG,Font.BOLD,20));
 
                 panel.add(stroke);
                 panel.add(strokef);
@@ -474,8 +480,18 @@ void comparetext(File f){
                 panel.add(widthf);
                 panel.add(height);
                 panel.add(heightf);
+                panel.add(grid);
+                panel.add(gridb);
                 panel.add(ok);
                 panel.add(cancel);
+
+
+                gridb.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        labXPanel.enablegrid=gridb.isSelected();
+                    }
+                });
 
 
                 jFrame.add(panel,"Center");

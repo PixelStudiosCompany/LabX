@@ -19,6 +19,7 @@ public class LabXPanel extends JPanel {
     int w=50;
     int h=50;
     int stroke=3;
+    boolean enablegrid=false;
     public static Color stringToColor(final String value) {
         if (value == null) {
             return Color.black;
@@ -125,6 +126,18 @@ String finproj;
         g.setColor(Color.white);
         g.fillRect(0,0,this.getWidth(),this.getHeight());
         g.setColor(c);
+        g.setStroke(new BasicStroke(2));
+        g.setFont(new Font(Font.DIALOG,Font.BOLD,20));
+        if (enablegrid){
+            for(int i=0;i<this.getWidth();i+=100){
+                if (i!=0) g.drawString(String.valueOf(i/100),i,20);
+                g.drawLine(i,0,i,this.getHeight());
+            }
+            for(int i=0;i<this.getHeight();i+=100){
+                if (i!=0)  g.drawString(String.valueOf(i/100),8,i);
+                g.drawLine(0,i,this.getWidth(),i);
+            }
+        }
         for (int i=0;i<Definizer.ObjMap.values().size();i++){
           Definizer.object o = (Definizer.object) Definizer.ObjMap.values().toArray()[i];
           String s = o.color.replace("\"","");
