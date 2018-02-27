@@ -12,6 +12,7 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
@@ -44,6 +45,7 @@ public class IDE {
      String title;
      String sav;
      String source;
+     String template;
      boolean istemplate;
      LabXPanel labXPanel;
      int num;
@@ -83,12 +85,14 @@ public class IDE {
 
 
 
-IDE(String fname, String project, boolean istemp,int number){
+IDE(String fname, String project, boolean istemp,int number,String template2){
     ff=new File(fname);
     projtype=project;
     istemplate=istemp;
     strt.state=false;
     num=number;
+    template=template2;
+    area.setText(template);
     SwingUtilities.invokeLater(() -> {
         try {
             init();
@@ -206,6 +210,9 @@ void comparetext(File f){
 
         print.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_DOWN_MASK));
 
+        JMenuItem object = new JMenuItem("Objects",KeyEvent.VK_O);
+        object.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,InputEvent.CTRL_DOWN_MASK));
+
 
         area.addKeyListener(new KeyListener() {
             @Override
@@ -254,6 +261,7 @@ void comparetext(File f){
         JMenuItem font = new JMenuItem("Font size");
 
         settings.add(font);
+        settings.add(object);
 
 
         menuBar.add(file);
@@ -316,6 +324,7 @@ void comparetext(File f){
         save.setFont(new Font(Font.DIALOG,Font.BOLD,20));
         font.setFont(new Font(Font.DIALOG,Font.BOLD,20));
         print.setFont(new Font(Font.DIALOG,Font.BOLD,20));
+        object.setFont(new Font(Font.DIALOG,Font.BOLD,20));
 
         area.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVASCRIPT);
         area.setHighlightCurrentLine(false);
@@ -372,6 +381,7 @@ void comparetext(File f){
                 GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
                 String fontNames[] = environment.getAvailableFontFamilyNames();
                 JComboBox l1 = new JComboBox();
+                jFrame.setLocation(frame.getX()+frame.getWidth()/2-jFrame.getWidth()/2,frame.getY()+frame.getHeight()/2-jFrame.getHeight()/2);
                 l1.setFont(new Font(Font.DIALOG,Font.BOLD,20));
                 l1.setEditable(true);
                 f1.setText(Integer.toString(area.getFont().getSize()));
@@ -403,6 +413,84 @@ void comparetext(File f){
                 jFrame.pack();
 
                 jFrame.setVisible(true);
+            }
+        });
+
+        object.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                BufferedImage imgg = null;
+                try {
+                    imgg = ImageIO.read(IDE.class.getClassLoader().getResource("ico.png"));
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                ImageIcon icon = new ImageIcon(imgg);
+                JDialog jFrame = new JDialog(frame,"Object Settings");
+                JPanel panel = new JPanel();
+                JPanel po = new JPanel();
+                JButton ok = new JButton("Ok");
+                JButton cancel = new JButton("Cancel");
+
+
+                jFrame.setPreferredSize(new Dimension(frame.getWidth()/4,frame.getHeight()/5));
+                jFrame.setLocation(frame.getX()+frame.getWidth()/2-jFrame.getWidth()/2,frame.getY()+frame.getHeight()/2-jFrame.getHeight()/2);
+
+                JTextField f1 = new JTextField(area.getFont().getSize());
+
+                panel.setLayout(new GridLayout(4,2));
+                po.setLayout(new GridLayout(1,2));
+                po.add(ok);
+                po.add(cancel);
+                jFrame.getRootPane().setDefaultButton(ok);
+
+                JLabel stroke = new JLabel("Lines width");
+
+                JLabel width =new JLabel("Objects width");
+
+                JLabel height = new JLabel("Objects height");
+
+                stroke.setFont(new Font(Font.DIALOG,Font.BOLD,20));
+                width.setFont(new Font(Font.DIALOG,Font.BOLD,20));
+                height.setFont(new Font(Font.DIALOG,Font.BOLD,20));
+
+                JTextField strokef = new JTextField(String.valueOf(labXPanel.stroke));
+
+                JTextField widthf = new JTextField(String.valueOf(labXPanel.w));
+
+                JTextField heightf = new JTextField(String.valueOf(labXPanel.h));
+
+                strokef.setFont(new Font(Font.DIALOG,Font.PLAIN,20));
+                widthf.setFont(new Font(Font.DIALOG,Font.PLAIN,20));
+                heightf.setFont(new Font(Font.DIALOG,Font.PLAIN,20));
+
+                panel.add(stroke);
+                panel.add(strokef);
+                panel.add(width);
+                panel.add(widthf);
+                panel.add(height);
+                panel.add(heightf);
+                panel.add(ok);
+                panel.add(cancel);
+
+
+                jFrame.add(panel,"Center");
+                //jFrame.add(po,"South");
+
+                jFrame.pack();
+                jFrame.setVisible(true);
+
+
+
+                ok.addActionListener(e15 -> {
+                    labXPanel.stroke = Integer.valueOf(strokef.getText());
+                    labXPanel.w = Integer.valueOf(widthf.getText());
+                    labXPanel.h = Integer.valueOf(heightf.getText());
+                    jFrame.setVisible(false);
+                });
+                cancel.addActionListener(e16 -> {
+                    jFrame.setVisible(false);
+                });
             }
         });
 
