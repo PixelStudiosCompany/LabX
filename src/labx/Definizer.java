@@ -217,7 +217,7 @@ public class Definizer {
                 "TIME = _dt;";
        //StringWriter.getBuffer().toString()
 
-       finprog+="TUNIT.sleep(100); sw.flush(); pane.setText(sw.getBuffer()); pane.revalidate();";
+       finprog+="TUNIT.sleep(100); sw.flush(); pane.setCaretPosition(pane.getDocument().getLength()); pane.setText(sw.getBuffer());  pane.revalidate();";
 
        String js2="_d = new Date();\n" +
                "var _dt = (_d.getTime() - _time)/1000.0;\n" +

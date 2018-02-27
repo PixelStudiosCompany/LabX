@@ -342,7 +342,7 @@ void comparetext(File f){
                 jFrame.setIconImage(icon);
                 jFrame.setPreferredSize(new Dimension(520, 420));
                 JTextArea l = new JTextArea();
-                l.setFont(new Font("Times New Roman",Font.PLAIN,15));
+                l.setFont(new Font("Times New Roman",Font.PLAIN,20));
                 l.setEditable(false);
                 InputStream stream = IDE.class.getResourceAsStream("LICENSE.TXT");
                 BufferedInputStream inFile = new BufferedInputStream(stream);
@@ -357,7 +357,11 @@ void comparetext(File f){
                     e1.printStackTrace();
                 }
                 l.setText(s);
-                jFrame.add(new JScrollPane(l));
+                l.setCaretPosition(0);
+                JScrollPane p =new JScrollPane(l);
+                p.getVerticalScrollBar().setValue(0);
+                p.getHorizontalScrollBar().setValue(0);
+                jFrame.add(p);
                 jFrame.pack();
                 jFrame.setVisible(true);
 
@@ -759,6 +763,8 @@ void comparetext(File f){
 
         pane2.setOneTouchExpandable(true);
         pane2.setResizeWeight(0.85);
+        pane2.setDividerSize(15);
+        splitPane.setDividerSize(15);
 
             splitPane.setLeftComponent(scrollPane);
             splitPane.setRightComponent(pane2);
