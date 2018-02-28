@@ -16,6 +16,7 @@ import java.io.*;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.fife.ui.rtextarea.RTextScrollPane;
@@ -108,6 +109,8 @@ public class IDE {
         template = template2;
         area.setText(template);
         area.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVASCRIPT);
+
+
         SwingUtilities.invokeLater(() -> {
             try {
                 init();
@@ -139,7 +142,7 @@ public class IDE {
             title = "LabX v0.1 [" + f.getName() + "]";
             frame.setTitle(title);
 
-            pane.setText("STATUS: Coming soon...");
+           // pane.setText("STATUS: Coming soon...");
             frame.repaint();
         }
     }
@@ -191,38 +194,38 @@ public class IDE {
         JMenuBar menuBar = new JMenuBar();
 
 
-        JMenu file = new JMenu("File");
+        JMenu file = new JMenu("Файл");
 
-        JMenu help = new JMenu("Help");
+        JMenu help = new JMenu("Помощь");
 
-        JMenu tocode = new JMenu("To Code...");
+        //JMenu tocode = new JMenu("To Code...");
 
-        JMenu settings = new JMenu("Settings");
+        JMenu settings = new JMenu("Настройки");
 
 
         area.setForeground(Color.BLACK);
 
 
-        JButton run = new JButton("Run");
+        JButton run = new JButton("Запуск");
 
 
-        JMenuItem open = new JMenuItem("Open file", KeyEvent.VK_O);
+        JMenuItem open = new JMenuItem("Открыть проект", KeyEvent.VK_O);
 
         open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));
-        JMenuItem create = new JMenuItem("Create file", KeyEvent.VK_N);
+        JMenuItem create = new JMenuItem("Создать проект", KeyEvent.VK_N);
 
         create.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK));
-        JMenuItem save = new JMenuItem("Save file", KeyEvent.VK_S);
+        JMenuItem save = new JMenuItem("Сохранить проект", KeyEvent.VK_S);
 
         save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK));
-        JMenuItem info = new JMenuItem("Info", KeyEvent.VK_I);
+        JMenuItem info = new JMenuItem("Информация", KeyEvent.VK_I);
 
         info.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.CTRL_DOWN_MASK));
-        JMenuItem print = new JMenuItem("Print", KeyEvent.VK_P);
+        JMenuItem print = new JMenuItem("Печать", KeyEvent.VK_P);
 
         print.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_DOWN_MASK));
 
-        JMenuItem object = new JMenuItem("Graphics", KeyEvent.VK_O);
+        JMenuItem object = new JMenuItem("Настройки движка", KeyEvent.VK_O);
         object.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));
 
 
@@ -256,7 +259,7 @@ public class IDE {
         });
 
 
-        JMenuItem licensing = new JMenuItem("License");
+        JMenuItem licensing = new JMenuItem("Лицензия");
 
 
         JFileChooser chooser = new JFileChooser();
@@ -270,7 +273,7 @@ public class IDE {
         help.add(info);
         help.add(licensing);
 
-        JMenuItem font = new JMenuItem("Font size");
+        JMenuItem font = new JMenuItem("Размер шрифта");
 
         settings.add(font);
         settings.add(object);
@@ -285,7 +288,7 @@ public class IDE {
 
 
         pane.setEditable(false);
-        pane.setText("STATUS: Coming soon...");
+        //pane.setText("STATUS: Coming soon...");
         pane.setSelectionColor(Color.BLUE);
         pane.setForeground(Color.BLACK);
 
@@ -344,7 +347,7 @@ public class IDE {
         licensing.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFrame jFrame = new JFrame("License");
+                JFrame jFrame = new JFrame("Лицензия");
                 BufferedImage icon = null;
                 try {
                     icon = ImageIO.read(IDE.class.getClassLoader().getResource("ico.png"));
@@ -390,7 +393,7 @@ public class IDE {
                     e1.printStackTrace();
                 }
                 ImageIcon icon = new ImageIcon(imgg);
-                JFrame jFrame = new JFrame("Font size");
+                JFrame jFrame = new JFrame("Размер шрифта");
                 JPanel panel = new JPanel();
                 JPanel po = new JPanel();
                 JTextField f1 = new JTextField(area.getFont().getSize());
@@ -405,7 +408,7 @@ public class IDE {
                 for (int i = 0; i < fontNames.length; i++) {
                     l1.addItem(fontNames[i]);
                 }
-                JMenuItem button = new JMenuItem("Apply");
+                JMenuItem button = new JMenuItem("Подтвердить");
                 button.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
 
                 panel.setLayout(new BorderLayout());
@@ -442,11 +445,11 @@ public class IDE {
                     e1.printStackTrace();
                 }
                 ImageIcon icon = new ImageIcon(imgg);
-                JDialog jFrame = new JDialog(frame, "Graphics Settings");
+                JDialog jFrame = new JDialog(frame, "Настройки движка");
                 JPanel panel = new JPanel();
                 JPanel po = new JPanel();
                 JButton ok = new JButton("Ok");
-                JButton cancel = new JButton("Cancel");
+                JButton cancel = new JButton("Отмена");
 
 
                 jFrame.setPreferredSize(new Dimension(frame.getWidth() / 4, frame.getHeight() / 5));
@@ -460,13 +463,13 @@ public class IDE {
                 po.add(cancel);
                 jFrame.getRootPane().setDefaultButton(ok);
 
-                JLabel stroke = new JLabel("Lines width");
+                JLabel stroke = new JLabel("Ширина линий");
 
-                JLabel width = new JLabel("Objects width");
+                JLabel width = new JLabel("Ширина объектов");
 
-                JLabel height = new JLabel("Objects height");
-                JLabel grid = new JLabel("Is grid enabled");
-                JLabel isbouncing = new JLabel("Enable impulse");
+                JLabel height = new JLabel("Высота объектов");
+                JLabel grid = new JLabel("Координатная сетка");
+                JLabel isbouncing = new JLabel("Взаимодействие объектов");
                 JCheckBox gridb = new JCheckBox();
                 JCheckBox impulse = new JCheckBox();
                 gridb.setSelected(labXPanel.enablegrid);
@@ -610,11 +613,11 @@ public class IDE {
                 char c = ' ';
                 int i = 0;
 
-                pane.setText("STATUS: saving");
-                chooser.setDialogTitle("Save file");
+                //pane.setText("STATUS: saving");
+                chooser.setDialogTitle("Сохранить проект");
                 //chooser.setSelectedFile(new File(ff.getName()));
 
-                pane.setText("STATUS: Coming soon...");
+               // pane.setText("STATUS: Coming soon...");
                 String s = "";
 
 
@@ -664,7 +667,7 @@ public class IDE {
 
             }
             if (ff == null) {
-                JOptionPane.showMessageDialog(frame, "Please, create or choose a file!");
+                JOptionPane.showMessageDialog(frame, "Пожалуйста, создайте или выберите проект!");
             }
         });
 
@@ -686,11 +689,11 @@ public class IDE {
                     e1.printStackTrace();
                 }
                 labXPanel.paintComponent(labXPanel.getGraphics());
-                run.setText("Stop");
+                run.setText("Стоп");
 
 
             } else {
-                run.setText("Run");
+                run.setText("Запуск");
 
                 WIZARD.ide.get(num).strt.state = false;
                 // labXPanel.t.interrupt();
@@ -703,7 +706,7 @@ public class IDE {
         create.addActionListener(e -> {
             if (e.getSource() == create) {
                 JDialog creat = new JDialog();
-                creat.setTitle("Create new file");
+                creat.setTitle("Создать новый проект");
                 BufferedImage imgg = null;
                 try {
                     imgg = ImageIO.read(IDE.class.getClassLoader().getResource("ico.png"));
@@ -716,7 +719,7 @@ public class IDE {
                 JPanel p = new JPanel();
                 JTextField name = new JTextField(15);
                 JButton ok = new JButton("Ok");
-                JButton cancel = new JButton("Cancel");
+                JButton cancel = new JButton("Отмена");
                 ok.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
                 ok.setBackground(Color.BLUE);
                 name.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
@@ -741,7 +744,7 @@ public class IDE {
                                 creat.setVisible(false);
                                 creat.dispose();
                             } else {
-                                JOptionPane.showMessageDialog(frame, "Please, type a valid name of the file!");
+                                JOptionPane.showMessageDialog(frame, "Пожалуйста, введите корректное название проекта!");
                             }
 
                         }
@@ -761,7 +764,7 @@ public class IDE {
 
 
         info.addActionListener((ActionEvent e) -> {
-            JFrame F = new JFrame("Info");
+            JFrame F = new JFrame("Информация");
             //Some information about LabX
             JFXPanel pane1 = new JFXPanel();
             //HTMLEditorKit kit  =new HTMLEditorKit();
@@ -837,7 +840,7 @@ public class IDE {
                     creat.setPreferredSize(new Dimension(300, 100));
                     JPanel p = new JPanel();
                     JButton ok = new JButton("Ok");
-                    JButton cancel = new JButton("Cancel");
+                    JButton cancel = new JButton("Отмена");
                     ok.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
                     ok.setBackground(Color.BLUE);
                     cancel.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
@@ -865,8 +868,8 @@ public class IDE {
                                     } catch (IOException e1) {
                                         e1.printStackTrace();
                                     }
-                                    chooser.setDialogTitle("Save file");
-                                    chooser.setApproveButtonText("Open");
+                                    chooser.setDialogTitle("Сохранить проект");
+                                    chooser.setApproveButtonText("Сохранить");
                                     //chooser.setSelectedFile(new File(ff.getName()));
                                     int approw = chooser.showSaveDialog(null);
 
@@ -893,8 +896,8 @@ public class IDE {
                                     //chooser.setVisible(false);
                                 } else {
                                     chooser.setSelectedFile(ff);
-                                    chooser.setDialogTitle("Save file");
-                                    chooser.setApproveButtonText("Open");
+                                    chooser.setDialogTitle("Сохранить проект");
+                                    chooser.setApproveButtonText("Сохранить");
                                     //chooser.setSelectedFile(new File(ff.getName()));
                                     chooser.setCurrentDirectory(new File(ff.getParent()));
                                     int approw = chooser.showSaveDialog(null);

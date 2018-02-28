@@ -34,10 +34,12 @@ public class Definizer {
         double oay;
         double ovx;
         double ovy;
+        String name;
         ArrayList<force> forces;
         String color;
 
-        object(double m1, double x1, double y1, double vx1, double vy1, double ax1, double ay1, String color1) {
+        object(double m1, double x1, double y1, double vx1, double vy1, double ax1, double ay1, String color1,String name1) {
+            name=name1;
             set(m1, x1, y1, vx1, vy1, ax1, ay1, color1);
             forces = new ArrayList<>();
         }
@@ -67,10 +69,12 @@ public class Definizer {
     public static class force {
         double fx;
         double fy;
+        String name;
 
-        force(double fx1, double fy1) {
+        force(double fx1, double fy1,String name1) {
             fx = fx1;
             fy = fy1;
+            name=name1;
         }
     }
 
@@ -146,7 +150,7 @@ public class Definizer {
                     double ay = Double.valueOf(tok.nextToken());
                     // int az = Integer.valueOf(tok.nextToken());
                     String color = tok.nextToken();
-                    object ob1 = new object(m, x, y, vx, vy, ax, ay, color);
+                    object ob1 = new object(m, x, y, vx, vy, ax, ay, color,name);
                     ObjMap.put(name, ob1);
                     b = false;
 
@@ -172,7 +176,7 @@ public class Definizer {
                     String name = tok.nextToken();
                     double fx = Double.valueOf(tok.nextToken());
                     double fy = Double.valueOf(tok.nextToken());
-                    force for1 = new force(fx, fy);
+                    force for1 = new force(fx, fy,name);
                     ForceMap.put(name, for1);
                     b = false;
 

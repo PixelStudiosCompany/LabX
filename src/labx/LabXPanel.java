@@ -24,6 +24,12 @@ public class LabXPanel extends JPanel {
     boolean enambler = false;
 
     public static Color stringToColor(final String value) {
+        if (value.equals("darkgray")){
+            return Color.darkGray;
+        }
+        if (value.equals("lightgray")){
+            return Color.lightGray;
+        }
         if (value == null) {
             return Color.black;
         }
@@ -131,9 +137,20 @@ public class LabXPanel extends JPanel {
         g.setColor(Color.white);
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
         g.setColor(c);
-        g.setStroke(new BasicStroke(2));
+
         g.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
         if (enablegrid) {
+            Color cc = g.getColor();
+            g.setColor(Color.lightGray);
+            g.setStroke(new BasicStroke(1));
+            for (int i = 0; i < this.getWidth(); i += 10) {
+                g.drawLine(i, 0, i, this.getHeight());
+            }
+            for (int i = 0; i < this.getHeight(); i += 10) {
+                g.drawLine(0, i, this.getWidth(), i);
+            }
+            g.setStroke(new BasicStroke(2));
+            g.setColor(cc);
             for (int i = 0; i < this.getWidth(); i += 100) {
                 if (i != 0) g.drawString(String.valueOf(i / 100), i, 20);
                 g.drawLine(i, 0, i, this.getHeight());
@@ -152,6 +169,8 @@ public class LabXPanel extends JPanel {
             g.setColor(Color.BLACK);
             g.setStroke(new BasicStroke(stroke));
             g.drawOval((int) (o.x) - w / 2, (int) (o.y) - h / 2, w, h);
+
+            g.drawString(o.name,(int)(o.x),(int)(o.y+w));
 
 
             for (int j = 0; j < o.forces.size(); j++) {
@@ -183,8 +202,8 @@ public class LabXPanel extends JPanel {
                         }
                     }
                 }
-                xforce = xforce * w / 10;
-                yforce = yforce * h / 10;
+                xforce = xforce * w / 9;
+                yforce = yforce * h / 9;
 
 
                 double x = o.x - w / 2;
@@ -202,6 +221,7 @@ public class LabXPanel extends JPanel {
                 g.drawLine((int) Math.round(x + xforce + w / 2), (int) Math.round(y + yforce + h / 2), (int) Math.round(x + xforce + w / 2 - dlx + fx), (int) Math.round(y + yforce + h / 2 - dly + fy));
                 g.drawLine((int) Math.round(x + xforce + w / 2), (int) Math.round(y + yforce + h / 2), (int) Math.round(x + xforce + w / 2 + dlx + fx), (int) Math.round(y + yforce + h / 2 + dly + fy));
                 g.drawLine((int) (x + w / 2), (int) (y + h / 2), (int) (x + xforce + w / 2), (int) (y + yforce + h / 2));
+                g.drawString(o.forces.get(j).name,(int) (x + xforce + w / 2)+10, (int) (y + yforce + h / 2)+10);
                 g.setStroke(st);
             }
 
