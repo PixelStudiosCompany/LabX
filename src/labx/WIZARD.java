@@ -1,15 +1,23 @@
 package labx;
 import com.alee.laf.WebLookAndFeel;
+import com.chrisrm.idea.MTLaf;
+import com.chrisrm.idea.MTLightLaf;
+import com.chrisrm.idea.MTThemes;
+import com.chrisrm.idea.themes.MTThemeable;
+import de.javasoft.plaf.synthetica.SyntheticaPlainLookAndFeel;
+import de.javasoft.plaf.synthetica.SyntheticaWhiteVisionLookAndFeel;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 import javafx.scene.web.WebView;
+import mdlaf.MaterialLookAndFeel;
 
 
 import javax.imageio.ImageIO;
 
 
 import javax.swing.*;
+import javax.swing.plaf.synth.SynthLookAndFeel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,8 +30,10 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+import de.javasoft.*;
 
 
 /**
@@ -284,10 +294,12 @@ public class WIZARD {
     static void init() throws UnsupportedLookAndFeelException{
         frame= new JFrame("LabX v0.1");
         try {
-            UIManager.setLookAndFeel(new WebLookAndFeel());
+
+            UIManager.setLookAndFeel (new WebLookAndFeel());
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
+
         Image im3=null;
         Image im4=null;
         Image im5=null;

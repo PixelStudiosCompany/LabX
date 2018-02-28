@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="material-theme-jetbrains-1.8.2.2">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/material-theme-jetbrains-1.8.2.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

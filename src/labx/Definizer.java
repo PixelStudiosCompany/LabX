@@ -28,6 +28,10 @@ public class Definizer {
         double ax;
         double ay;
         double az;
+        double oax;
+        double oay;
+        double ovx;
+        double ovy;
         ArrayList<force> forces;
         String color;
         object(double m1,double x1,double y1,double vx1,double vy1,double ax1,double ay1,String color1){
@@ -47,6 +51,12 @@ public class Definizer {
             ay=ay1;
           //  az=az1;
             color=color1;
+        }
+        public void setold(){
+            oax=ax;
+            oay=ay;
+            ovx=vx;
+            ovy=vy;
         }
     }
     public static class force{
@@ -70,8 +80,8 @@ public class Definizer {
    public static HashMap<String,vector> VectMap = new HashMap<>();
    public static String finprog;
    public static String Define(String s,int w1,int h1){
-       ObjMap = new HashMap<>();
-       ForceMap= new HashMap<>();
+       ObjMap.clear();
+       ForceMap.clear();
        w=w1;
        h=h1;
 
@@ -225,7 +235,7 @@ public class Definizer {
         for (int i=0;i<ObjMap.values().size();i++){
             object o = (object) ObjMap.values().toArray()[i];
             String name = (String) ObjMap.keySet().toArray()[i];
-            String s1="var "+ name +"= new Object; "+name+".m="+o.m+"; "+name+".x="+o.x+"; "+name+".y="+o.y+"; "+name+".vx="+o.vx+"; "+name+".vy="+o.vy+"; "+name+".ax="+o.ax+"; "+name+".ay="+o.ay+"; "+name+".color="+o.color+"; ";
+            String s1="var "+ name +"= new Object; "+name+".m="+o.m+"; "+name+".x="+o.x+"; "+name+".y="+o.y+"; "+name+".vx="+o.vx+"; "+name+".vy="+o.vy+"; "+name+".ax="+o.ax+"; "+name+".ay="+o.ay+"; "+name+".color="+o.color+"; "+name+".ovx="+o.vx+"; "+name+".ovy="+o.vy+"; "+name+".oax="+o.ax+"; "+name+".oay="+o.ay;
             js+="\n"+s1;
             double fx=0;
             double fy=0;
@@ -244,6 +254,11 @@ if (kus.length()>=2)  kus=kus.substring(2);
                 "var _time = _d.getTime();";
         finprog=js+ "while (Running.get()) {"+
                 "TIME = _dt;";
+       for (int i=0;i<ObjMap.values().size();i++) {
+           object o = (object) ObjMap.values().toArray()[i];
+           String name = (String) ObjMap.keySet().toArray()[i];
+           finprog+="\nObjMap.get(\""+name+"\").setold();";
+       }
        //StringWriter.getBuffer().toString()
 
        finprog+="TUNIT.sleep(100); sw.flush(); pane.setCaretPosition(pane.getDocument().getLength()); pane.setText(sw.getBuffer());  pane.revalidate();";
@@ -265,15 +280,19 @@ if (kus.length()>=2)  kus=kus.substring(2);
                if (!o2.equals(o)){
                    js2+="var _M="+"Math.sqrt(("+name+".x-"+name2+".x)*("+name+".x-"+name2+".x)+"+"("+name+".y-"+name2+".y)*("+name+".y-"+name2+".y));";
                    js2+="if (_M <= "+w+"){";
-                   js2+=name+".ax=-"+name+".ax;";
-                   js2+=name+".ay=-"+name+".ay;";
+                   js2+=name+".ax=("+name+".ax*"+name+".m-"+name2+".m*"+name2+".oax)/"+name2+".m;\n";
+                   js2+=name+".ay=("+name+".ay*"+name+".m-"+name2+".m*"+name2+".oay)/"+name2+".m;\n";
                    /*js2+=name2+".ax=-"+name2+".ax;";
                    js2+=name2+".ay=-"+name2+".ay;";*/
-                   js2+=name+".vx=-"+name+".vx;\n";
-                   js2+=name+".vy=-"+name+".vy;\n";
+                   js2+=name+".vx=(("+name+".m-"+name2+".m)"+"*"+name+".vx+"+"2*"+name2+".m*"+name2+".ovx)/("+name+".m+"+name2+".m);"+"\n";
+                   js2+=name+".vy=(("+name+".m-"+name2+".m)"+"*"+name+".vy+"+"2*"+name2+".m*"+name2+".ovy)/("+name+".m+"+name2+".m);"+"\n";
                /*    js2+=name2+".vx=-"+name2+".vx;\n";
                    js2+=name2+".vy=-"+name2+".vy;\n";*/
                    js2+="}";
+                   js2+="if("+name+".x+"+w/2+">lab.getWidth()) {"+name+".vx=-"+name+".vx;"+name+".ax=-"+name+".ax;}";
+                   js2+="if("+name+".x-"+w/2+"<0) {"+name+".vx=-"+name+".vx;"+name+".ax=-"+name+".ax;}";
+                   js2+="if("+name+".y+"+h/2+">lab.getHeight()) {"+name+".vy=-"+name+".vy;"+name+".ay=-"+name+".ay;}";
+                   js2+="if("+name+".y-"+h/2+"<0) {"+name+".vy=-"+name+".vy;"+name+".ay=-"+name+".ay;}";
                }
 
            }

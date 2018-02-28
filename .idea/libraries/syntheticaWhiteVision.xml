@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="syntheticaWhiteVision">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/syntheticaWhiteVision.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

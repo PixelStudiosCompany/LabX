@@ -9,5 +9,9 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="weblaf-complete-1.29" level="project" />
     <orderEntry type="library" name="rsyntaxtextarea" level="project" />
+    <orderEntry type="library" name="material-ui-swing (1)" level="project" />
+    <orderEntry type="library" name="material-theme-jetbrains-1.8.2.2" level="project" />
+    <orderEntry type="library" name="syntheticaPlain" level="project" />
+    <orderEntry type="library" name="syntheticaWhiteVision" level="project" />
   </component>
 </module>

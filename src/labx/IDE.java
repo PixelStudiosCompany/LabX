@@ -597,7 +597,15 @@ void comparetext(File f){
 
         save.addActionListener(e -> {
             if (e.getSource() == save && ff!=null) {
-                    String name = "";
+                File U = new File("");
+                try {
+                    ff.createNewFile();
+                    chooser.setSelectedFile(ff);
+                    U=ff;
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                String name = "";
                     char c = ' ';
                     int i = 0;
 
@@ -621,13 +629,20 @@ void comparetext(File f){
 
                     int res = chooser.showSaveDialog(chooser);
                     if (res == JFileChooser.APPROVE_OPTION) {
-                        ff = chooser.getSelectedFile();
+                      //  ff = chooser.getSelectedFile();
+                        File uu=chooser.getCurrentDirectory();
+                        s=uu.getAbsolutePath()+"/";
                         sub = ff.getName().lastIndexOf(".");
                         okn = ".labx";
                         if (sub > 0) {
                             ff = new File(s + ff.getName().substring(0, sub) + okn);
                         } else ff = new File(s + ff.getName() + okn);
                         PrintWriter w1 = null;
+                        try {
+                            ff.createNewFile();
+                        } catch (IOException e1) {
+                            e1.printStackTrace();
+                        }
                         try {
                             // System.out.println(ff.getAbsolutePath());
                             ff.createNewFile();
@@ -640,7 +655,11 @@ void comparetext(File f){
                         } catch (IOException e1) {
                             e1.printStackTrace();
                         }
+                        ff=chooser.getSelectedFile();
+                        issaved=true;
+
                     }
+
 
             }
             if (ff==null){
@@ -853,6 +872,15 @@ void comparetext(File f){
                                 JFileChooser chooser = new JFileChooser();
                                 if (!ff.exists()){
                                     //File ff=null;
+                                    File U = new File("");
+                                    try {
+
+                                        ff.createNewFile();
+                                        U=ff;
+                                        chooser.setSelectedFile(ff);
+                                    } catch (IOException e1) {
+                                        e1.printStackTrace();
+                                    }
                                     chooser.setDialogTitle("Save file");
                                     chooser.setApproveButtonText("Open");
                                     //chooser.setSelectedFile(new File(ff.getName()));
@@ -875,9 +903,12 @@ void comparetext(File f){
                                             e1.printStackTrace();
                                         }
                                         //chooser.setVisible(false);
+                                        U.delete();
+                                        issaved=true;
                                     }
                                     //chooser.setVisible(false);
                                 } else{
+                                    chooser.setSelectedFile(ff);
                                     chooser.setDialogTitle("Save file");
                                     chooser.setApproveButtonText("Open");
                                     //chooser.setSelectedFile(new File(ff.getName()));
