@@ -1,9 +1,11 @@
 package labx;
+
 import com.alee.laf.WebLookAndFeel;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 import javafx.scene.web.WebView;
+
 import javax.imageio.ImageIO;
 import javax.script.ScriptException;
 import javax.swing.*;
@@ -23,47 +25,54 @@ import org.fife.ui.rtextarea.RTextScrollPane;
  */
 
 public class IDE {
-    public class  start{
+    public class start {
         boolean state;
         boolean isimpuls;
-       public void set(boolean b){
-            state=b;
+
+        public void set(boolean b) {
+            state = b;
         }
-       public boolean get() {
+
+        public boolean get() {
             return state;
         }
-        public void setimpuls(boolean b){
-           isimpuls=b;
+
+        public void setimpuls(boolean b) {
+            isimpuls = b;
         }
-        public boolean getimpuls(){
+
+        public boolean getimpuls() {
             return isimpuls;
         }
 
     }
-    public  boolean isinit = false;
-    public  start strt = new start();
-    public  File ff;
-    public  RSyntaxTextArea area = new RSyntaxTextArea();
-    public  JTextPane pane = new JTextPane();
-    public  boolean isreading = false;
+
+    public boolean isinit = false;
+    public start strt = new start();
+    public File ff;
+    public RSyntaxTextArea area = new RSyntaxTextArea();
+    public JTextPane pane = new JTextPane();
+    public boolean isreading = false;
     boolean issaved;
-    public  JPanel p2 = new JPanel();
-     JFrame frame = new JFrame("LabX v0.1");
-     String projtype;
-     String title;
-     String sav;
-     String source;
-     String template;
-     boolean istemplate;
-     LabXPanel labXPanel;
-     int num;
+    public JPanel p2 = new JPanel();
+    JFrame frame = new JFrame("LabX v0.1");
+    String projtype;
+    String title;
+    String sav;
+    String source;
+    String template;
+    boolean istemplate;
+    LabXPanel labXPanel;
+    int num;
     repaintThread t2;
-    class repaintThread extends Thread{
-        public void run(){
+
+    class repaintThread extends Thread {
+        public void run() {
             labXPanel.paintComponent(labXPanel.getGraphics());
         }
     }
-    public  boolean isWindows() {
+
+    public boolean isWindows() {
 
         String os = System.getProperty("os.name").toLowerCase();
         //windows
@@ -71,14 +80,14 @@ public class IDE {
 
     }
 
-    public  boolean isMac() {
+    public boolean isMac() {
         String os = System.getProperty("os.name").toLowerCase();
         //Mac
         return (os.indexOf("mac") >= 0);
 
     }
 
-    public  boolean isUnix() {
+    public boolean isUnix() {
 
         String os = System.getProperty("os.name").toLowerCase();
         //linux or unix
@@ -87,76 +96,75 @@ public class IDE {
     }
 
 
-     String action = "";
+    String action = "";
 
 
-
-
-
-IDE(String fname, String project, boolean istemp,int number,String template2){
-    ff=new File(fname);
-    projtype=project;
-    istemplate=istemp;
-    strt.state=false;
-    num=number;
-    template=template2;
-    area.setText(template);
-    area.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVASCRIPT);
-    SwingUtilities.invokeLater(() -> {
-        try {
-            init();
-
-        } catch (UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-        }
-    });
-}
-public void LoadTextFromFile(File f){
-    if (f != null) {
-        area.setEditable(true);
-        if (f.exists()) {
+    IDE(String fname, String project, boolean istemp, int number, String template2) {
+        ff = new File(fname);
+        projtype = project;
+        istemplate = istemp;
+        strt.state = false;
+        num = number;
+        template = template2;
+        area.setText(template);
+        area.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVASCRIPT);
+        SwingUtilities.invokeLater(() -> {
             try {
-                Scanner s = new Scanner(new File(f.getAbsolutePath()));
-                String str = "";
-                while (s.hasNext()) {
-                    str += s.nextLine() + "\n";
+                init();
+
+            } catch (UnsupportedLookAndFeelException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public void LoadTextFromFile(File f) {
+        if (f != null) {
+            area.setEditable(true);
+            if (f.exists()) {
+                try {
+                    Scanner s = new Scanner(new File(f.getAbsolutePath()));
+                    String str = "";
+                    while (s.hasNext()) {
+                        str += s.nextLine() + "\n";
+                    }
+                    if (str.length() > 0) str = str.substring(0, str.length() - 1);
+                    area.setText(str);
+                    source = str;
+                } catch (FileNotFoundException e1) {
+                    e1.printStackTrace();
                 }
-                if (str.length() > 0) str = str.substring(0, str.length() - 1);
-                area.setText(str);
-                source=str;
-            } catch (FileNotFoundException e1) {
-                e1.printStackTrace();
             }
-        }
-        isreading = false;
-        title="LabX v0.1 [" + f.getName() + "]";
-        frame.setTitle(title);
+            isreading = false;
+            title = "LabX v0.1 [" + f.getName() + "]";
+            frame.setTitle(title);
 
-        pane.setText("STATUS: Coming soon...");
-        frame.repaint();
-    }
-}
-
-void comparetext(File f){
-    if (f.length()!=area.getText().length()){
-        issaved=false;
-        sav="*";
-    } else{
-        boolean b =true;
-        for (int i=0;i<f.length();i++){
-            if (source.toCharArray()[i]!=area.getText().toCharArray()[i]){
-                issaved=false;
-                sav="*";
-                b=false;
-                break;
-            }
-        }
-        if (b) {
-            issaved = true;
-            sav = "";
+            pane.setText("STATUS: Coming soon...");
+            frame.repaint();
         }
     }
-}
+
+    void comparetext(File f) {
+        if (f.length() != area.getText().length()) {
+            issaved = false;
+            sav = "*";
+        } else {
+            boolean b = true;
+            for (int i = 0; i < f.length(); i++) {
+                if (source.toCharArray()[i] != area.getText().toCharArray()[i]) {
+                    issaved = false;
+                    sav = "*";
+                    b = false;
+                    break;
+                }
+            }
+            if (b) {
+                issaved = true;
+                sav = "";
+            }
+        }
+    }
+
     public void init() throws UnsupportedLookAndFeelException {
         UIManager.setLookAndFeel(new WebLookAndFeel());
         try {
@@ -183,8 +191,6 @@ void comparetext(File f){
         JMenuBar menuBar = new JMenuBar();
 
 
-
-
         JMenu file = new JMenu("File");
 
         JMenu help = new JMenu("Help");
@@ -195,9 +201,6 @@ void comparetext(File f){
 
 
         area.setForeground(Color.BLACK);
-
-
-
 
 
         JButton run = new JButton("Run");
@@ -219,21 +222,21 @@ void comparetext(File f){
 
         print.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_DOWN_MASK));
 
-        JMenuItem object = new JMenuItem("Graphics",KeyEvent.VK_O);
-        object.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,InputEvent.CTRL_DOWN_MASK));
+        JMenuItem object = new JMenuItem("Graphics", KeyEvent.VK_O);
+        object.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));
 
 
         area.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-              comparetext(ff);
-              frame.setTitle(title+sav);
+                comparetext(ff);
+                frame.setTitle(title + sav);
             }
 
             @Override
             public void keyPressed(KeyEvent e) {
                 comparetext(ff);
-                frame.setTitle(title+sav);
+                frame.setTitle(title + sav);
                /* try {
                     labXPanel.process(area.getText());
                 } catch (ScriptException e1) {
@@ -247,8 +250,8 @@ void comparetext(File f){
             @Override
             public void keyReleased(KeyEvent e) {
                 comparetext(ff);
-                frame.setTitle(title+sav);
-               // labXPanel.t.interrupt();
+                frame.setTitle(title + sav);
+                // labXPanel.t.interrupt();
             }
         });
 
@@ -258,7 +261,7 @@ void comparetext(File f){
 
         JFileChooser chooser = new JFileChooser();
 
-       // file.add(open);
+        // file.add(open);
         file.add(save);
         file.add(create);
         file.add(print);
@@ -297,14 +300,14 @@ void comparetext(File f){
         Font fo = new Font("Century Gothic", Font.BOLD, 20);
         Font fo1 = new Font("Century Gothic", Font.PLAIN, 30);
         area.setFont(fo);
-       // left.setFont(fo1);
+        // left.setFont(fo1);
         frame.setFont(fo1);
         pane.setFont(new Font("Century Gothic", Font.BOLD, 20));
         menuBar.setFont(fo1);
         JSplitPane splitPane = new JSplitPane();
 
-        RTextScrollPane scrollPane = new RTextScrollPane(area,true,Color.BLACK);
-        scrollPane.setFont(new Font(Font.DIALOG,Font.BOLD,25));
+        RTextScrollPane scrollPane = new RTextScrollPane(area, true, Color.BLACK);
+        scrollPane.setFont(new Font(Font.DIALOG, Font.BOLD, 25));
 
         p1.add(scrollPane, "Center");
 
@@ -322,18 +325,18 @@ void comparetext(File f){
         jpu.add(copy);
         jpu.add(paste);
 
-       help.setFont(new Font(Font.DIALOG,Font.BOLD,20));
-        file.setFont(new Font(Font.DIALOG,Font.BOLD,20));
-        run.setFont(new Font(Font.DIALOG,Font.BOLD,20));
-        settings.setFont(new Font(Font.DIALOG,Font.BOLD,20));
-        info.setFont(new Font(Font.DIALOG,Font.BOLD,20));
-        licensing.setFont(new Font(Font.DIALOG,Font.BOLD,20));
-        open.setFont(new Font(Font.DIALOG,Font.BOLD,20));
-        create.setFont(new Font(Font.DIALOG,Font.BOLD,20));
-        save.setFont(new Font(Font.DIALOG,Font.BOLD,20));
-        font.setFont(new Font(Font.DIALOG,Font.BOLD,20));
-        print.setFont(new Font(Font.DIALOG,Font.BOLD,20));
-        object.setFont(new Font(Font.DIALOG,Font.BOLD,20));
+        help.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+        file.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+        run.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+        settings.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+        info.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+        licensing.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+        open.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+        create.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+        save.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+        font.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+        print.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+        object.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
 
         area.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVASCRIPT);
         area.setHighlightCurrentLine(false);
@@ -351,7 +354,7 @@ void comparetext(File f){
                 jFrame.setIconImage(icon);
                 jFrame.setPreferredSize(new Dimension(520, 420));
                 JTextArea l = new JTextArea();
-                l.setFont(new Font("Times New Roman",Font.PLAIN,20));
+                l.setFont(new Font("Times New Roman", Font.PLAIN, 20));
                 l.setEditable(false);
                 InputStream stream = IDE.class.getResourceAsStream("LICENSE.TXT");
                 BufferedInputStream inFile = new BufferedInputStream(stream);
@@ -367,7 +370,7 @@ void comparetext(File f){
                 }
                 l.setText(s);
                 l.setCaretPosition(0);
-                JScrollPane p =new JScrollPane(l);
+                JScrollPane p = new JScrollPane(l);
                 p.getVerticalScrollBar().setValue(0);
                 p.getHorizontalScrollBar().setValue(0);
                 jFrame.add(p);
@@ -394,8 +397,8 @@ void comparetext(File f){
                 GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
                 String fontNames[] = environment.getAvailableFontFamilyNames();
                 JComboBox l1 = new JComboBox();
-                jFrame.setLocation(frame.getX()+frame.getWidth()/2-jFrame.getWidth()/2,frame.getY()+frame.getHeight()/2-jFrame.getHeight()/2);
-                l1.setFont(new Font(Font.DIALOG,Font.BOLD,20));
+                jFrame.setLocation(frame.getX() + frame.getWidth() / 2 - jFrame.getWidth() / 2, frame.getY() + frame.getHeight() / 2 - jFrame.getHeight() / 2);
+                l1.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
                 l1.setEditable(true);
                 f1.setText(Integer.toString(area.getFont().getSize()));
                 l1.addItem(area.getFont().getFamily());
@@ -403,7 +406,7 @@ void comparetext(File f){
                     l1.addItem(fontNames[i]);
                 }
                 JMenuItem button = new JMenuItem("Apply");
-                button.setFont(new Font(Font.DIALOG,Font.BOLD,20));
+                button.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
 
                 panel.setLayout(new BorderLayout());
                 po.setLayout(new BorderLayout());
@@ -439,39 +442,39 @@ void comparetext(File f){
                     e1.printStackTrace();
                 }
                 ImageIcon icon = new ImageIcon(imgg);
-                JDialog jFrame = new JDialog(frame,"Graphics Settings");
+                JDialog jFrame = new JDialog(frame, "Graphics Settings");
                 JPanel panel = new JPanel();
                 JPanel po = new JPanel();
                 JButton ok = new JButton("Ok");
                 JButton cancel = new JButton("Cancel");
 
 
-                jFrame.setPreferredSize(new Dimension(frame.getWidth()/4,frame.getHeight()/5));
-                jFrame.setLocation(frame.getX()+frame.getWidth()/2-jFrame.getWidth()/2,frame.getY()+frame.getHeight()/2-jFrame.getHeight()/2);
+                jFrame.setPreferredSize(new Dimension(frame.getWidth() / 4, frame.getHeight() / 5));
+                jFrame.setLocation(frame.getX() + frame.getWidth() / 2 - jFrame.getWidth() / 2, frame.getY() + frame.getHeight() / 2 - jFrame.getHeight() / 2);
 
                 JTextField f1 = new JTextField(area.getFont().getSize());
 
-                panel.setLayout(new GridLayout(6,2));
-                po.setLayout(new GridLayout(1,2));
+                panel.setLayout(new GridLayout(6, 2));
+                po.setLayout(new GridLayout(1, 2));
                 po.add(ok);
                 po.add(cancel);
                 jFrame.getRootPane().setDefaultButton(ok);
 
                 JLabel stroke = new JLabel("Lines width");
 
-                JLabel width =new JLabel("Objects width");
+                JLabel width = new JLabel("Objects width");
 
                 JLabel height = new JLabel("Objects height");
                 JLabel grid = new JLabel("Is grid enabled");
                 JLabel isbouncing = new JLabel("Enable impulse");
-                JCheckBox gridb =new JCheckBox();
+                JCheckBox gridb = new JCheckBox();
                 JCheckBox impulse = new JCheckBox();
                 gridb.setSelected(labXPanel.enablegrid);
                 impulse.setSelected(WIZARD.ide.get(num).strt.isimpuls);
 
-                stroke.setFont(new Font(Font.DIALOG,Font.BOLD,20));
-                width.setFont(new Font(Font.DIALOG,Font.BOLD,20));
-                height.setFont(new Font(Font.DIALOG,Font.BOLD,20));
+                stroke.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+                width.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+                height.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
 
                 JTextField strokef = new JTextField(String.valueOf(labXPanel.stroke));
 
@@ -479,11 +482,11 @@ void comparetext(File f){
 
                 JTextField heightf = new JTextField(String.valueOf(labXPanel.h));
 
-                strokef.setFont(new Font(Font.DIALOG,Font.PLAIN,20));
-                widthf.setFont(new Font(Font.DIALOG,Font.PLAIN,20));
-                heightf.setFont(new Font(Font.DIALOG,Font.PLAIN,20));
-                grid.setFont(new Font(Font.DIALOG,Font.BOLD,20));
-                isbouncing.setFont(new Font(Font.DIALOG,Font.BOLD,20));
+                strokef.setFont(new Font(Font.DIALOG, Font.PLAIN, 20));
+                widthf.setFont(new Font(Font.DIALOG, Font.PLAIN, 20));
+                heightf.setFont(new Font(Font.DIALOG, Font.PLAIN, 20));
+                grid.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+                isbouncing.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
 
                 panel.add(stroke);
                 panel.add(strokef);
@@ -499,27 +502,25 @@ void comparetext(File f){
                 panel.add(cancel);
 
 
-
                 gridb.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        labXPanel.enablegrid=gridb.isSelected();
+                        labXPanel.enablegrid = gridb.isSelected();
                     }
                 });
                 impulse.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        WIZARD.ide.get(num).strt.isimpuls=impulse.isSelected();
+                        WIZARD.ide.get(num).strt.isimpuls = impulse.isSelected();
                     }
                 });
 
 
-                jFrame.add(panel,"Center");
+                jFrame.add(panel, "Center");
                 //jFrame.add(po,"South");
 
                 jFrame.pack();
                 jFrame.setVisible(true);
-
 
 
                 ok.addActionListener(e15 -> {
@@ -596,83 +597,81 @@ void comparetext(File f){
         });*/
 
         save.addActionListener(e -> {
-            if (e.getSource() == save && ff!=null) {
+            if (e.getSource() == save && ff != null) {
                 File U = new File("");
                 try {
                     ff.createNewFile();
                     chooser.setSelectedFile(ff);
-                    U=ff;
+                    U = ff;
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
                 String name = "";
-                    char c = ' ';
-                    int i = 0;
+                char c = ' ';
+                int i = 0;
 
-                    pane.setText("STATUS: saving");
-                    chooser.setDialogTitle("Save file");
-                    //chooser.setSelectedFile(new File(ff.getName()));
+                pane.setText("STATUS: saving");
+                chooser.setDialogTitle("Save file");
+                //chooser.setSelectedFile(new File(ff.getName()));
 
-                    pane.setText("STATUS: Coming soon...");
-                    String s = "";
+                pane.setText("STATUS: Coming soon...");
+                String s = "";
 
 
-                    int sub = ff.getName().lastIndexOf(".");
-                    String okn = ".labx";
+                int sub = ff.getName().lastIndexOf(".");
+                String okn = ".labx";
 
+                if (sub > 0) {
+                    ff = new File(s + ff.getName().substring(0, sub) + okn);
+                } else ff = new File(s + ff.getName() + okn);
+                System.out.println(ff.getName());
+                chooser.setSelectedFile(new File(ff.getAbsolutePath()));
+                chooser.setDialogType(JFileChooser.SAVE_DIALOG);
+
+                int res = chooser.showSaveDialog(chooser);
+                if (res == JFileChooser.APPROVE_OPTION) {
+                    //  ff = chooser.getSelectedFile();
+                    File uu = chooser.getCurrentDirectory();
+                    s = uu.getAbsolutePath() + "/";
+                    sub = ff.getName().lastIndexOf(".");
+                    okn = ".labx";
                     if (sub > 0) {
                         ff = new File(s + ff.getName().substring(0, sub) + okn);
                     } else ff = new File(s + ff.getName() + okn);
-                    System.out.println(ff.getName());
-                    chooser.setSelectedFile(new File(ff.getAbsolutePath()));
-                    chooser.setDialogType(JFileChooser.SAVE_DIALOG);
-
-                    int res = chooser.showSaveDialog(chooser);
-                    if (res == JFileChooser.APPROVE_OPTION) {
-                      //  ff = chooser.getSelectedFile();
-                        File uu=chooser.getCurrentDirectory();
-                        s=uu.getAbsolutePath()+"/";
-                        sub = ff.getName().lastIndexOf(".");
-                        okn = ".labx";
-                        if (sub > 0) {
-                            ff = new File(s + ff.getName().substring(0, sub) + okn);
-                        } else ff = new File(s + ff.getName() + okn);
-                        PrintWriter w1 = null;
-                        try {
-                            ff.createNewFile();
-                        } catch (IOException e1) {
-                            e1.printStackTrace();
-                        }
-                        try {
-                            // System.out.println(ff.getAbsolutePath());
-                            ff.createNewFile();
-                            w1 = new PrintWriter(ff.getAbsoluteFile());
-                            w1.print(area.getText());
-                            w1.flush();
-                            w1.close();
-                        } catch (FileNotFoundException e1) {
-                            e1.printStackTrace();
-                        } catch (IOException e1) {
-                            e1.printStackTrace();
-                        }
-                        ff=chooser.getSelectedFile();
-                        issaved=true;
-
+                    PrintWriter w1 = null;
+                    try {
+                        ff.createNewFile();
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
                     }
+                    try {
+                        // System.out.println(ff.getAbsolutePath());
+                        ff.createNewFile();
+                        w1 = new PrintWriter(ff.getAbsoluteFile());
+                        w1.print(area.getText());
+                        w1.flush();
+                        w1.close();
+                    } catch (FileNotFoundException e1) {
+                        e1.printStackTrace();
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                    ff = chooser.getSelectedFile();
+                    issaved = true;
+
+                }
 
 
             }
-            if (ff==null){
-                JOptionPane.showMessageDialog(frame,"Please, create or choose a file!");
+            if (ff == null) {
+                JOptionPane.showMessageDialog(frame, "Please, create or choose a file!");
             }
         });
 
 
-
-
         run.addActionListener(e -> {
             if (!strt.state) {
-                WIZARD.ide.get(num).strt.state=true;
+                WIZARD.ide.get(num).strt.state = true;
                 try {
                     try {
                         labXPanel.process(area.getText());
@@ -690,146 +689,131 @@ void comparetext(File f){
                 run.setText("Stop");
 
 
-
-             } else{
+            } else {
                 run.setText("Run");
 
-                WIZARD.ide.get(num).strt.state=false;
-               // labXPanel.t.interrupt();
+                WIZARD.ide.get(num).strt.state = false;
+                // labXPanel.t.interrupt();
             }
 
 
         });
 
 
-
-
-
-
-
-            create.addActionListener(e -> {
-                if (e.getSource() == create) {
-                    JDialog creat = new JDialog();
-                    creat.setTitle("Create new file");
-                    BufferedImage imgg = null;
-                    try {
-                        imgg = ImageIO.read(IDE.class.getClassLoader().getResource("ico.png"));
-                        ImageIcon icon = new ImageIcon(imgg);
-                        creat.setIconImage(icon.getImage());
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
-                    creat.setPreferredSize(new Dimension(300,120));
-                    JPanel p = new JPanel();
-                    JTextField name = new JTextField(15);
-                   JButton ok  = new JButton("Ok");
-                   JButton cancel = new JButton("Cancel");
-                    ok.setFont(new Font(Font.DIALOG,Font.BOLD,20));
-                    ok.setBackground(Color.BLUE);
-                    name.setFont(new Font(Font.DIALOG,Font.BOLD,20));
-                    cancel.setFont(new Font(Font.DIALOG,Font.BOLD,20));
-                    p.add(name,"North");
-                    p.add(ok,"South");
-                    p.add(cancel,"south");
-                    creat.setResizable(false);
-                    creat.pack();
-
-
-                    cancel.addActionListener(e13 -> {
-                        creat.setVisible(false);
-                        creat.dispose();
-
-                    });
-                    ok.addActionListener(e14 -> {
-                                if (!name.getText().equals("")){
-                                    area.setEditable(true);
-                                    ff=new File(name.getText()+".labx");
-                                    frame.setTitle("LabX v0.1 [" + ff.getName() + "]");
-                                    creat.setVisible(false);
-                                    creat.dispose();
-                                } else{
-                                    JOptionPane.showMessageDialog(frame,"Please, type a valid name of the file!");
-                                }
-
-                            }
-                    );
-
-                    creat.add(p);
-                    creat.setModal(true);
-                    creat.setLocation(frame.getX()+frame.getWidth()/2-creat.getWidth()/2,frame.getY()+frame.getHeight()/2-creat.getHeight()/2);
-
-
-
-
-                    area.setText("");
-                    creat.setVisible(true);
+        create.addActionListener(e -> {
+            if (e.getSource() == create) {
+                JDialog creat = new JDialog();
+                creat.setTitle("Create new file");
+                BufferedImage imgg = null;
+                try {
+                    imgg = ImageIO.read(IDE.class.getClassLoader().getResource("ico.png"));
+                    ImageIcon icon = new ImageIcon(imgg);
+                    creat.setIconImage(icon.getImage());
+                } catch (IOException e1) {
+                    e1.printStackTrace();
                 }
+                creat.setPreferredSize(new Dimension(300, 120));
+                JPanel p = new JPanel();
+                JTextField name = new JTextField(15);
+                JButton ok = new JButton("Ok");
+                JButton cancel = new JButton("Cancel");
+                ok.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+                ok.setBackground(Color.BLUE);
+                name.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+                cancel.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+                p.add(name, "North");
+                p.add(ok, "South");
+                p.add(cancel, "south");
+                creat.setResizable(false);
+                creat.pack();
 
 
-            });
+                cancel.addActionListener(e13 -> {
+                    creat.setVisible(false);
+                    creat.dispose();
 
-
-            info.addActionListener((ActionEvent e) -> {
-                JFrame F = new JFrame("Info");
-               //Some information about LabX
-                JFXPanel pane1 = new JFXPanel();
-                //HTMLEditorKit kit  =new HTMLEditorKit();
-
-                //pane1.setEditable(false);
-
-                pane1.setFont(new Font(Font.DIALOG, Font.PLAIN, 15));
-
-                JScrollPane scrollPane1 = new JScrollPane(pane1);
-
-                int ii = 0;
-
-
-
-                Platform.runLater(() -> {
-                    WebView webView = new WebView();
-                    pane1.setScene(new Scene(webView));
-                    webView.getEngine().load(IDE.class.getResource("doc/PhysX_Docomentation_v0.1.html").toExternalForm());
                 });
+                ok.addActionListener(e14 -> {
+                            if (!name.getText().equals("")) {
+                                area.setEditable(true);
+                                ff = new File(name.getText() + ".labx");
+                                frame.setTitle("LabX v0.1 [" + ff.getName() + "]");
+                                creat.setVisible(false);
+                                creat.dispose();
+                            } else {
+                                JOptionPane.showMessageDialog(frame, "Please, type a valid name of the file!");
+                            }
 
-                scrollPane1.getHorizontalScrollBar().setValue(scrollPane1.getHorizontalScrollBar().getMaximum()/2);
-                F.add(scrollPane1);
+                        }
+                );
 
-                F.setPreferredSize(new Dimension(680, 780));
+                creat.add(p);
+                creat.setModal(true);
+                creat.setLocation(frame.getX() + frame.getWidth() / 2 - creat.getWidth() / 2, frame.getY() + frame.getHeight() / 2 - creat.getHeight() / 2);
 
-                F.pack();
-                F.setVisible(true);
-                F.repaint();
+
+                area.setText("");
+                creat.setVisible(true);
+            }
+
+
+        });
+
+
+        info.addActionListener((ActionEvent e) -> {
+            JFrame F = new JFrame("Info");
+            //Some information about LabX
+            JFXPanel pane1 = new JFXPanel();
+            //HTMLEditorKit kit  =new HTMLEditorKit();
+
+            //pane1.setEditable(false);
+
+            pane1.setFont(new Font(Font.DIALOG, Font.PLAIN, 15));
+
+            JScrollPane scrollPane1 = new JScrollPane(pane1);
+
+            int ii = 0;
+
+
+            Platform.runLater(() -> {
+                WebView webView = new WebView();
+                pane1.setScene(new Scene(webView));
+                webView.getEngine().load(IDE.class.getResource("doc/PhysX_Docomentation_v0.1.html").toExternalForm());
             });
 
-            LoadTextFromFile(ff);
+            scrollPane1.getHorizontalScrollBar().setValue(scrollPane1.getHorizontalScrollBar().getMaximum() / 2);
+            F.add(scrollPane1);
+
+            F.setPreferredSize(new Dimension(680, 780));
+
+            F.pack();
+            F.setVisible(true);
+            F.repaint();
+        });
+
+        LoadTextFromFile(ff);
 
 
+        frame.setPreferredSize(new Dimension((int) screenSize.getWidth() / 2, (int) screenSize.getHeight() / 2));
 
-
-
-
-
-
-            frame.setPreferredSize(new Dimension((int) screenSize.getWidth() / 2, (int) screenSize.getHeight() / 2));
-
-            frame.setLocationByPlatform(true);
+        frame.setLocationByPlatform(true);
         JScrollPane Scroll = new JScrollPane(pane);
-            JSplitPane pane2= new JSplitPane(JSplitPane.VERTICAL_SPLIT,labXPanel,Scroll);
+        JSplitPane pane2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, labXPanel, Scroll);
 
         pane2.setOneTouchExpandable(true);
         pane2.setResizeWeight(0.85);
         pane2.setDividerSize(15);
         splitPane.setDividerSize(15);
 
-            splitPane.setLeftComponent(scrollPane);
-            splitPane.setRightComponent(pane2);
+        splitPane.setLeftComponent(scrollPane);
+        splitPane.setRightComponent(pane2);
         splitPane.setOneTouchExpandable(true);
         splitPane.setResizeWeight(0.5);
 
-        frame.add(splitPane,"Center");
-            frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-            frame.pack();
-            frame.setVisible(true);
+        frame.add(splitPane, "Center");
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
 
         frame.addWindowListener(new WindowListener() {
             @Override
@@ -839,7 +823,7 @@ void comparetext(File f){
 
             @Override
             public void windowClosing(WindowEvent e) {
-                if(!issaved){
+                if (!issaved) {
                     JDialog creat = new JDialog();
                     creat.setTitle("Сохранить изменения?");
                     BufferedImage imgg = null;
@@ -850,15 +834,15 @@ void comparetext(File f){
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }
-                    creat.setPreferredSize(new Dimension(300,100));
+                    creat.setPreferredSize(new Dimension(300, 100));
                     JPanel p = new JPanel();
-                    JButton ok  = new JButton("Ok");
+                    JButton ok = new JButton("Ok");
                     JButton cancel = new JButton("Cancel");
-                    ok.setFont(new Font(Font.DIALOG,Font.BOLD,20));
+                    ok.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
                     ok.setBackground(Color.BLUE);
-                    cancel.setFont(new Font(Font.DIALOG,Font.BOLD,20));
-                    p.add(ok,"South");
-                    p.add(cancel,"south");
+                    cancel.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+                    p.add(ok, "South");
+                    p.add(cancel, "south");
                     creat.setResizable(false);
                     creat.pack();
 
@@ -870,13 +854,13 @@ void comparetext(File f){
                     });
                     ok.addActionListener(e14 -> {
                                 JFileChooser chooser = new JFileChooser();
-                                if (!ff.exists()){
+                                if (!ff.exists()) {
                                     //File ff=null;
                                     File U = new File("");
                                     try {
 
                                         ff.createNewFile();
-                                        U=ff;
+                                        U = ff;
                                         chooser.setSelectedFile(ff);
                                     } catch (IOException e1) {
                                         e1.printStackTrace();
@@ -887,7 +871,7 @@ void comparetext(File f){
                                     int approw = chooser.showSaveDialog(null);
 
                                     if (approw == JFileChooser.APPROVE_OPTION) {
-                                        ff=new File(chooser.getCurrentDirectory()+"\\"+ff.getName());
+                                        ff = new File(chooser.getCurrentDirectory() + "\\" + ff.getName());
                                         try {
                                             ff.createNewFile();
                                             try {
@@ -904,10 +888,10 @@ void comparetext(File f){
                                         }
                                         //chooser.setVisible(false);
                                         U.delete();
-                                        issaved=true;
+                                        issaved = true;
                                     }
                                     //chooser.setVisible(false);
-                                } else{
+                                } else {
                                     chooser.setSelectedFile(ff);
                                     chooser.setDialogTitle("Save file");
                                     chooser.setApproveButtonText("Open");
@@ -943,7 +927,7 @@ void comparetext(File f){
 
                     creat.add(p);
                     creat.setModal(true);
-                    creat.setLocation(frame.getX()+frame.getWidth()/2-creat.getWidth()/2,frame.getY()+frame.getHeight()/2-creat.getHeight()/2);
+                    creat.setLocation(frame.getX() + frame.getWidth() / 2 - creat.getWidth() / 2, frame.getY() + frame.getHeight() / 2 - creat.getHeight() / 2);
                     creat.setVisible(true);
 
                 }
@@ -976,8 +960,7 @@ void comparetext(File f){
         });
 
 
-        }
-
+    }
 
 
 }

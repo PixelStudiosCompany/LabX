@@ -1,4 +1,5 @@
 package labx;
+
 import com.alee.laf.WebLookAndFeel;
 import com.chrisrm.idea.MTLaf;
 import com.chrisrm.idea.MTLightLaf;
@@ -33,6 +34,7 @@ import java.net.URL;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+
 import de.javasoft.*;
 
 
@@ -48,7 +50,7 @@ public class WIZARD {
     static JButton chenematics;
     static JButton empty;
 
-    static void doDynamics(){
+    static void doDynamics() {
         //dynamics.doClick();
         JDialog creat = new JDialog();
         creat.setTitle("Create new project:");
@@ -60,19 +62,19 @@ public class WIZARD {
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-        creat.setPreferredSize(new Dimension(frame.getWidth()/4,frame.getHeight()/5));
+        creat.setPreferredSize(new Dimension(frame.getWidth() / 4, frame.getHeight() / 5));
         JPanel p = new JPanel();
         JTextField name = new JTextField(15);
-        JButton ok  = new JButton("Ok");
+        JButton ok = new JButton("Ok");
         creat.getRootPane().setDefaultButton(ok);
         JButton cancel = new JButton("Cancel");
-        ok.setFont(new Font(Font.DIALOG,Font.BOLD,20));
+        ok.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
         ok.setBackground(Color.BLUE);
-        name.setFont(new Font(Font.DIALOG,Font.BOLD,20));
-        cancel.setFont(new Font(Font.DIALOG,Font.BOLD,20));
-        p.add(name,"North");
-        p.add(ok,"South");
-        p.add(cancel,"south");
+        name.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+        cancel.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+        p.add(name, "North");
+        p.add(ok, "South");
+        p.add(cancel, "south");
         creat.setResizable(false);
         creat.pack();
         final File[] ff = {null};
@@ -84,17 +86,17 @@ public class WIZARD {
 
         });
         ok.addActionListener(e14 -> {
-                    if (!name.getText().equals("")){
-                        ff[0] =new File(name.getText()+".labx");
+                    if (!name.getText().equals("")) {
+                        ff[0] = new File(name.getText() + ".labx");
                         String temp = "var a : object(10,10,10,0,0,0,0,\"red\");\nvar f : force(50,50);\nsetforce(a,f);";
-                        ide.add(new IDE(ff[0].getAbsolutePath(),"",false,ide.size(),temp));
-                        ide.get(ide.size()-1).LoadTextFromFile(ff[0]);
+                        ide.add(new IDE(ff[0].getAbsolutePath(), "", false, ide.size(), temp));
+                        ide.get(ide.size() - 1).LoadTextFromFile(ff[0]);
 
                         frame.setTitle("LabX v0.1 [" + ff[0].getName() + "]");
                         creat.setVisible(false);
                         creat.dispose();
-                    } else{
-                        JOptionPane.showMessageDialog(frame,"Please, type a valid name of the file!");
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "Please, type a valid name of the file!");
                     }
 
                 }
@@ -102,16 +104,15 @@ public class WIZARD {
 
         creat.add(p);
         creat.setModal(true);
-        creat.setLocation(frame.getX()+frame.getWidth()/2-creat.getWidth()/2,frame.getY()+frame.getHeight()/2-creat.getHeight()/2);
+        creat.setLocation(frame.getX() + frame.getWidth() / 2 - creat.getWidth() / 2, frame.getY() + frame.getHeight() / 2 - creat.getHeight() / 2);
 
 
         creat.setVisible(true);
     }
 
 
-
-    static void doStatics(){
-       // statics.doClick();
+    static void doStatics() {
+        // statics.doClick();
         JDialog creat = new JDialog();
         creat.setTitle("Create new project:");
         BufferedImage imgg = null;
@@ -122,19 +123,19 @@ public class WIZARD {
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-        creat.setPreferredSize(new Dimension(frame.getWidth()/4,frame.getHeight()/5));
+        creat.setPreferredSize(new Dimension(frame.getWidth() / 4, frame.getHeight() / 5));
         JPanel p = new JPanel();
         JTextField name = new JTextField(15);
-        JButton ok  = new JButton("Ok");
+        JButton ok = new JButton("Ok");
         creat.getRootPane().setDefaultButton(ok);
         JButton cancel = new JButton("Cancel");
-        ok.setFont(new Font(Font.DIALOG,Font.BOLD,20));
+        ok.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
         ok.setBackground(Color.BLUE);
-        name.setFont(new Font(Font.DIALOG,Font.BOLD,20));
-        cancel.setFont(new Font(Font.DIALOG,Font.BOLD,20));
-        p.add(name,"North");
-        p.add(ok,"South");
-        p.add(cancel,"south");
+        name.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+        cancel.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+        p.add(name, "North");
+        p.add(ok, "South");
+        p.add(cancel, "south");
         creat.setResizable(false);
         creat.pack();
         final File[] ff = {null};
@@ -146,17 +147,17 @@ public class WIZARD {
 
         });
         ok.addActionListener(e14 -> {
-                    if (!name.getText().equals("")){
-                        ff[0] =new File(name.getText()+".labx");
+                    if (!name.getText().equals("")) {
+                        ff[0] = new File(name.getText() + ".labx");
                         String temp = "";
-                        ide.add(new IDE(ff[0].getAbsolutePath(),"",false,ide.size(),temp));
-                        ide.get(ide.size()-1).LoadTextFromFile(ff[0]);
+                        ide.add(new IDE(ff[0].getAbsolutePath(), "", false, ide.size(), temp));
+                        ide.get(ide.size() - 1).LoadTextFromFile(ff[0]);
 
                         frame.setTitle("LabX v0.1 [" + ff[0].getName() + "]");
                         creat.setVisible(false);
                         creat.dispose();
-                    } else{
-                        JOptionPane.showMessageDialog(frame,"Please, type a valid name of the file!");
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "Please, type a valid name of the file!");
                     }
 
                 }
@@ -164,13 +165,13 @@ public class WIZARD {
 
         creat.add(p);
         creat.setModal(true);
-        creat.setLocation(frame.getX()+frame.getWidth()/2-creat.getWidth()/2,frame.getY()+frame.getHeight()/2-creat.getHeight()/2);
+        creat.setLocation(frame.getX() + frame.getWidth() / 2 - creat.getWidth() / 2, frame.getY() + frame.getHeight() / 2 - creat.getHeight() / 2);
 
 
         creat.setVisible(true);
     }
 
-    static void doEmpty(){
+    static void doEmpty() {
         //chenematics.doClick();
         JDialog creat = new JDialog();
         creat.setTitle("Create new project:");
@@ -182,19 +183,19 @@ public class WIZARD {
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-        creat.setPreferredSize(new Dimension(frame.getWidth()/4,frame.getHeight()/5));
+        creat.setPreferredSize(new Dimension(frame.getWidth() / 4, frame.getHeight() / 5));
         JPanel p = new JPanel();
         JTextField name = new JTextField(15);
-        JButton ok  = new JButton("Ok");
+        JButton ok = new JButton("Ok");
         creat.getRootPane().setDefaultButton(ok);
         JButton cancel = new JButton("Cancel");
-        ok.setFont(new Font(Font.DIALOG,Font.BOLD,20));
+        ok.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
         ok.setBackground(Color.BLUE);
-        name.setFont(new Font(Font.DIALOG,Font.BOLD,20));
-        cancel.setFont(new Font(Font.DIALOG,Font.BOLD,20));
-        p.add(name,"North");
-        p.add(ok,"South");
-        p.add(cancel,"south");
+        name.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+        cancel.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+        p.add(name, "North");
+        p.add(ok, "South");
+        p.add(cancel, "south");
         creat.setResizable(false);
         creat.pack();
         final File[] ff = {null};
@@ -206,16 +207,16 @@ public class WIZARD {
 
         });
         ok.addActionListener(e14 -> {
-                    if (!name.getText().equals("")){
-                        ff[0] =new File(name.getText()+".labx");
-                        ide.add(new IDE(ff[0].getAbsolutePath(),"",false,ide.size(),""));
-                        ide.get(ide.size()-1).LoadTextFromFile(ff[0]);
+                    if (!name.getText().equals("")) {
+                        ff[0] = new File(name.getText() + ".labx");
+                        ide.add(new IDE(ff[0].getAbsolutePath(), "", false, ide.size(), ""));
+                        ide.get(ide.size() - 1).LoadTextFromFile(ff[0]);
 
                         frame.setTitle("LabX v0.1 [" + ff[0].getName() + "]");
                         creat.setVisible(false);
                         creat.dispose();
-                    } else{
-                        JOptionPane.showMessageDialog(frame,"Please, type a valid name of the file!");
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "Please, type a valid name of the file!");
                     }
 
                 }
@@ -223,14 +224,14 @@ public class WIZARD {
 
         creat.add(p);
         creat.setModal(true);
-        creat.setLocation(frame.getX()+frame.getWidth()/2-creat.getWidth()/2,frame.getY()+frame.getHeight()/2-creat.getHeight()/2);
+        creat.setLocation(frame.getX() + frame.getWidth() / 2 - creat.getWidth() / 2, frame.getY() + frame.getHeight() / 2 - creat.getHeight() / 2);
 
 
         creat.setVisible(true);
     }
 
 
-    static void doChenematics(){
+    static void doChenematics() {
         //chenematics.doClick();
         JDialog creat = new JDialog();
         creat.setTitle("Create new project:");
@@ -242,19 +243,19 @@ public class WIZARD {
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-        creat.setPreferredSize(new Dimension(frame.getWidth()/4,frame.getHeight()/5));
+        creat.setPreferredSize(new Dimension(frame.getWidth() / 4, frame.getHeight() / 5));
         JPanel p = new JPanel();
         JTextField name = new JTextField(15);
-        JButton ok  = new JButton("Ok");
+        JButton ok = new JButton("Ok");
         creat.getRootPane().setDefaultButton(ok);
         JButton cancel = new JButton("Cancel");
-        ok.setFont(new Font(Font.DIALOG,Font.BOLD,20));
+        ok.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
         ok.setBackground(Color.BLUE);
-        name.setFont(new Font(Font.DIALOG,Font.BOLD,20));
-        cancel.setFont(new Font(Font.DIALOG,Font.BOLD,20));
-        p.add(name,"North");
-        p.add(ok,"South");
-        p.add(cancel,"south");
+        name.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+        cancel.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+        p.add(name, "North");
+        p.add(ok, "South");
+        p.add(cancel, "south");
         creat.setResizable(false);
         creat.pack();
         final File[] ff = {null};
@@ -266,17 +267,17 @@ public class WIZARD {
 
         });
         ok.addActionListener(e14 -> {
-                    if (!name.getText().equals("")){
-                        ff[0] =new File(name.getText()+".labx");
+                    if (!name.getText().equals("")) {
+                        ff[0] = new File(name.getText() + ".labx");
                         String temp = "var a : object(10,10,10,0,0,0,9.8,\"red\");\n";
-                        ide.add(new IDE(ff[0].getAbsolutePath(),"",false,ide.size(),temp));
-                        ide.get(ide.size()-1).LoadTextFromFile(ff[0]);
+                        ide.add(new IDE(ff[0].getAbsolutePath(), "", false, ide.size(), temp));
+                        ide.get(ide.size() - 1).LoadTextFromFile(ff[0]);
 
                         frame.setTitle("LabX v0.1 [" + ff[0].getName() + "]");
                         creat.setVisible(false);
                         creat.dispose();
-                    } else{
-                        JOptionPane.showMessageDialog(frame,"Please, type a valid name of the file!");
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "Please, type a valid name of the file!");
                     }
 
                 }
@@ -284,33 +285,33 @@ public class WIZARD {
 
         creat.add(p);
         creat.setModal(true);
-        creat.setLocation(frame.getX()+frame.getWidth()/2-creat.getWidth()/2,frame.getY()+frame.getHeight()/2-creat.getHeight()/2);
+        creat.setLocation(frame.getX() + frame.getWidth() / 2 - creat.getWidth() / 2, frame.getY() + frame.getHeight() / 2 - creat.getHeight() / 2);
 
 
         creat.setVisible(true);
     }
 
 
-    static void init() throws UnsupportedLookAndFeelException{
-        frame= new JFrame("LabX v0.1");
+    static void init() throws UnsupportedLookAndFeelException {
+        frame = new JFrame("LabX v0.1");
         try {
 
-            UIManager.setLookAndFeel (new WebLookAndFeel());
+            UIManager.setLookAndFeel(new WebLookAndFeel());
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
 
-        Image im3=null;
-        Image im4=null;
-        Image im5=null;
-        Image im6=null;
+        Image im3 = null;
+        Image im4 = null;
+        Image im5 = null;
+        Image im6 = null;
         try {
             BufferedImage imgg = ImageIO.read(WIZARD.class.getClassLoader().getResource("ico.png"));
             im3 = ImageIO.read(WIZARD.class.getClassLoader().getResource("video.png"));
-            im4= ImageIO.read(WIZARD.class.getClassLoader().getResource("Kinematics.png"));
-            im5= ImageIO.read(WIZARD.class.getClassLoader().getResource("Dynamics.png"));
-            im6=ImageIO.read(WIZARD.class.getClassLoader().getResource("Statics2.png"));
-            im3= im3.getScaledInstance(20,20,1);
+            im4 = ImageIO.read(WIZARD.class.getClassLoader().getResource("Kinematics.png"));
+            im5 = ImageIO.read(WIZARD.class.getClassLoader().getResource("Dynamics.png"));
+            im6 = ImageIO.read(WIZARD.class.getClassLoader().getResource("Statics2.png"));
+            im3 = im3.getScaledInstance(20, 20, 1);
             ImageIcon icon = new ImageIcon(imgg);
             frame.setIconImage(icon.getImage());
         } catch (IOException e) {
@@ -318,7 +319,7 @@ public class WIZARD {
         }
         JPanel mpanel = new JPanel(new BorderLayout());
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(1,3));
+        panel.setLayout(new GridLayout(1, 3));
         chenematics = new JButton();
         chenematics.setIcon(new ImageIcon(im4));
 
@@ -328,7 +329,6 @@ public class WIZARD {
                 doChenematics();
             }
         });
-
 
 
         empty = new JButton("Empty Project");
@@ -342,10 +342,6 @@ public class WIZARD {
         dynamics = new JButton();
 
 
-
-
-
-
         dynamics.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -353,8 +349,8 @@ public class WIZARD {
             }
         });
 
-         statics = new JButton();
-         statics.setEnabled(false);
+        statics = new JButton();
+        statics.setEnabled(false);
 
 
         statics.addActionListener(new ActionListener() {
@@ -366,7 +362,7 @@ public class WIZARD {
         panel.add(chenematics);
         panel.add(dynamics);
         panel.add(statics);
-        mpanel.add(panel,"Center");
+        mpanel.add(panel, "Center");
         JPanel footer = new JPanel(new BorderLayout());
         JMenuBar bar = new JMenuBar();
 
@@ -382,7 +378,7 @@ public class WIZARD {
         openp.addActionListener(e -> {
             //this code throws exception when you close the IDE window
             JFileChooser chooser = new JFileChooser();
-            File ff=null;
+            File ff = null;
             chooser.setDialogTitle("Open file");
             chooser.setApproveButtonText("Open");
             //chooser.setSelectedFile(new File(ff.getName()));
@@ -390,8 +386,8 @@ public class WIZARD {
 
             if (approw == JFileChooser.APPROVE_OPTION) {
                 ff = chooser.getSelectedFile();
-                ide.add(new IDE(ff.getAbsolutePath(),"",false,ide.size(),""));
-                ide.get(ide.size()-1).LoadTextFromFile(ff);
+                ide.add(new IDE(ff.getAbsolutePath(), "", false, ide.size(), ""));
+                ide.get(ide.size() - 1).LoadTextFromFile(ff);
 
             }
 
@@ -400,9 +396,8 @@ public class WIZARD {
 
         video.setIcon(new ImageIcon(im3));
 
-          footer.add(bar,"West");
-        mpanel.add(footer,"North");
-
+        footer.add(bar, "West");
+        mpanel.add(footer, "North");
 
 
         info.addActionListener((ActionEvent e) -> {
@@ -438,7 +433,7 @@ public class WIZARD {
 
         });
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        frame.setPreferredSize(new Dimension((int) screenSize.getWidth() / 7 * 2, (int) screenSize.getHeight() / 14*4));
+        frame.setPreferredSize(new Dimension((int) screenSize.getWidth() / 7 * 2, (int) screenSize.getHeight() / 14 * 4));
         frame.setLocationByPlatform(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.add(mpanel);
@@ -447,9 +442,9 @@ public class WIZARD {
 
         frame.pack();
 
-        im5=im5.getScaledInstance((int) (dynamics.getWidth()*0.9), (int) (dynamics.getWidth()*0.9),1);
-        im6=im6.getScaledInstance((int) (statics.getWidth()*0.9), (int) (statics.getWidth()*0.9),1);
-        im4=im4.getScaledInstance((int) (chenematics.getWidth()*0.9), (int) (chenematics.getWidth()*0.9),1);
+        im5 = im5.getScaledInstance((int) (dynamics.getWidth() * 0.9), (int) (dynamics.getWidth() * 0.9), 1);
+        im6 = im6.getScaledInstance((int) (statics.getWidth() * 0.9), (int) (statics.getWidth() * 0.9), 1);
+        im4 = im4.getScaledInstance((int) (chenematics.getWidth() * 0.9), (int) (chenematics.getWidth() * 0.9), 1);
         dynamics.setIcon(new ImageIcon(im5));
         statics.setIcon(new ImageIcon(im6));
         chenematics.setIcon(new ImageIcon(im4));
@@ -461,7 +456,7 @@ public class WIZARD {
         frame.setVisible(true);
     }
 
-    public static void main(String args[]) throws Exception{
+    public static void main(String args[]) throws Exception {
         Thread.sleep(500);
         SwingUtilities.invokeLater(() -> {
             try {
