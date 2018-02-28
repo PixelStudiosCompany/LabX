@@ -452,7 +452,7 @@ public class IDE {
                 JButton cancel = new JButton("Отмена");
 
 
-                jFrame.setPreferredSize(new Dimension(frame.getWidth() / 4, frame.getHeight() / 5));
+                jFrame.setPreferredSize(new Dimension(600,300));
                 jFrame.setLocation(frame.getX() + frame.getWidth() / 2 - jFrame.getWidth() / 2, frame.getY() + frame.getHeight() / 2 - jFrame.getHeight() / 2);
 
                 JTextField f1 = new JTextField(area.getFont().getSize());
@@ -478,6 +478,8 @@ public class IDE {
                 stroke.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
                 width.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
                 height.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+                ok.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+                cancel.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
 
                 JTextField strokef = new JTextField(String.valueOf(labXPanel.stroke));
 
@@ -765,6 +767,13 @@ public class IDE {
 
         info.addActionListener((ActionEvent e) -> {
             JFrame F = new JFrame("Информация");
+            try {
+               Image imgg = ImageIO.read(IDE.class.getClassLoader().getResource("ico.png"));
+                ImageIcon icon = new ImageIcon(imgg);
+                F.setIconImage(icon.getImage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
             //Some information about LabX
             JFXPanel pane1 = new JFXPanel();
             //HTMLEditorKit kit  =new HTMLEditorKit();

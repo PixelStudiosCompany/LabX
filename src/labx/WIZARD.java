@@ -414,6 +414,13 @@ public class WIZARD {
         info.addActionListener((ActionEvent e) -> {
             JFrame F = new JFrame("Информация о LabX");
             //Some information about LabX
+            try {
+                Image imgg = ImageIO.read(IDE.class.getClassLoader().getResource("ico.png"));
+                ImageIcon icon = new ImageIcon(imgg);
+                F.setIconImage(icon.getImage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
             JFXPanel pane1 = new JFXPanel();
             //HTMLEditorKit kit  =new HTMLEditorKit();
 
