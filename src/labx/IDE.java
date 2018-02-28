@@ -393,7 +393,9 @@ public class IDE {
                     e1.printStackTrace();
                 }
                 ImageIcon icon = new ImageIcon(imgg);
-                JFrame jFrame = new JFrame("Размер шрифта");
+                JDialog jFrame= new JDialog(frame);
+                jFrame.setTitle("Размер шрифта");
+
                 JPanel panel = new JPanel();
                 JPanel po = new JPanel();
                 JTextField f1 = new JTextField(area.getFont().getSize());
@@ -782,7 +784,7 @@ public class IDE {
 
             pane1.setFont(new Font(Font.DIALOG, Font.PLAIN, 15));
 
-            JScrollPane scrollPane1 = new JScrollPane(pane1);
+
 
             int ii = 0;
 
@@ -790,13 +792,13 @@ public class IDE {
             Platform.runLater(() -> {
                 WebView webView = new WebView();
                 pane1.setScene(new Scene(webView));
-                webView.getEngine().load(IDE.class.getResource("doc/PhysX_Docomentation_v0.1.html").toExternalForm());
+                webView.getEngine().load(IDE.class.getResource("doc/LABX.html").toExternalForm());
             });
-
-            scrollPane1.getHorizontalScrollBar().setValue(scrollPane1.getHorizontalScrollBar().getMaximum() / 2);
+            JScrollPane scrollPane1 = new JScrollPane(pane1);
+            //scrollPane1.getHorizontalScrollBar().setValue(scrollPane1.getHorizontalScrollBar().getMaximum() / 2);
             F.add(scrollPane1);
 
-            F.setPreferredSize(new Dimension(680, 780));
+            F.setPreferredSize(new Dimension(780, 780));
 
             F.pack();
             F.setVisible(true);
