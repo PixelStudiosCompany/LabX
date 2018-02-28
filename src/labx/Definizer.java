@@ -262,10 +262,12 @@ public class Definizer {
             js += "\n" + s2;
         }
         if (kus.length() >= 2) kus = kus.substring(2);
-        js += kus;
+
+
 
         js += "var _d = new Date();\n" +
-                "var _time = _d.getTime(); var _tt=_d.getTime();";
+                "var _time = _d.getTime(); var _tt=_d.getTime(); var TIME = 0;";
+        js += kus;
         finprog = js + "while (Running.get()) {" +
                 "TIME = (_time-_tt)/1000.0;";
         for (int i = 0; i < ObjMap.values().size(); i++) {
