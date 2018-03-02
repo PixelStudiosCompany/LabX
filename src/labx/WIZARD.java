@@ -62,7 +62,7 @@ public class WIZARD {
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-        creat.setPreferredSize(new Dimension(frame.getWidth() / 4, frame.getHeight() / 5));
+        creat.setPreferredSize(new Dimension(300, 120));
         JPanel p = new JPanel();
         JTextField name = new JTextField(15);
         JButton ok = new JButton("Ok");
@@ -89,8 +89,9 @@ public class WIZARD {
                     if (!name.getText().equals("")) {
                         ff[0] = new File(name.getText() + ".labx");
                         String temp = "var a : object(10,10,10,0,0,0,0,\"red\");\nvar f : force(50,50);\nsetforce(a,f);";
-                        ide.add(new IDE(ff[0].getAbsolutePath(), "", false, ide.size(), temp));
-                        ide.get(ide.size() - 1).LoadTextFromFile(ff[0]);
+                        ide.add(new IDE(ff[0].getName(), "", false, ide.size(), temp));
+                        ide.get(ide.size() - 1).source=temp;
+                       // ide.get(ide.size() - 1).LoadTextFromFile(ff[0]);
 
                         frame.setTitle("LabX v0.1 [" + ff[0].getName() + "]");
                         creat.setVisible(false);
@@ -123,7 +124,7 @@ public class WIZARD {
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-        creat.setPreferredSize(new Dimension(frame.getWidth() / 4, frame.getHeight() / 5));
+        creat.setPreferredSize(new Dimension(300, 120));
         JPanel p = new JPanel();
         JTextField name = new JTextField(15);
         JButton ok = new JButton("Ok");
@@ -150,8 +151,9 @@ public class WIZARD {
                     if (!name.getText().equals("")) {
                         ff[0] = new File(name.getText() + ".labx");
                         String temp = "";
-                        ide.add(new IDE(ff[0].getAbsolutePath(), "", false, ide.size(), temp));
-                        ide.get(ide.size() - 1).LoadTextFromFile(ff[0]);
+                        ide.add(new IDE(ff[0].getName(), "", false, ide.size(), temp));
+                        ide.get(ide.size() - 1).source=temp;
+                       // ide.get(ide.size() - 1).LoadTextFromFile(ff[0]);
 
                         frame.setTitle("LabX v0.1 [" + ff[0].getName() + "]");
                         creat.setVisible(false);
@@ -183,7 +185,7 @@ public class WIZARD {
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-        creat.setPreferredSize(new Dimension(frame.getWidth() / 4, frame.getHeight() / 5));
+        creat.setPreferredSize(new Dimension(300, 120));
         JPanel p = new JPanel();
         JTextField name = new JTextField(15);
         JButton ok = new JButton("Ok");
@@ -209,8 +211,8 @@ public class WIZARD {
         ok.addActionListener(e14 -> {
                     if (!name.getText().equals("")) {
                         ff[0] = new File(name.getText() + ".labx");
-                        ide.add(new IDE(ff[0].getAbsolutePath(), "", false, ide.size(), ""));
-                        ide.get(ide.size() - 1).LoadTextFromFile(ff[0]);
+                        ide.add(new IDE(ff[0].getName(), "", false, ide.size(), ""));
+                       // ide.get(ide.size() - 1).LoadTextFromFile(ff[0]);
 
                         frame.setTitle("LabX v0.1 [" + ff[0].getName() + "]");
                         creat.setVisible(false);
@@ -243,7 +245,7 @@ public class WIZARD {
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-        creat.setPreferredSize(new Dimension(frame.getWidth() / 4, frame.getHeight() / 5));
+        creat.setPreferredSize(new Dimension(300, 120));
         JPanel p = new JPanel();
         JTextField name = new JTextField(15);
         JButton ok = new JButton("Ok");
@@ -270,9 +272,9 @@ public class WIZARD {
                     if (!name.getText().equals("")) {
                         ff[0] = new File(name.getText() + ".labx");
                         String temp = "var a : object(10,10,10,0,0,0,9.8,\"red\");\n";
-                        ide.add(new IDE(ff[0].getAbsolutePath(), "", false, ide.size(), temp));
-                        ide.get(ide.size() - 1).LoadTextFromFile(ff[0]);
-
+                        ide.add(new IDE(ff[0].getName(), "", false, ide.size(), temp));
+                        //ide.get(ide.size() - 1).LoadTextFromFile(ff[0]);
+                        ide.get(ide.size() - 1).source=temp;
                         frame.setTitle("LabX v0.1 [" + ff[0].getName() + "]");
                         creat.setVisible(false);
                         creat.dispose();
@@ -451,7 +453,7 @@ public class WIZARD {
 
         });
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        frame.setPreferredSize(new Dimension((int) screenSize.getWidth() / 7 * 2, (int) screenSize.getHeight() / 14 * 4));
+        frame.setPreferredSize(new Dimension((int) screenSize.getWidth() / 7 * 2, (int) (screenSize.getWidth() / 7 * 2/1.7)));
        // frame.setLocationByPlatform(true);
         Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
 

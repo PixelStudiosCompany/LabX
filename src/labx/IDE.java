@@ -13,6 +13,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -63,6 +64,8 @@ public class IDE {
     String source;
     String template;
     boolean istemplate;
+
+
     LabXPanel labXPanel;
     int num;
     repaintThread t2;
@@ -102,6 +105,7 @@ public class IDE {
 
     IDE(String fname, String project, boolean istemp, int number, String template2) {
         ff = new File(fname);
+
         projtype = project;
         istemplate = istemp;
         strt.state = false;
@@ -110,6 +114,8 @@ public class IDE {
         area.setText(template);
         area.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVASCRIPT);
 
+        title = "LabX v0.1 [" + ff.getName() + "]";
+        frame.setTitle(title);
 
         SwingUtilities.invokeLater(() -> {
             try {
@@ -314,7 +320,7 @@ public class IDE {
 
         p1.add(scrollPane, "Center");
 
-        area.setEditable(false);
+        area.setEditable(true);
 
         JPopupMenu jpu = new JPopupMenu();
         JMenuItem cut = new JMenuItem("Cut");
@@ -323,6 +329,8 @@ public class IDE {
 
         labXPanel = new LabXPanel(num);
         labXPanel.setBorder(BorderFactory.createSoftBevelBorder(2));
+        Definizer.ObjMap= new HashMap<>();
+        Definizer.ForceMap= new HashMap<>();
 
         jpu.add(cut);
         jpu.add(copy);
@@ -631,7 +639,7 @@ public class IDE {
                 if (sub > 0) {
                     ff = new File(s + ff.getName().substring(0, sub) + okn);
                 } else ff = new File(s + ff.getName() + okn);
-                System.out.println(ff.getName());
+               // System.out.println(ff.getName());
                 chooser.setSelectedFile(new File(ff.getAbsolutePath()));
                 chooser.setDialogType(JFileChooser.SAVE_DIALOG);
 
@@ -663,9 +671,13 @@ public class IDE {
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }
-                    ff = chooser.getSelectedFile();
+                    ff = new File(chooser.getSelectedFile().getAbsolutePath());
                     issaved = true;
+                    source=area.getText();
 
+
+                    comparetext(ff);
+                    frame.setTitle(title + sav);
                 }
 
 
@@ -805,10 +817,10 @@ public class IDE {
             F.repaint();
         });
 
-        LoadTextFromFile(ff);
+       // LoadTextFromFile(ff);
 
 
-        frame.setPreferredSize(new Dimension((int) screenSize.getWidth() / 2, (int) screenSize.getHeight() / 2));
+        frame.setPreferredSize(new Dimension((int) screenSize.getWidth() / 2, (int) screenSize.getWidth() / 2));
 
         frame.setLocationByPlatform(true);
         JScrollPane Scroll = new JScrollPane(pane);
@@ -891,7 +903,7 @@ public class IDE {
                                             try {
                                                 PrintWriter wr = new PrintWriter(ff);
                                                 wr.print(area.getText());
-                                                System.out.println(area.getText());
+                                                // System.out.println(area.getText());
                                                 wr.flush();
                                                 wr.close();
                                             } catch (IOException e1) {
@@ -906,45 +918,31 @@ public class IDE {
                                     }
                                     //chooser.setVisible(false);
                                 } else {
-                                    chooser.setSelectedFile(ff);
-                                    chooser.setDialogTitle("Сохранить проект");
-                                    chooser.setApproveButtonText("Сохранить");
-                                    //chooser.setSelectedFile(new File(ff.getName()));
-                                    chooser.setCurrentDirectory(new File(ff.getParent()));
-                                    int approw = chooser.showSaveDialog(null);
 
-                                    if (approw == JFileChooser.APPROVE_OPTION) {
-                                        ff = new File(chooser.getCurrentDirectory() + "\\" + ff.getName());
-                                        try {
-                                            ff.delete();
-                                            ff.createNewFile();
-                                            try {
-                                                PrintWriter wr = new PrintWriter(ff);
-                                                wr.print(area.getText());
-                                                System.out.println(area.getText());
-                                                wr.flush();
-                                                wr.close();
-                                            } catch (IOException e1) {
-                                                e1.printStackTrace();
-                                            }
-                                        } catch (IOException e1) {
-                                            e1.printStackTrace();
-                                        }
-
-                                        chooser.setVisible(false);
+                                    PrintWriter wr = null;
+                                    try {
+                                        wr = new PrintWriter(ff);
+                                    } catch (FileNotFoundException e1) {
+                                        e1.printStackTrace();
                                     }
-                                }
+                                    wr.print(area.getText());
+                                    //System.out.println(area.getText());
+                                    wr.flush();
+                                    wr.close();
 
-                                creat.setVisible(false);
-                            }
-                    );
+                                }
+                            });
 
                     creat.add(p);
                     creat.setModal(true);
                     creat.setLocation(frame.getX() + frame.getWidth() / 2 - creat.getWidth() / 2, frame.getY() + frame.getHeight() / 2 - creat.getHeight() / 2);
                     creat.setVisible(true);
 
+
                 }
+
+                labXPanel=null;
+                WIZARD.ide.remove(num);
             }
 
             @Override

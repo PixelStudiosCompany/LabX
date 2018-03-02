@@ -305,12 +305,11 @@ public class Definizer {
                /*    js2+=name2+".vx=-"+name2+".vx;\n";
                    js2+=name2+".vy=-"+name2+".vy;\n";*/
                     js2 += "}";
-                    js2 += "if(" + name + ".x+" + w / 2 + ">lab.getWidth()) {" + name + ".vx=-" + name + ".vx;" + name + ".ax=-" + name + ".ax;}";
-                    js2 += "if(" + name + ".x-" + w / 2 + "<0) {" + name + ".vx=-" + name + ".vx;" + name + ".ax=-" + name + ".ax;}";
-                    js2 += "if(" + name + ".y+" + h / 2 + ">lab.getHeight()) {" + name + ".vy=-" + name + ".vy;" + name + ".ay=-" + name + ".ay;}";
-                    js2 += "if(" + name + ".y-" + h / 2 + "<0) {" + name + ".vy=-" + name + ".vy;" + name + ".ay=-" + name + ".ay;}";
                 }
-
+                    js2 += "if(" + name + ".x+" + w / 2 + ">lab.getWidth()) {" +name+".x=lab.getWidth()-"+w/2+";"+ name + ".vx=-" + name + ".vx;" + name + ".ax=-" + name + ".ax;}";
+                    js2 += "if(" + name + ".x-" + w / 2 + "<0) {" +name+".x=+"+w/2+";"+ name + ".vx=-" + name + ".vx;" + name + ".ax=-" + name + ".ax;}";
+                    js2 += "if(" + name + ".y+" + h / 2 + ">lab.getHeight()) {" +name+".y=lab.getHeight()-"+h/2+";"+ name + ".vy=-" + name + ".vy;" + name + ".ay=-" + name + ".ay;}";
+                    js2 += "if(" + name + ".y-" + h / 2 + "<0) {" +name+".y="+h/2+";"+ name + ".vy=-" + name + ".vy;" + name + ".ay=-" + name + ".ay;}";
             }
         }
         js2 += "}";
