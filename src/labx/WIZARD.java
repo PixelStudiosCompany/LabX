@@ -426,7 +426,6 @@ public class WIZARD {
             JFXPanel pane1 = new JFXPanel();
             //HTMLEditorKit kit  =new HTMLEditorKit();
 
-            //pane1.setEditable(false);
 
             pane1.setFont(new Font(Font.DIALOG, Font.PLAIN, 15));
 
