@@ -35,3 +35,15 @@
 
 Для того чтобы задать константы для проекта или напечатать текст один раз в начале выполнения проекта,  в LabX предусмотрен специальный тип комментариев:
 
+<pre class="javascript" style="font-family:monospace;"><ol><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;"><span style="color: #339933;">/</span># </div></li><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">print<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">&quot;Начало выполнения программы&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>  </div></li><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">#<span style="color: #339933;">/</span> </div></li></ol></pre>
+
+<h3>Служебные константы и объекты системы LabX</h3>
+<H4>1. Служебный объект Running:</H4>
+Отвечает за цикл симуляции физики.
+<em>Функции и методы:</em>
+<pre class="javascript" style="font-family:monospace;"><ol><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">Running.<span style="color: #000066; font-weight: bold;">set</span><span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">false</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>  </div></li></ol></pre>
+Завершает симуляцию физики.
+<pre class="javascript" style="font-family:monospace;"><ol><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">Running.<span style="color: #000066; font-weight: bold;">get</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>  </div></li></ol></pre>
+Возвращает состояние цикла симуляции.
+<H4>2.	Служебная переменная TIME</H4>
+В данной переменной хранится текущее время (в секундах) с начала работы программы.
