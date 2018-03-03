@@ -17,14 +17,8 @@
 Имя может состоять из: букв, цифр, символов $ и _
 Первый символ не должен быть цифрой.
 Так как JavaScript является слабо типизированным языком программирования, при создании переменных не нужно указывать их тип. Достаточно просто присвоить значение.</em>
-3.	Условные операторы:
-1.	if (year < 2018) {  
-2.	  print( "Это слишком рано.." );  
-3.	} else if (year > 2018) {  
-4.	  print( "Это поздновато.." );  
-5.	} else {  
-6.	  print( "Да, точно в этом году!" );  
-7.	}  
+<h3>3.	Условные операторы:>/h3>
+<pre class="javascript" style="font-family:monospace;"><ol><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;"><span style="color: #000066; font-weight: bold;">if</span> <span style="color: #009900;">&#40;</span>year <span style="color: #339933;">&lt;</span> <span style="color: #CC0000;">2018</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>  </div></li><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">    print<span style="color: #009900;">&#40;</span> <span style="color: #3366CC;">&quot;Это слишком рано..&quot;</span> <span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>  </div></li><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;"><span style="color: #009900;">&#125;</span> <span style="color: #000066; font-weight: bold;">else</span> <span style="color: #000066; font-weight: bold;">if</span> <span style="color: #009900;">&#40;</span>year <span style="color: #339933;">&gt;</span> <span style="color: #CC0000;">2018</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>  </div></li><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">    print<span style="color: #009900;">&#40;</span> <span style="color: #3366CC;">&quot;Это поздновато..&quot;</span> <span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>  </div></li><li style="font-weight: bold; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;"><span style="color: #009900;">&#125;</span> <span style="color: #000066; font-weight: bold;">else</span> <span style="color: #009900;">&#123;</span>  </div></li><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">    print<span style="color: #009900;">&#40;</span> <span style="color: #3366CC;">&quot;Да, точно в этом году!&quot;</span> <span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>  </div></li><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;"><span style="color: #009900;">&#125;</span>  </div></li></ol></pre> 
 
 
 
