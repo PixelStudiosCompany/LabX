@@ -75,12 +75,13 @@
   <tr>
     <td>“black”</td>
    <td>Черный</td>
-   <td><canvas id="black" width="300" height="225"></canvas>
-#square {
+   <td>
+<style>#square {
 	width: 100px;
 	height: 100px;
 	background: red;
 }
+    </style>
    </td>
   </tr>
 </table>
