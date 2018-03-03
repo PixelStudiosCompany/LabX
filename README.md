@@ -76,7 +76,7 @@
     <td>“black”</td>
    <td>Черный</td>
    <td>
-
+    ![black](img/black.png)
    </td>
   </tr>
 </table>
