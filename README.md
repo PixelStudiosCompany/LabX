@@ -67,9 +67,14 @@
 <li><em>ay</em> - проекция ускорения на ось y</li>
 </ul>
 <table>
+ <tr>
+  <td><b>Название</b></td>
+  <td><b>Расшифровка</b></td>
+  <td><b>Цвет</b></td>
+  </tr>
   <tr>
-    <td>...</td>
-   <td>...</td>
+    <td>“black”</td>
+   <td>Черный</td>
    <td>...</td>
   </tr>
 </table>
