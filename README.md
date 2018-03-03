@@ -66,6 +66,7 @@
 <li><em>ax</em> - проекция ускорения на ось x</li>
 <li><em>ay</em> - проекция ускорения на ось y</li>
 </ul>
+<em>Таблица воможных цветов объекта:</em>
 <table>
  <tr>
   <td><b>Название</b></td>
@@ -76,7 +77,138 @@
     <td>“black”</td>
    <td>Черный</td>
    <td>
-
+    <img src="img/black.png"/>
+   </td>
+  </tr>
+  <tr>
+    <td>“blue”</td>
+   <td>Синий</td>
+   <td>
+    <img src="img/blue.png"/>
+   </td>
+  </tr>
+  <tr>
+    <td>“cyank”</td>
+   <td>Циан 
+(сине-зелёный)
+</td>
+   <td>
+    <img src="img/cyan.png"/>
+   </td>
+  </tr>
+  <tr>
+    <td>“black”</td>
+   <td>Черный</td>
+   <td>
+    <img src="img/black.png"/>
+   </td>
+  </tr>
+  <tr>
+    <td>“darkgray”</td>
+   <td>Тёмно-серый</td>
+   <td>
+    <img src="img/darkgray.png"/>
+   </td>
+  </tr>
+  <tr>
+    <td>“gray”</td>
+   <td>Серый</td>
+   <td>
+    <img src="img/gray.png"/>
+   </td>
+  </tr>
+  <tr>
+    <td>“lightgray”</td>
+   <td>Светло-серый</td>
+   <td>
+    <img src="img/lightgray.png"/>
+   </td>
+  </tr>
+ <tr>
+    <td>“green”</td>
+   <td>Зелёный</td>
+   <td>
+    <img src="img/green.png"/>
+   </td>
+  </tr>
+  <tr>
+    <td>“magenta”</td>
+   <td>Маджента
+(малиновый)
+</td>
+   <td>
+    <img src="img/magenta.png"/>
+   </td>
+  </tr>
+ <tr>
+    <td>“orange”</td>
+   <td>Оранжевый</td>
+   <td>
+    <img src="img/orange.png"/>
+   </td>
+  </tr>
+  <tr>
+    <td>“pink”</td>
+   <td>Розовый</td>
+   <td>
+    <img src="img/pink.png"/>
+   </td>
+  </tr>
+ <tr>
+    <td>“red”</td>
+   <td>Красный</td>
+   <td>
+    <img src="img/red.png"/>
+   </td>
+  </tr>
+  <tr>
+    <td>“yellow”</td>
+   <td>Жёлтый</td>
+   <td>
+    <img src="img/yellow.png"/>
    </td>
   </tr>
 </table>
+
+Пример создания объекта красного цвета, c массой 5 кг, находящийся в координатах (200,300), с проекциями скорости на оси координат (10, 10) и проекциями ускорения (2, 2).
+
+<pre class="javascript" style="font-family:monospace;"><ol><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;"><span style="color: #000066; font-weight: bold;">var</span> ob1 <span style="color: #339933;">:</span> object<span style="color: #009900;">&#40;</span><span style="color: #CC0000;">5</span><span style="color: #339933;">,</span><span style="color: #CC0000;">200</span><span style="color: #339933;">,</span><span style="color: #CC0000;">300</span><span style="color: #339933;">,</span><span style="color: #CC0000;">10</span><span style="color: #339933;">,</span><span style="color: #CC0000;">10</span><span style="color: #339933;">,</span><span style="color: #CC0000;">2</span><span style="color: #339933;">,</span><span style="color: #CC0000;">2</span><span style="color: #339933;">,</span>”red”<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span> </div></li></ol></pre>
+
+Обращение к атрибутам созданных физических объектов:
+
+<pre class="javascript" style="font-family:monospace;"><ol><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">ob1.<span style="color: #660066;">x</span><span style="color: #339933;">=</span><span style="color: #CC0000;">100</span><span style="color: #339933;">;</span>  </div></li></ol></pre>
+
+# Процедуры создания физических сил
+
+Физические силы – это силы, действующие на созданные учеником объекты. Они приводят объект в движение, придают ему скорость.
+После нажатия кнопки “Запуск“ все объекты, на которые действуют силы, приводятся в движение.
+На один объект одновременно может действовать несколько сил.
+
+Структура создания силы выглядит следующим образом:
+<pre class="javascript" style="font-family:monospace;"><ol><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;"><span style="color: #000066; font-weight: bold;">var</span> <span style="color: #339933;">&lt;</span>название силы<span style="color: #339933;">&gt;</span> <span style="color: #339933;">:</span> force<span style="color: #009900;">&#40;</span>fx<span style="color: #339933;">,</span>fy<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>  </div></li></ol></pre>
+
+Для того чтобы определить силу для объекта, нужно воспользоваться следующей процедурой:
+
+<pre class="javascript" style="font-family:monospace;"><ol><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;"><span style="color: #000066; font-weight: bold;">var</span> <span style="color: #339933;">&lt;</span>название силы<span style="color: #339933;">&gt;</span> <span style="color: #339933;">:</span> force<span style="color: #009900;">&#40;</span>fx<span style="color: #339933;">,</span>fy<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>  </div></li></ol></pre>
+
+Пример создания физической силы:
+
+<pre class="javascript" style="font-family:monospace;"><ol><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;"><span style="color: #000066; font-weight: bold;">var</span> f <span style="color: #339933;">:</span> force<span style="color: #009900;">&#40;</span><span style="color: #CC0000;">20</span><span style="color: #339933;">,</span><span style="color: #CC0000;">40</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>  </div></li></ol></pre>
+
+Обращение к атрибутам созданных физических сил:
+
+<pre class="javascript" style="font-family:monospace;"><ol><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">f.<span style="color: #660066;">fx</span><span style="color: #339933;">=</span><span style="color: #CC0000;">10</span><span style="color: #339933;">;</span></div></li></ol></pre>
+
+# Методические указания
+
+Здесь будут представлены основные способы применения LabX на уроках в школах. Также здесь будут приведены примеры программ и упражнений, которые можно использовать на уроках.
+На уроках физики LabX предлагается использовать во время изучения Механики и Динамики. Объекты и силы позволяют демонстрировать характер движения тел.
+Рекомендуется применять LabX в решении задач на нахождение равнодействующей нескольким силам. А также для оценки пройденного телом расстояния.
+
+# Решение задач
+
+1.	На горизонтальной крышке стола лежит учебник массой m = 1 кг. В некоторый момент на него начинает действовать сила F, модуль которой равен 2 Н. В результате учебник начинает двигаться поступательно. Определите ускорение учебника, если коэффициент трения μ, между ним и поверхностью стола равен 0,3?
+
+<pre class="javascript" style="font-family:monospace;"><ol><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;"><span style="color: #339933;">/</span>#   </div></li><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">print<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">&quot;Ускорение тела:&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>  </div></li><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">print<span style="color: #009900;">&#40;</span>a.<span style="color: #660066;">ax</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>  </div></li><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">#<span style="color: #339933;">/</span>  </div></li><li style="font-weight: bold; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;"><span style="color: #000066; font-weight: bold;">var</span> a <span style="color: #339933;">:</span> object<span style="color: #009900;">&#40;</span><span style="color: #CC0000;">1</span><span style="color: #339933;">,</span><span style="color: #CC0000;">100</span><span style="color: #339933;">,</span><span style="color: #CC0000;">100</span><span style="color: #339933;">,</span><span style="color: #CC0000;">0</span><span style="color: #339933;">,</span><span style="color: #CC0000;">0</span><span style="color: #339933;">,</span><span style="color: #CC0000;">0</span><span style="color: #339933;">,</span><span style="color: #CC0000;">0</span><span style="color: #339933;">,</span><span style="color: #3366CC;">&quot;orange&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>  </div></li><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;"><span style="color: #000066; font-weight: bold;">var</span> f <span style="color: #339933;">:</span> force<span style="color: #009900;">&#40;</span><span style="color: #CC0000;">4</span><span style="color: #339933;">,</span><span style="color: #CC0000;">0</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>  </div></li><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;"><span style="color: #000066; font-weight: bold;">var</span> f2 <span style="color: #339933;">:</span> force<span style="color: #009900;">&#40;</span><span style="color: #339933;">-</span><span style="color: #CC0000;">2.94</span><span style="color: #339933;">,</span><span style="color: #CC0000;">0</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>  </div></li><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">setforce<span style="color: #009900;">&#40;</span>a<span style="color: #339933;">,</span>f<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>  </div></li><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">setforce<span style="color: #009900;">&#40;</span>a<span style="color: #339933;">,</span>f2<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>  </div></li></ol></pre>
+
+
