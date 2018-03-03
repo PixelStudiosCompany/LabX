@@ -11,7 +11,7 @@
 Основные функции языка JavaScript:
 <H3> 1.	Печать в консоль: </H3>
 <pre class="javascript" style="font-family:monospace;"><ol><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">print<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>  </div></li></ol></pre>
-2.	Создание переменных:
+<H3>2.	Создание переменных:</H3>
 1.	var a = "text";  
 2.	var b = 10;  
 <em> На имя переменной в JavaScript наложены всего два ограничения.
