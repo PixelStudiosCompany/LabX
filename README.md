@@ -169,3 +169,28 @@
    </td>
   </tr>
 </table>
+
+Пример создания объекта красного цвета, c массой 5 кг, находящийся в координатах (200,300), с проекциями скорости на оси координат (10, 10) и проекциями ускорения (2, 2).
+
+<pre class="javascript" style="font-family:monospace;"><ol><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;"><span style="color: #000066; font-weight: bold;">var</span> ob1 <span style="color: #339933;">:</span> object<span style="color: #009900;">&#40;</span><span style="color: #CC0000;">5</span><span style="color: #339933;">,</span><span style="color: #CC0000;">200</span><span style="color: #339933;">,</span><span style="color: #CC0000;">300</span><span style="color: #339933;">,</span><span style="color: #CC0000;">10</span><span style="color: #339933;">,</span><span style="color: #CC0000;">10</span><span style="color: #339933;">,</span><span style="color: #CC0000;">2</span><span style="color: #339933;">,</span><span style="color: #CC0000;">2</span><span style="color: #339933;">,</span>”red”<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span> </div></li></ol></pre>
+
+Обращение к атрибутам созданных физических объектов:
+
+<pre class="javascript" style="font-family:monospace;"><ol><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">ob1.<span style="color: #660066;">x</span><span style="color: #339933;">=</span><span style="color: #CC0000;">100</span><span style="color: #339933;">;</span>  </div></li></ol></pre>
+
+# Процедуры создания физических сил
+
+Физические силы – это силы, действующие на созданные учеником объекты. Они приводят объект в движение, придают ему скорость.
+После нажатия кнопки “Запуск“ все объекты, на которые действуют силы, приводятся в движение.
+На один объект одновременно может действовать несколько сил.
+
+Структура создания силы выглядит следующим образом:
+<pre class="javascript" style="font-family:monospace;"><ol><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;"><span style="color: #000066; font-weight: bold;">var</span> <span style="color: #339933;">&lt;</span>название силы<span style="color: #339933;">&gt;</span> <span style="color: #339933;">:</span> force<span style="color: #009900;">&#40;</span>fx<span style="color: #339933;">,</span>fy<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>  </div></li></ol></pre>
+
+Для того чтобы определить силу для объекта, нужно воспользоваться следующей процедурой:
+
+<pre class="javascript" style="font-family:monospace;"><ol><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;"><span style="color: #CC0000;">1</span>.	<span style="color: #660066;">setforce</span><span style="color: #009900;">&#40;</span><span style="color: #339933;">&lt;</span>название объекта<span style="color: #339933;">&gt;,&lt;</span>название силы<span style="color: #339933;">&gt;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></li></ol></pre>
+
+Пример создания физической силы:
+
+<blockquote><ol><li><font color="#000066">var</font>&nbsp;f&nbsp;<font color="#339933">:</font>&nbsp;force<font color="#009900">&#40;</font><font color="#CC0000">20</font><font color="#339933">,</font><font color="#CC0000">40</font><font color="#009900">&#41;</font><font color="#339933">;</font>&nbsp;&nbsp;</li></ol></blockquote>
