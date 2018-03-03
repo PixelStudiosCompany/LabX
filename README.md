@@ -9,8 +9,8 @@
 Решение физических задач и описание физических процессов в среде LabX, реализуется на языке JavaScript.
 
 Основные функции языка JavaScript:
-1.	Печать в консоль:
-1.	print();  
+<H1> 1.	Печать в консоль: </H1>
+<pre class="javascript" style="font-family:monospace;"><ol><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">print<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>  </div></li></ol></pre>
 2.	Создание переменных:
 1.	var a = "text";  
 2.	var b = 10;  
