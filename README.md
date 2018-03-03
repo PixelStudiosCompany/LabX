@@ -79,4 +79,92 @@
     <img src="img/black.png"/>
    </td>
   </tr>
+  <tr>
+    <td>“blue”</td>
+   <td>Синий</td>
+   <td>
+    <img src="img/blue.png"/>
+   </td>
+  </tr>
+  <tr>
+    <td>“cyank”</td>
+   <td>Циан 
+(сине-зелёный)
+</td>
+   <td>
+    <img src="img/cyan.png"/>
+   </td>
+  </tr>
+  <tr>
+    <td>“black”</td>
+   <td>Черный</td>
+   <td>
+    <img src="img/black.png"/>
+   </td>
+  </tr>
+  <tr>
+    <td>“darkgray”</td>
+   <td>Тёмно-серый</td>
+   <td>
+    <img src="img/darkgray.png"/>
+   </td>
+  </tr>
+  <tr>
+    <td>“gray”</td>
+   <td>Серый</td>
+   <td>
+    <img src="img/gray.png"/>
+   </td>
+  </tr>
+  <tr>
+    <td>“lightgray”</td>
+   <td>Светло-серый</td>
+   <td>
+    <img src="img/lightgray.png"/>
+   </td>
+  </tr>
+ <tr>
+    <td>“green”</td>
+   <td>Зелёный</td>
+   <td>
+    <img src="img/green.png"/>
+   </td>
+  </tr>
+  <tr>
+    <td>“magenta”</td>
+   <td>Маджента
+(малиновый)
+</td>
+   <td>
+    <img src="img/magenta.png"/>
+   </td>
+  </tr>
+ <tr>
+    <td>“orange”</td>
+   <td>Оранжевый</td>
+   <td>
+    <img src="img/orange.png"/>
+   </td>
+  </tr>
+  <tr>
+    <td>“pink”</td>
+   <td>Розовый</td>
+   <td>
+    <img src="img/pink.png"/>
+   </td>
+  </tr>
+ <tr>
+    <td>“red”</td>
+   <td>Красный</td>
+   <td>
+    <img src="img/red.png"/>
+   </td>
+  </tr>
+  <tr>
+    <td>“yellow”</td>
+   <td>Жёлтый</td>
+   <td>
+    <img src="img/yellow.png"/>
+   </td>
+  </tr>
 </table>
