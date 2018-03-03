@@ -22,18 +22,15 @@
 
 
 
-4.	Циклы
-Цикл while:
-1.	while (условие) {  
-2.	  // код, тело цикла  
-3.	}  
-       Цикл for:
-1.	for (начало; условие; шаг) {  
-2.	  // ... тело цикла ...  
-3.	}  
+<h3>4.	Циклы</h3>
+<em>Цикл while:</em>
+<pre class="javascript" style="font-family:monospace;"><ol><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">while <span style="color: #009900;">&#40;</span>условие<span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>  </div></li><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">  <span style="color: #006600; font-style: italic;">// код, тело цикла  </span></div></li><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;"><span style="color: #009900;">&#125;</span>  </div></li></ol></pre>
+<em>Цикл for:</em>
+<pre class="javascript" style="font-family:monospace;"><ol><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;"><span style="color: #000066; font-weight: bold;">for</span> <span style="color: #009900;">&#40;</span>начало<span style="color: #339933;">;</span> условие<span style="color: #339933;">;</span> шаг<span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>  </div></li><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">  <span style="color: #006600; font-style: italic;">// ... тело цикла ...  </span></div></li><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;"><span style="color: #009900;">&#125;</span>  </div></li><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">&nbsp;</div></li></ol></pre>
 
-1.	var i;  
-2.	  
-3.	for (i = 0; i < 3; i++) {  
-4.	  print( i );  
-5.	}  
+<pre class="javascript" style="font-family:monospace;"><ol><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;"><span style="color: #000066; font-weight: bold;">var</span> i<span style="color: #339933;">;</span>  </div></li><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">&nbsp;</div></li><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;"><span style="color: #000066; font-weight: bold;">for</span> <span style="color: #009900;">&#40;</span>i <span style="color: #339933;">=</span> <span style="color: #CC0000;">0</span><span style="color: #339933;">;</span> i <span style="color: #339933;">&lt;</span> <span style="color: #CC0000;">3</span><span style="color: #339933;">;</span> i<span style="color: #339933;">++</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>  </div></li><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">  print<span style="color: #009900;">&#40;</span> i <span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>  </div></li><li style="font-weight: bold; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;"><span style="color: #009900;">&#125;</span>  </div></li></ol></pre>
+
+Код проектов LabX исполняется в цикле.
+<em>(соответственно если вызвать метод print(); в основном теле программы, текст будет печататься в консоль непрерывно)</em>
+Для того чтобы задать константы для проекта или напечатать текст один раз в начале выполнения проекта,  в LabX предусмотрен специальный тип комментариев:
+
