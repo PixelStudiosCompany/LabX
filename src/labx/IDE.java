@@ -1,6 +1,7 @@
 package labx;
 
 import com.alee.laf.WebLookAndFeel;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
@@ -116,6 +117,7 @@ public class IDE {
 
         title = "LabX v0.1 [" + ff.getName() + "]";
         frame.setTitle(title);
+        labXPanel = new LabXPanel(num);
 
         SwingUtilities.invokeLater(() -> {
             try {
@@ -138,6 +140,38 @@ public class IDE {
                         str += s.nextLine() + "\n";
                     }
                     if (str.length() > 0) str = str.substring(0, str.length() - 1);
+                    int start=str.indexOf("<--");
+                    int end=str.indexOf("-->")+4;
+
+                    if (start!=-1 && end!=-1 && end>start) {
+                        String obrab = str.substring(start, end);
+                        str = str.replace(obrab, "");
+                        str=str.replace("-->","");
+                        str= str.replace("<--","");
+                        obrab=obrab.replace("<--","");
+                        obrab=obrab.replace("-->","");
+
+                        String fontname = obrab.substring(obrab.indexOf("<"),obrab.indexOf(">")+1);
+                        obrab= obrab.replace(fontname,"");
+                        fontname=fontname.replace("<","");
+                        fontname=fontname.replace(">","");
+                        StringTokenizer tok = new StringTokenizer(obrab);
+                        int lxstroke = Integer.parseInt(tok.nextToken());
+                        int lxw = Integer.parseInt(tok.nextToken());
+                        int lxh = Integer.parseInt(tok.nextToken());
+                        boolean isgrid = Boolean.parseBoolean(tok.nextToken());
+                        boolean isimpulse = Boolean.parseBoolean(tok.nextToken());
+                        int strsize = Integer.parseInt(tok.nextToken());
+
+
+                        labXPanel.stroke = lxstroke;
+                        labXPanel.w = lxw;
+                        labXPanel.h = lxh;
+                        labXPanel.enablegrid = isgrid;
+                        strt.setimpuls(isimpulse);
+                        area.setFont(new Font(fontname, 1, strsize));
+                    }
+
                     area.setText(str);
                     source = str;
                 } catch (FileNotFoundException e1) {
@@ -327,7 +361,6 @@ public class IDE {
         JMenuItem copy = new JMenuItem("Copy");
         JMenuItem paste = new JMenuItem("Paste");
 
-        labXPanel = new LabXPanel(num);
         labXPanel.setBorder(BorderFactory.createSoftBevelBorder(2));
         Definizer.ObjMap= new HashMap<>();
         Definizer.ForceMap= new HashMap<>();
@@ -659,10 +692,14 @@ public class IDE {
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }
+
+                    String textgen="<--  "+labXPanel.stroke+"  "+labXPanel.w+" "+labXPanel.h+" "+labXPanel.enablegrid+" "+strt.getimpuls()+" <"+area.getFont().getFontName()+"> "+area.getFont().getSize()+" --> ";
+
                     try {
                         // System.out.println(ff.getAbsolutePath());
                         ff.createNewFile();
                         w1 = new PrintWriter(ff.getAbsoluteFile());
+                        w1.print(textgen);
                         w1.print(area.getText());
                         w1.flush();
                         w1.close();
@@ -820,7 +857,7 @@ public class IDE {
        // LoadTextFromFile(ff);
 
 
-        frame.setPreferredSize(new Dimension((int) screenSize.getWidth() / 2, (int) screenSize.getWidth() / 2));
+        frame.setPreferredSize(new Dimension((int) screenSize.getWidth() / 2, (int) ((screenSize.getWidth() / 2) /1.7)));
 
         frame.setLocationByPlatform(true);
         JScrollPane Scroll = new JScrollPane(pane);
@@ -900,8 +937,10 @@ public class IDE {
                                         ff = new File(chooser.getCurrentDirectory() + "\\" + ff.getName());
                                         try {
                                             ff.createNewFile();
+                                            String textgen="<--  "+labXPanel.stroke+"  "+labXPanel.w+" "+labXPanel.h+" "+labXPanel.enablegrid+" "+strt.getimpuls()+" <"+area.getFont().getFontName()+"> "+area.getFont().getSize()+" --> ";
                                             try {
                                                 PrintWriter wr = new PrintWriter(ff);
+                                                wr.print(textgen);
                                                 wr.print(area.getText());
                                                 // System.out.println(area.getText());
                                                 wr.flush();
@@ -918,19 +957,22 @@ public class IDE {
                                     }
                                     //chooser.setVisible(false);
                                 } else {
-
+                                    String textgen="<--  "+labXPanel.stroke+"  "+labXPanel.w+" "+labXPanel.h+" "+labXPanel.enablegrid+" "+strt.getimpuls()+" <"+area.getFont().getFontName()+"> "+area.getFont().getSize()+" --> ";
                                     PrintWriter wr = null;
                                     try {
                                         wr = new PrintWriter(ff);
                                     } catch (FileNotFoundException e1) {
                                         e1.printStackTrace();
                                     }
+                                    wr.print(textgen);
                                     wr.print(area.getText());
+
                                     //System.out.println(area.getText());
                                     wr.flush();
                                     wr.close();
 
                                 }
+                                creat.setVisible(false);
                             });
 
                     creat.add(p);
