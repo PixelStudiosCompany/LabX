@@ -45,7 +45,7 @@ import de.javasoft.*;
  * Created by mikha on 13.02.2018.
  */
 public class WIZARD {
-    static double deffontsize = UIManager.getDefaults().getFont("TabbedPane.font").getSize() + 3;
+    static double deffontsize = UIManager.getDefaults().getFont("TabbedPane.font").getSize() + 5;
     static String defkatalog="";
     static JFrame frame;
     static ArrayList<IDE> ide = new ArrayList<>();
@@ -67,7 +67,7 @@ public class WIZARD {
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-        creat.setPreferredSize(new Dimension((int) (frame.getWidth() / 4.5), (int) (frame.getWidth() / 5 / 1.7)));
+        creat.setPreferredSize(new Dimension((int) (frame.getWidth() / 4), (int) (frame.getWidth() / 5 / 1.6)));
         JPanel p = new JPanel();
         JTextField name = new JTextField(15);
         JButton ok = new JButton("Ok");
@@ -129,7 +129,7 @@ public class WIZARD {
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-        creat.setPreferredSize(new Dimension((int) (frame.getWidth() / 4.5), (int) (frame.getWidth() / 5 / 1.7)));
+        creat.setPreferredSize(new Dimension((int) (frame.getWidth() / 4), (int) (frame.getWidth() / 5 / 1.6)));
         JPanel p = new JPanel();
         JTextField name = new JTextField(15);
         JButton ok = new JButton("Ok");
@@ -190,7 +190,7 @@ public class WIZARD {
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-        creat.setPreferredSize(new Dimension((int) (frame.getWidth() / 4.5), (int) (frame.getWidth() / 5 / 1.7)));
+        creat.setPreferredSize(new Dimension((int) (frame.getWidth() / 4), (int) (frame.getWidth() / 5 / 1.6)));
         JPanel p = new JPanel();
         JTextField name = new JTextField(15);
         JButton ok = new JButton("Ok");
@@ -250,7 +250,7 @@ public class WIZARD {
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-        creat.setPreferredSize(new Dimension((int) (frame.getWidth() / 4.5), (int) (frame.getWidth() / 5 / 1.7)));
+        creat.setPreferredSize(new Dimension((int) (frame.getWidth() / 4), (int) (frame.getWidth() / 5 / 1.6)));
         JPanel p = new JPanel();
         JTextField name = new JTextField(15);
         JButton ok = new JButton("Ok");

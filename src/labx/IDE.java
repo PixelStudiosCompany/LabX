@@ -52,7 +52,7 @@ public class IDE {
     }
 
     public boolean isinit = false;
-    static double deffontsize =UIManager.getDefaults().getFont("TabbedPane.font").getSize();
+    static double deffontsize =UIManager.getDefaults().getFont("TabbedPane.font").getSize()+5;
     public start strt = new start();
     public File ff;
     public RSyntaxTextArea area = new RSyntaxTextArea();
@@ -120,7 +120,8 @@ public class IDE {
         title = "LabX v0.1 [" + ff.getName() + "]";
         frame.setTitle(title);
         labXPanel = new LabXPanel(num);
-
+        Font fo = new Font("Century Gothic", Font.BOLD, (int) deffontsize+8);
+        area.setFont(fo);
         SwingUtilities.invokeLater(() -> {
             try {
                 init();
@@ -342,9 +343,9 @@ public class IDE {
 
         p2.add(area, "Center");
 
-        Font fo = new Font("Century Gothic", Font.BOLD, (int) deffontsize);
+        Font fo = new Font("Century Gothic", Font.BOLD, (int) deffontsize+8);
         Font fo1 = new Font("Century Gothic", Font.PLAIN, (int) (deffontsize+10));
-        area.setFont(fo);
+
         // left.setFont(fo1);
         frame.setFont(fo1);
         pane.setFont(new Font("Century Gothic", Font.BOLD, (int) deffontsize));
@@ -442,6 +443,7 @@ public class IDE {
                 JPanel panel = new JPanel();
                 JPanel po = new JPanel();
                 JTextField f1 = new JTextField(area.getFont().getSize());
+                f1.setFont(new Font(Font.DIALOG,1, (int) deffontsize));
                 GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
                 String fontNames[] = environment.getAvailableFontFamilyNames();
                 JComboBox l1 = new JComboBox();
@@ -457,10 +459,10 @@ public class IDE {
                 button.setFont(new Font(Font.DIALOG, Font.BOLD,  (int) deffontsize));
 
                 panel.setLayout(new BorderLayout());
-                po.setLayout(new BorderLayout());
+                po.setLayout(new GridLayout(2,1));
 
-                po.add(f1, "North");
-                po.add(l1, "South");
+                po.add(f1);
+                po.add(l1);
 
                 panel.add(po, "Center");
                 panel.add(button, "South");
@@ -472,7 +474,7 @@ public class IDE {
                 });
 
                 jFrame.add(panel);
-                jFrame.setPreferredSize(new Dimension(400, 140));
+                jFrame.setPreferredSize(new Dimension((int) (frame.getWidth() / 4*1.3), (int) (frame.getWidth() / 7 / 1.6*1.3)));
                 jFrame.setResizable(false);
                 jFrame.pack();
 
@@ -497,7 +499,7 @@ public class IDE {
                 JButton cancel = new JButton("Отмена");
 
 
-                jFrame.setPreferredSize(new Dimension(600,300));
+                jFrame.setPreferredSize(new Dimension((int) (frame.getWidth() / 4*1.3), (int) (frame.getWidth() / 5 / 1.6*1.3)));
                 jFrame.setLocation(frame.getX() + frame.getWidth() / 2 - jFrame.getWidth() / 2, frame.getY() + frame.getHeight() / 2 - jFrame.getHeight() / 2);
 
                 JTextField f1 = new JTextField(area.getFont().getSize());
