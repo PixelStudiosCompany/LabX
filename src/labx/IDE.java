@@ -19,6 +19,7 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 
 
+
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.fife.ui.rtextarea.RTextScrollPane;
@@ -51,6 +52,7 @@ public class IDE {
     }
 
     public boolean isinit = false;
+    static double deffontsize =UIManager.getDefaults().getFont("TabbedPane.font").getSize();
     public start strt = new start();
     public File ff;
     public RSyntaxTextArea area = new RSyntaxTextArea();
@@ -340,17 +342,17 @@ public class IDE {
 
         p2.add(area, "Center");
 
-        Font fo = new Font("Century Gothic", Font.BOLD, 20);
-        Font fo1 = new Font("Century Gothic", Font.PLAIN, 30);
+        Font fo = new Font("Century Gothic", Font.BOLD, (int) deffontsize);
+        Font fo1 = new Font("Century Gothic", Font.PLAIN, (int) (deffontsize+10));
         area.setFont(fo);
         // left.setFont(fo1);
         frame.setFont(fo1);
-        pane.setFont(new Font("Century Gothic", Font.BOLD, 20));
+        pane.setFont(new Font("Century Gothic", Font.BOLD, (int) deffontsize));
         menuBar.setFont(fo1);
         JSplitPane splitPane = new JSplitPane();
 
         RTextScrollPane scrollPane = new RTextScrollPane(area, true, Color.BLACK);
-        scrollPane.setFont(new Font(Font.DIALOG, Font.BOLD, 25));
+        scrollPane.setFont(new Font(Font.DIALOG, Font.BOLD, (int) (deffontsize+5)));
 
         p1.add(scrollPane, "Center");
 
@@ -369,18 +371,18 @@ public class IDE {
         jpu.add(copy);
         jpu.add(paste);
 
-        help.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
-        file.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
-        run.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
-        settings.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
-        info.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
-        licensing.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
-        open.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
-        create.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
-        save.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
-        font.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
-        print.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
-        object.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+        help.setFont(new Font(Font.DIALOG, Font.BOLD,  (int) deffontsize));
+        file.setFont(new Font(Font.DIALOG, Font.BOLD,  (int) deffontsize));
+        run.setFont(new Font(Font.DIALOG, Font.BOLD,  (int) deffontsize));
+        settings.setFont(new Font(Font.DIALOG, Font.BOLD,  (int) deffontsize));
+        info.setFont(new Font(Font.DIALOG, Font.BOLD,  (int) deffontsize));
+        licensing.setFont(new Font(Font.DIALOG, Font.BOLD,  (int) deffontsize));
+        open.setFont(new Font(Font.DIALOG, Font.BOLD,  (int) deffontsize));
+        create.setFont(new Font(Font.DIALOG, Font.BOLD,  (int) deffontsize));
+        save.setFont(new Font(Font.DIALOG, Font.BOLD,  (int) deffontsize));
+        font.setFont(new Font(Font.DIALOG, Font.BOLD,  (int) deffontsize));
+        print.setFont(new Font(Font.DIALOG, Font.BOLD,  (int) deffontsize));
+        object.setFont(new Font(Font.DIALOG, Font.BOLD,  (int) deffontsize));
 
         area.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVASCRIPT);
         area.setHighlightCurrentLine(false);
@@ -398,7 +400,7 @@ public class IDE {
                 jFrame.setIconImage(icon);
                 jFrame.setPreferredSize(new Dimension(520, 420));
                 JTextArea l = new JTextArea();
-                l.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+                l.setFont(new Font("Times New Roman", Font.PLAIN,  (int) deffontsize));
                 l.setEditable(false);
                 InputStream stream = IDE.class.getResourceAsStream("LICENSE.TXT");
                 BufferedInputStream inFile = new BufferedInputStream(stream);
@@ -444,7 +446,7 @@ public class IDE {
                 String fontNames[] = environment.getAvailableFontFamilyNames();
                 JComboBox l1 = new JComboBox();
                 jFrame.setLocation(frame.getX() + frame.getWidth() / 2 - jFrame.getWidth() / 2, frame.getY() + frame.getHeight() / 2 - jFrame.getHeight() / 2);
-                l1.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+                l1.setFont(new Font(Font.DIALOG, Font.BOLD,  (int) deffontsize));
                 l1.setEditable(true);
                 f1.setText(Integer.toString(area.getFont().getSize()));
                 l1.addItem(area.getFont().getFamily());
@@ -452,7 +454,7 @@ public class IDE {
                     l1.addItem(fontNames[i]);
                 }
                 JMenuItem button = new JMenuItem("Подтвердить");
-                button.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+                button.setFont(new Font(Font.DIALOG, Font.BOLD,  (int) deffontsize));
 
                 panel.setLayout(new BorderLayout());
                 po.setLayout(new BorderLayout());
@@ -518,11 +520,11 @@ public class IDE {
                 gridb.setSelected(labXPanel.enablegrid);
                 impulse.setSelected(WIZARD.ide.get(num).strt.isimpuls);
 
-                stroke.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
-                width.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
-                height.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
-                ok.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
-                cancel.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+                stroke.setFont(new Font(Font.DIALOG, Font.BOLD,  (int) deffontsize));
+                width.setFont(new Font(Font.DIALOG, Font.BOLD,  (int) deffontsize));
+                height.setFont(new Font(Font.DIALOG, Font.BOLD,  (int) deffontsize));
+                ok.setFont(new Font(Font.DIALOG, Font.BOLD,  (int) deffontsize));
+                cancel.setFont(new Font(Font.DIALOG, Font.BOLD,  (int) deffontsize));
 
                 JTextField strokef = new JTextField(String.valueOf(labXPanel.stroke));
 
@@ -530,11 +532,11 @@ public class IDE {
 
                 JTextField heightf = new JTextField(String.valueOf(labXPanel.h));
 
-                strokef.setFont(new Font(Font.DIALOG, Font.PLAIN, 20));
-                widthf.setFont(new Font(Font.DIALOG, Font.PLAIN, 20));
-                heightf.setFont(new Font(Font.DIALOG, Font.PLAIN, 20));
-                grid.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
-                isbouncing.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+                strokef.setFont(new Font(Font.DIALOG, Font.PLAIN,  (int) deffontsize));
+                widthf.setFont(new Font(Font.DIALOG, Font.PLAIN,  (int) deffontsize));
+                heightf.setFont(new Font(Font.DIALOG, Font.PLAIN,  (int) deffontsize));
+                grid.setFont(new Font(Font.DIALOG, Font.BOLD,  (int) deffontsize));
+                isbouncing.setFont(new Font(Font.DIALOG, Font.BOLD,  (int) deffontsize));
 
                 panel.add(stroke);
                 panel.add(strokef);
@@ -649,7 +651,7 @@ public class IDE {
                 File U = new File("");
                 try {
                     ff.createNewFile();
-                    chooser.setSelectedFile(ff);
+
                     U = ff;
                 } catch (IOException e1) {
                     e1.printStackTrace();
@@ -673,7 +675,9 @@ public class IDE {
                     ff = new File(s + ff.getName().substring(0, sub) + okn);
                 } else ff = new File(s + ff.getName() + okn);
                // System.out.println(ff.getName());
-                chooser.setSelectedFile(new File(ff.getAbsolutePath()));
+                chooser.setSelectedFile(new File(WIZARD.defkatalog+"\\"+ff.getName()));
+
+
                 chooser.setDialogType(JFileChooser.SAVE_DIALOG);
 
                 int res = chooser.showSaveDialog(chooser);
@@ -773,10 +777,10 @@ public class IDE {
                 JTextField name = new JTextField(15);
                 JButton ok = new JButton("Ok");
                 JButton cancel = new JButton("Отмена");
-                ok.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+                ok.setFont(new Font(Font.DIALOG, Font.BOLD,  (int) deffontsize));
                 ok.setBackground(Color.BLUE);
-                name.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
-                cancel.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+                name.setFont(new Font(Font.DIALOG, Font.BOLD,  (int) deffontsize));
+                cancel.setFont(new Font(Font.DIALOG, Font.BOLD,  (int) deffontsize));
                 p.add(name, "North");
                 p.add(ok, "South");
                 p.add(cancel, "south");
@@ -831,7 +835,7 @@ public class IDE {
 
             //pane1.setEditable(false);
 
-            pane1.setFont(new Font(Font.DIALOG, Font.PLAIN, 15));
+            pane1.setFont(new Font(Font.DIALOG, Font.PLAIN,  (int) deffontsize));
 
 
 
@@ -897,13 +901,13 @@ public class IDE {
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }
-                    creat.setPreferredSize(new Dimension(300, 100));
+                    creat.setPreferredSize(new Dimension((int) (WIZARD.frame.getWidth()/4.5), (int) (WIZARD.frame.getWidth()/5/1.7)));
                     JPanel p = new JPanel();
                     JButton ok = new JButton("Ok");
                     JButton cancel = new JButton("Отмена");
-                    ok.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+                    ok.setFont(new Font(Font.DIALOG, Font.BOLD,  (int) deffontsize));
                     ok.setBackground(Color.BLUE);
-                    cancel.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+                    cancel.setFont(new Font(Font.DIALOG, Font.BOLD,  (int) deffontsize));
                     p.add(ok, "South");
                     p.add(cancel, "south");
                     creat.setResizable(false);
@@ -924,7 +928,7 @@ public class IDE {
 
                                         ff.createNewFile();
                                         U = ff;
-                                        chooser.setSelectedFile(ff);
+                                        chooser.setSelectedFile(new File(WIZARD.defkatalog+"\\"+ff.getName()));
                                     } catch (IOException e1) {
                                         e1.printStackTrace();
                                     }

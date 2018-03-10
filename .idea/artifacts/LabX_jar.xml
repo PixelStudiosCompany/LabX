@@ -23,6 +23,8 @@
       <element id="file-copy" path="$PROJECT_DIR$/src/StaticsRU.png" />
       <element id="file-copy" path="$PROJECT_DIR$/src/DynamicsRU.png" />
       <element id="file-copy" path="$PROJECT_DIR$/src/Statics2RU.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/properties.txt" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/pep.png" />
     </root>
   </artifact>
 </component>
