@@ -496,10 +496,10 @@ public class WIZARD {
                 }
                 File f = new File(System.getProperty("user.home")+"/.labx/properties");
                 if (!f.exists()) {
-                    File fe=new File(System.getProperty("user.home")+"/.labx");
-                    fe.mkdir();
-                    f.createNewFile();
+
                     JFrame f2 = new JFrame("Начальная установка");
+
+
                     JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
                     splitPane.setResizeWeight(0.3);
                     splitPane.setEnabled(false);
@@ -508,7 +508,10 @@ public class WIZARD {
 
 
                     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-                    f2.setPreferredSize(new Dimension((int) screenSize.getWidth() / 9 * 2, (int) (screenSize.getWidth() / 7 * 2 / 1.7)));
+                    f2.setPreferredSize(new Dimension((int) ( screenSize.getWidth() / 9 * 2.2), (int) (screenSize.getWidth() / 7 * 2.2 / 1.7)));
+
+                    f2.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                    f2.setIconImage(ImageIO.read(WIZARD.class.getClassLoader().getResourceAsStream("ico.png")));
                     JPanel lx = new JPanel();
 
                     JPanel controll = new JPanel();
@@ -527,9 +530,17 @@ public class WIZARD {
                     l.setContentType("text/html");
                     l.setEditable(false);
                     l.setFont(new Font(Font.DIALOG,1, (int) deffontsize+4));
-                    l.setText("<b><h1>Добро пожаловать в LabX v0.1.1!</h1> <p>Вы запускаете LabX в первый раз.</p>  <p>Выберете каталог хранения проектов.</p></b>");
+                    l.setText("<b><h1>Добро пожаловать в LabX v0.1.1!</h1> <p>Вы запускаете LabX в первый раз.</p>  <p>Выберете каталог хранения проектов.</p>" +
+                            "<br>В версии 0.1.1:</br>" +
+                            "<li>" +
+                            "<ul>Исправлена ошибка с размером экрана редактора кода</ul>" +
+                            "<ul>Состояние среды теперь сохраняется в файле проекта</ul>" +
+                            "<ul>Добавлен постоянный каталог хранения проектов и настроек среды</ul>" +
+                            "<ul>Исправлена ошибка с размером шрифта</ul>" +
+                            "</li>"+
+                            "</b>");
 
-                    JTextField fi = new JTextField(10);
+                    JTextField fi = new JTextField(20);
                     fi.setText(System.getProperty("user.home"));
                     controll.add(l,"Center");
                     controll.add(fi,"South");
@@ -543,6 +554,9 @@ public class WIZARD {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             try {
+                                File fe=new File(System.getProperty("user.home")+"/.labx");
+                                fe.mkdir();
+                                f.createNewFile();
                                 FileWriter wr = new FileWriter(f);
                                 wr.write(fi.getText()+"\\LabXProjects");
                                 wr.flush();
@@ -565,6 +579,7 @@ public class WIZARD {
 
                     f2.add(splitPane);
                     f2.pack();
+                    f2.setLocation((int)(screenSize.getWidth()/2-f2.getWidth()/2),(int)(screenSize.getHeight()/2-f2.getHeight()/2));
                     f2.setVisible(true);
                 } else{
                     File fiv = new File(System.getProperty("user.home")+"\\.labx\\properties");
