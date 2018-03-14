@@ -484,6 +484,7 @@ public class WIZARD {
     }
 
     public static void main(String args[]) throws Exception {
+        System.out.println(deffontsize);
         Thread.sleep(500);
 
         SwingUtilities.invokeLater(() -> {
@@ -508,7 +509,7 @@ public class WIZARD {
 
 
                     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-                    f2.setPreferredSize(new Dimension((int) ( screenSize.getWidth() / 9 * 2.2), (int) (screenSize.getWidth() / 7 * 2.2 / 1.7)));
+                    f2.setPreferredSize(new Dimension( 640,480));
 
                     f2.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                     f2.setIconImage(ImageIO.read(WIZARD.class.getClassLoader().getResourceAsStream("ico.png")));
@@ -540,15 +541,27 @@ public class WIZARD {
                             "</ul>"+
                             "</b>");
 
+
                     JTextField fi = new JTextField(20);
                     fi.setText(System.getProperty("user.home"));
-                    controll.add(l,"Center");
+                   // controll.add(l,"Center");
                     controll.add(fi,"South");
-                    splitPane.add(controll);
+                    //splitPane.add(controll);
                     f2.setResizable(false);
 
                     JButton set = new JButton("Сохранить");
                     controll.add(set);
+                    JScrollPane scroll = new JScrollPane(l);
+                    scroll.setBorder(null);
+
+                    JSplitPane split2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+                    split2.add(scroll);
+                    split2.add(controll);
+                    split2.setEnabled(false);
+                    split2.setResizeWeight(0.1);
+                    split2.setDividerSize(0);
+
+                    splitPane.add(split2);
 
                     set.addActionListener(new ActionListener() {
                         @Override
@@ -580,6 +593,7 @@ public class WIZARD {
                     f2.add(splitPane);
                     f2.pack();
                     f2.setLocation((int)(screenSize.getWidth()/2-f2.getWidth()/2),(int)(screenSize.getHeight()/2-f2.getHeight()/2));
+                    f2.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                     f2.setVisible(true);
                 } else{
                     File fiv = new File(System.getProperty("user.home")+"\\.labx\\properties");
